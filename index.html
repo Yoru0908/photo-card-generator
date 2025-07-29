@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生写真模板生成器</title>
-    <link rel="icon" type="image/jpeg" href="images/sakamichi.jpg">
+    <title data-i18n-key="pageTitle">生写真模板生成器</title>
+    <link rel="icon" type="image/jpeg" href="./images/sakamichi.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- Cropper.js CSS -->
@@ -17,481 +17,264 @@
         href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Yuji+Syuku&display=swap"
         rel="stylesheet">
     <style>
-        body {
-            font-family: 'Kosugi Maru', sans-serif;
-            background-color: #f0f2f5;
-        }
-
-        .sakura-text-color {
-            color: #F19DB5;
-        }
-
-        .aspect-photo {
-            aspect-ratio: 89 / 127;
-        }
-
-        #photo-card {
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 8px;
-            background: #ddd;
-            border-radius: 5px;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity .2s;
-            margin-top: 4px;
-            margin-bottom: 4px;
-        }
-
-        input[type="range"]:hover {
-            opacity: 1;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #8B5CF6;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: #8B5CF6;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        details>summary {
-            cursor: pointer;
-            list-style: none;
-        }
-
-        details>summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .color-swatch {
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        #image-container {
-            cursor: grab;
-        }
-
-        #image-container:active {
-            cursor: grabbing;
-        }
-        
-        #info-bar {
-            position: relative;
-            overflow: hidden;  
-        }
-        .movable-block {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);  
-        }
-
-        /* Cropper Modal Styles */
-        #crop-modal {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        #crop-container {
-            max-width: 90vw;
-            max-height: 75vh;
-        }
-
-        .tick {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
+        body { font-family: 'Kosugi Maru', sans-serif; background-color: #f0f2f5; }
+        .sakura-text-color { color: #F19DB5; }
+        .aspect-photo { aspect-ratio: 89 / 127; }
+        #photo-card { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #ddd; border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; margin-top: 4px; margin-bottom: 4px; }
+        input[type="range"]:hover { opacity: 1; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #8B5CF6; cursor: pointer; border-radius: 50%; }
+        input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: #8B5CF6; cursor: pointer; border-radius: 50%; }
+        details>summary { cursor: pointer; list-style: none; }
+        details>summary::-webkit-details-marker { display: none; }
+        .color-swatch { width: 1.5rem; height: 1.5rem; border-radius: 9999px; cursor: pointer; border: 1px solid rgba(0, 0, 0, 0.1); }
+        #image-container { cursor: grab; }
+        #image-container:active { cursor: grabbing; }
+        #info-bar { position: relative; overflow: hidden; }
+        .movable-block { position: absolute; top: 50%; transform: translateY(-50%); }
+        #crop-modal { background-color: rgba(0, 0, 0, 0.8); }
+        #crop-container { max-width: 90vw; max-height: 75vh; }
+        .tick { background: none; border: none; padding: 0; cursor: pointer; }
     </style>
 </head>
 
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
 
     <div class="w-full max-w-5xl mx-auto">
-        <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color">生写真模板生成器</h1>
+        <h1 id="main-title" data-i18n-key="mainTitle" class="text-2xl md:text-3xl font-bold text-center mb-2 sakura-text-color">生写真模板生成器</h1>
+        
+        <!-- 【新增】语言切换器 -->
+        <div id="language-switcher" class="text-center mb-6 space-x-2">
+            <button data-lang="zh" class="px-3 py-1 text-sm rounded-full bg-gray-200">简体中文</button>
+            <button data-lang="en" class="px-3 py-1 text-sm rounded-full bg-gray-200">English</button>
+            <button data-lang="ja" class="px-3 py-1 text-sm rounded-full bg-gray-200">日本語</button>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- 控制面板 -->
+            <!-- 控制面板 (已添加 data-i18n-key 属性) -->
             <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
-                <h2 class="text-xl font-semibold text-gray-700">自定义内容</h2>
-
+                <h2 data-i18n-key="controlsTitle" class="text-xl font-semibold text-gray-700">自定义内容</h2>
                 <div>
-                    <label for="image-upload" class="block text-sm font-medium text-gray-600 mb-2">1. 上传主图片</label>
-                    <input type="file" id="image-upload" accept="image/*"
-                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                    <label for="image-upload" data-i18n-key="uploadLabel" class="block text-sm font-medium text-gray-600 mb-2">1. 上传主图片</label>
+                    <input type="file" id="image-upload" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                 </div>
-
                 <div>
-                    <label for="member-name" class="block text-sm font-medium text-gray-600 mb-2">2. 成员姓名</label>
-                    <input type="text" id="member-name" value=""
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入成员姓名">
+                    <label for="member-name" data-i18n-key="memberNameLabel" class="block text-sm font-medium text-gray-600 mb-2">2. 成员姓名</label>
+                    <input type="text" id="member-name" value="" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" placeholder="请输入成员姓名" data-i18n-key-placeholder="memberNamePlaceholder">
                 </div>
-
                 <div>
-                    <label for="romaji-name" class="block text-sm font-medium text-gray-600 mb-2">3. 罗马字 (可选)</label>
-                    <input type="text" id="romaji-name" value=""
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入罗马字">
+                    <label for="romaji-name" data-i18n-key="romajiLabel" class="block text-sm font-medium text-gray-600 mb-2">3. 罗马字 (可选)</label>
+                    <input type="text" id="romaji-name" value="" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" placeholder="请输入罗马字" data-i18n-key-placeholder="romajiPlaceholder">
                 </div>
-
                 <div>
-                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2">4. 主题/其他信息</label>
-                    <input type="text" id="photo-theme" value=""
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入主题">
+                    <label for="photo-theme" data-i18n-key="themeLabel" class="block text-sm font-medium text-gray-600 mb-2">4. 主题/其他信息</label>
+                    <input type="text" id="photo-theme" value="" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" placeholder="请输入主题" data-i18n-key-placeholder="themePlaceholder">
                 </div>
-
                 <div>
-                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2">5.
-                        团体名字</label>
-                    <select id="group-name-select"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500">
+                    <label for="group-name-select" data-i18n-key="groupNameLabel" class="block text-sm font-medium text-gray-600 mb-2">5. 团体名字</label>
+                    <select id="group-name-select" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500">
                         <option value="櫻坂46" selected>櫻坂46</option>
                         <option value="乃木坂46">乃木坂46</option>
                         <option value="日向坂46">日向坂46</option>
                     </select>
                 </div>
-
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>6. 颜色与边框</span>
-                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
+                        <span data-i18n-key="colorsAndBorderLabel">6. 颜色与边框</span>
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </summary>
                     <div class="mt-4 space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="info-bar-bg-color" class="block text-sm text-gray-500">信息栏底色</label>
-                                <input type="color" id="info-bar-bg-color" value="#FFFFFF"
-                                    class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
+                                <label for="info-bar-bg-color" data-i18n-key="infoBarColorLabel" class="block text-sm text-gray-500">信息栏底色</label>
+                                <input type="color" id="info-bar-bg-color" value="#FFFFFF" class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-bar-bg-color">
-                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                        data-color="#7cc7e8"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #742581;"
-                                        data-color="#742581"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                        data-color="#F19DB5"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                     <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                     <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                                 </div>
                             </div>
                             <div>
-                                <label for="info-color" class="block text-sm text-gray-500">文字/Logo颜色</label>
-                                <input type="color" id="info-color" value="#F19DB5"
-                                    class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
+                                <label for="info-color" data-i18n-key="textColorLabel" class="block text-sm text-gray-500">文字/Logo颜色</label>
+                                <input type="color" id="info-color" value="#F19DB5" class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-color">
-                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                        data-color="#7cc7e8"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #742581;"
-                                        data-color="#742581"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                        data-color="#F19DB5"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                     <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                     <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-600">信息栏边框</label>
+                            <label data-i18n-key="infoBarBorderLabel" class="block text-sm font-medium text-gray-600">信息栏边框</label>
                             <div class="flex items-center mt-2 space-x-4">
-                                <input type="checkbox" id="border-toggle"
-                                    class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600"
-                                    checked>
-                                <input type="color" id="border-color" value="#F19DB5"
-                                    class="w-10 h-8 p-0 border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                                <input type="checkbox" id="border-toggle" class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600" checked>
+                                <input type="color" id="border-color" value="#F19DB5" class="w-10 h-8 p-0 border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                                 <div class="flex-grow">
-                                    <label for="border-thickness" class="text-sm text-gray-500">粗细: <span
-                                            id="border-thickness-value">2</span>px</label>
-                                    <input type="range" id="border-thickness" min="0" max="5" value="2" step="0.5"
-                                        class="w-full">
+                                    <label for="border-thickness" class="text-sm text-gray-500"><span data-i18n-key="borderThicknessLabel">粗细:</span> <span id="border-thickness-value">2</span>px</label>
+                                    <input type="range" id="border-thickness" min="0" max="5" value="2" step="0.5" class="w-full">
                                 </div>
                             </div>
                             <div class="flex space-x-2 mt-2 swatch-container" data-target="border-color">
-                                <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                    data-color="#7cc7e8"></button>
-                                <button type="button" class="color-swatch" style="background-color: #742581;"
-                                    data-color="#742581"></button>
-                                <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                    data-color="#F19DB5"></button>
+                                <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                 <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                 <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                             </div>
                         </div>
                     </div>
                 </details>
-
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>7. 更多设置</span>
-                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
+                        <span data-i18n-key="advancedSettingsLabel">7. 更多设置</span>
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </summary>
                     <div class="mt-4 space-y-4 pl-2 border-l-2 border-gray-200">
                         <div class="pt-2">
-                            <label for="logo-upload" class="block text-sm font-medium text-gray-600 mb-2">自定义Logo</label>
-                            <input type="file" id="logo-upload" accept="image/*"
-                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                            <label for="logo-upload" data-i18n-key="customLogoLabel" class="block text-sm font-medium text-gray-600 mb-2">自定义Logo</label>
+                            <input type="file" id="logo-upload" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                         </div>
                         <div class="pt-2">
                             <div class="flex items-center justify-between mb-2">
-                                <h3 class="block text-sm font-medium text-gray-600">主图片位置</h3>
-                                <button id="reset-image-btn"
-                                    class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full">重置</button>
+                                <h3 data-i18n-key="mainImagePositionLabel" class="block text-sm font-medium text-gray-600">主图片位置</h3>
+                                <button id="reset-image-btn" data-i18n-key="resetImageButton" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full">重置</button>
                             </div>
                             <div class="space-y-3">
                                 <div>
-                                    <label for="image-zoom" class="text-sm text-gray-500">图片缩放: <span
-                                            id="image-zoom-value">1</span>x</label>
-                                    <input type="range" id="image-zoom" min="1" max="3" value="1" step="0.05"
-                                        class="w-full">
+                                    <label for="image-zoom" class="text-sm text-gray-500"><span data-i18n-key="imageZoomLabel">图片缩放:</span> <span id="image-zoom-value">1</span>x</label>
+                                    <input type="range" id="image-zoom" min="1" max="3" value="1" step="0.05" class="w-full">
                                 </div>
                             </div>
                         </div>
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">信息栏位置</h3>
+                            <h3 data-i18n-key="infoBarPositionLabel" class="block text-sm font-medium text-gray-600 mb-2">信息栏位置</h3>
                             <div class="space-y-3">
                                 <div>
-                                    <label for="margin-bottom" class="text-sm text-gray-500">下边距: <span
-                                            id="margin-bottom-value">34</span>px</label>
+                                    <label for="margin-bottom" class="text-sm text-gray-500"><span data-i18n-key="marginBottomLabel">下边距:</span> <span id="margin-bottom-value">34</span>px</label>
                                     <input type="range" id="margin-bottom" min="0" max="50" value="34" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="margin-x" class="text-sm text-gray-500">左右边距: <span
-                                            id="margin-x-value">29</span>px</label>
+                                    <label for="margin-x" class="text-sm text-gray-500"><span data-i18n-key="marginXLabel">左右边距:</span> <span id="margin-x-value">29</span>px</label>
                                     <input type="range" id="margin-x" min="0" max="50" value="29" class="w-full">
                                 </div>
                             </div>
                         </div>
-
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">字体与尺寸微调</h3>
+                            <h3 data-i18n-key="fontAndSizeTuningLabel" class="block text-sm font-medium text-gray-600 mb-2">字体与尺寸微调</h3>
                             <div class="space-y-3">
                                 <div class="flex items-center">
-                                    <input type="checkbox" id="romaji-toggle"
-                                        class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
-                                    <label for="romaji-toggle"
-                                        class="ml-2 block text-sm font-medium text-gray-700">显示罗马字</label>
+                                    <input type="checkbox" id="romaji-toggle" class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
+                                    <label for="romaji-toggle" data-i18n-key="showRomajiLabel" class="ml-2 block text-sm font-medium text-gray-700">显示罗马字</label>
                                 </div>
                                 <div>
-                                    <label for="info-bar-padding-y" class="text-sm text-gray-500">信息栏内边距: <span
-                                            id="info-bar-padding-y-value">22</span>px</label>
-                                    <input type="range" id="info-bar-padding-y" min="0" max="40" value="20" class="w-full">
+                                    <label for="info-bar-padding-y" class="text-sm text-gray-500"><span data-i18n-key="infoBarPaddingYLabel">信息栏内边距:</span> <span id="info-bar-padding-y-value">22</span>px</label>
+                                    <input type="range" id="info-bar-padding-y" min="0" max="40" value="22" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="logo-size" class="text-sm text-gray-500">Logo大小: <span
-                                            id="logo-size-value">34</span>px</label>
+                                    <label for="logo-size" class="text-sm text-gray-500"><span data-i18n-key="logoSizeLabel">Logo大小:</span> <span id="logo-size-value">34</span>px</label>
                                     <input type="range" id="logo-size" min="16" max="48" value="34" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="group-name-size" class="text-sm text-gray-500">团名大小: <span
-                                            id="group-name-size-value">14</span>px</label>
-                                    <input type="range" id="group-name-size" min="10" max="24" value="14"
-                                        class="w-full">
+                                    <label for="group-name-size" class="text-sm text-gray-500"><span data-i18n-key="groupNameSizeLabel">团名大小:</span> <span id="group-name-size-value">14</span>px</label>
+                                    <input type="range" id="group-name-size" min="10" max="24" value="14" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="theme-size" class="text-sm text-gray-500">主题大小: <span
-                                            id="theme-size-value">9</span>px</label>
+                                    <label for="theme-size" class="text-sm text-gray-500"><span data-i18n-key="themeSizeLabel">主题大小:</span> <span id="theme-size-value">9</span>px</label>
                                     <input type="range" id="theme-size" min="8" max="20" value="9" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="member-name-size" class="text-sm text-gray-500">姓名大小: <span
-                                            id="member-name-size-value">20</span>px</label>
-                                    <input type="range" id="member-name-size" min="14" max="32" value="20"
-                                        class="w-full">
+                                    <label for="member-name-size" class="text-sm text-gray-500"><span data-i18n-key="memberNameSizeLabel">姓名大小:</span> <span id="member-name-size-value">20</span>px</label>
+                                    <input type="range" id="member-name-size" min="14" max="32" value="20" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="romaji-name-size" class="text-sm text-gray-500">罗马字大小: <span
-                                            id="romaji-name-size-value">13</span>px</label>
-                                    <input type="range" id="romaji-name-size" min="6" max="16" value="13"
-                                        class="w-full">
+                                    <label for="romaji-name-size" class="text-sm text-gray-500"><span data-i18n-key="romajiNameSizeLabel">罗马字大小:</span> <span id="romaji-name-size-value">13</span>px</label>
+                                    <input type="range" id="romaji-name-size" min="6" max="16" value="13" class="w-full">
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">元素位置微调</h3>
+                            <h3 data-i18n-key="elementPositionTuningLabel" class="block text-sm font-medium text-gray-600 mb-2">元素位置微调</h3>
                             <div class="space-y-3">
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">Logo 位置</p>
-                                     <div>
-                                        <label for="logo-x" class="text-sm text-gray-500">水平位置 (X): <span id="logo-x-value">8</span>px</label>
-                                        <input type="range" id="logo-x" min="0" max="50" value="4" class="w-full">
-                                     </div>
-                                     <div>
-                                        <label for="logo-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
-                                        <input type="range" id="logo-y" min="-30" max="30" value="0" class="w-full">
-                                     </div>
+                                     <p data-i18n-key="logoPositionLabel" class="text-sm text-gray-600 font-semibold">Logo 位置</p>
+                                     <div><label for="logo-x" class="text-sm text-gray-500"><span data-i18n-key="horizontalPositionLabel">水平位置 (X):</span> <span id="logo-x-value">8</span>px</label><input type="range" id="logo-x" min="0" max="50" value="6" class="w-full"></div>
+                                     <div><label for="logo-y" class="text-sm text-gray-500"><span data-i18n-key="verticalPositionLabel">垂直位置 (Y):</span> <span id="logo-y-value">0</span>px</label><input type="range" id="logo-y" min="-30" max="30" value="0" class="w-full"></div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">团名位置</p>
-                                     <div>
-                                        <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
-                                        <input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full">
-                                     </div>
-                                     <div>
-                                        <label for="group-name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
-                                        <input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full">
-                                     </div>
+                                     <p data-i18n-key="groupNamePositionLabel" class="text-sm text-gray-600 font-semibold">团名位置</p>
+                                     <div><label for="group-name-x" class="text-sm text-gray-500"><span data-i18n-key="horizontalPositionLabel">水平位置 (X):</span> <span id="group-name-x-value">44</span>px</label><input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full"></div>
+                                     <div><label for="group-name-y" class="text-sm text-gray-500"><span data-i18n-key="verticalPositionLabel">垂直位置 (Y):</span> <span id="group-name-y-value">1</span>px</label><input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full"></div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">主题</p>
-                                     <div>
-                                        <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
-                                        <input type="range" id="theme-x" min="-100" max="100" value="-12" class="w-full">
-                                     </div>
-                                     <div>
-                                        <label for="theme-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
-                                        <input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full">
-                                     </div>
+                                     <p data-i18n-key="themePositionLabel" class="text-sm text-gray-600 font-semibold">主题</p>
+                                     <div><label for="theme-x" class="text-sm text-gray-500"><span data-i18n-key="horizontalPositionLabel">水平位置 (X):</span> <span id="theme-x-value">-12</span>px</label><input type="range" id="theme-x" min="-100" max="100" value="-12" class="w-full"></div>
+                                     <div><label for="theme-y" class="text-sm text-gray-500"><span data-i18n-key="verticalPositionLabel">垂直位置 (Y):</span> <span id="theme-y-value">0</span>px</label><input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full"></div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">姓名位置</p>
-                                     <div>
-                                        <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-7</span>px</label>
-                                        <input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full">
-                                     </div>
-                                     <div>
-                                        <label for="name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
-                                        <input type="range" id="name-y" min="-30" max="30" value="0" class="w-full">
-                                     </div>
+                                     <p data-i18n-key="namePositionLabel" class="text-sm text-gray-600 font-semibold">姓名位置</p>
+                                     <div><label for="name-x" class="text-sm text-gray-500"><span data-i18n-key="horizontalPositionLabel">水平位置 (X):</span> <span id="name-x-value">-7</span>px</label><input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full"></div>
+                                     <div><label for="name-y" class="text-sm text-gray-500"><span data-i18n-key="verticalPositionLabel">垂直位置 (Y):</span> <span id="name-y-value">0</span>px</label><input type="range" id="name-y" min="-30" max="30" value="0" class="w-full"></div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">罗马字位置</p>
-                                     <div>
-                                        <label for="romaji-x" class="text-sm text-gray-500">水平位置 (X): <span id="romaji-x-value">-12</span>px</label>
-                                        <input type="range" id="romaji-x" min="-50" max="50" value="-12" class="w-full">
-                                     </div>
-                                     <div>
-                                        <label for="romaji-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="romaji-y-value">14</span>px</label>
-                                        <input type="range" id="romaji-y" min="-30" max="30" value="14" class="w-full">
-                                     </div>
+                                     <p data-i18n-key="romajiPositionLabel" class="text-sm text-gray-600 font-semibold">罗马字位置</p>
+                                     <div><label for="romaji-x" class="text-sm text-gray-500"><span data-i18n-key="horizontalPositionLabel">水平位置 (X):</span> <span id="romaji-x-value">-12</span>px</label><input type="range" id="romaji-x" min="-50" max="50" value="-12" class="w-full"></div>
+                                     <div><label for="romaji-y" class="text-sm text-gray-500"><span data-i18n-key="verticalPositionLabel">垂直位置 (Y):</span> <span id="romaji-y-value">14</span>px</label><input type="range" id="romaji-y" min="-30" max="30" value="14" class="w-full"></div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- MODIFIED: Font controls section -->
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">字体样式微调</h3>
+                            <h3 data-i18n-key="fontStyleTuningLabel" class="block text-sm font-medium text-gray-600 mb-2">字体样式微调</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="theme-font-family" class="text-sm text-gray-500">主题</label>
-                                    <select id="theme-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
-                                        <option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option>
-                                        <option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option>
-                                        <option value="'Kiwi Maru', sans-serif">Kiwi Maru</option>
-                                        <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
-                                        <option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option>
-                                        <option value="serif">系统衬线体</option>
-                                        <option value="sans-serif">系统无衬线体</option>
-                                    </select>
+                                    <label for="theme-font-family" data-i18n-key="themeFontFamilyLabel" class="text-sm text-gray-500">主题</label>
+                                    <select id="theme-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md"><option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option><option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option><option value="'Kiwi Maru', sans-serif">Kiwi Maru</option><option value="'Noto Sans JP', sans-serif">Noto Sans JP</option><option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option><option value="serif">系统衬线体</option><option value="sans-serif">系统无衬线体</option></select>
                                 </div>
                                 <div>
-                                    <label for="name-font-family" class="text-sm text-gray-500">姓名/罗马字</label>
-                                    <select id="name-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
-                                        <option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option>
-                                        <option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option>
-                                        <option value="'Kiwi Maru', sans-serif">Kiwi Maru</option>
-                                        <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
-                                        <option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option>
-                                        <option value="serif">系统衬线体</option>
-                                        <option value="sans-serif">系统无衬线体</option>
-                                    </select>
+                                    <label for="name-font-family" data-i18n-key="nameFontFamilyLabel" class="text-sm text-gray-500">姓名/罗马字</label>
+                                    <select id="name-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md"><option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option><option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option><option value="'Kiwi Maru', sans-serif">Kiwi Maru</option><option value="'Noto Sans JP', sans-serif">Noto Sans JP</option><option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option><option value="serif">系统衬线体</option><option value="sans-serif">系统无衬线体</option></select>
                                 </div>
-                                <!-- NEW: Custom Font Upload -->
                                 <div class="pt-2">
-                                    <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2">上传自定义字体</label>
-                                     <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                                    <label for="font-upload" data-i18n-key="uploadCustomFontLabel" class="block text-sm font-medium text-gray-600 mb-2">上传自定义字体</label>
+                                     <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                                     <p id="font-upload-status" class="text-xs text-gray-500 mt-2 h-4"></p>
                                 </div>
                                 <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                                     <div class="w-full">
-                                        <div class="flex justify-between items-center">
-                                            <label for="theme-weight" class="text-sm text-gray-500">主题粗细:</label>
-                                            <input type="number" id="theme-weight-input" min="100" max="900" value="100" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
-                                        </div>
+                                        <div class="flex justify-between items-center"><label for="theme-weight" class="text-sm text-gray-500"><span data-i18n-key="themeWeightLabel">主题粗细:</span></label><input type="number" id="theme-weight-input" min="100" max="900" value="100" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200"></div>
                                         <input type="range" id="theme-weight" min="100" max="900" value="100" step="1" class="w-full">
-                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="theme-weight">
-                                            <button data-value="100" class="tick hover:text-violet-600">100</button>
-                                            <button data-value="400" class="tick hover:text-violet-600">400</button>
-                                            <button data-value="700" class="tick hover:text-violet-600">700</button>
-                                            <button data-value="900" class="tick hover:text-violet-600">900</button>
-                                        </div>
+                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="theme-weight"><button data-value="100" class="tick hover:text-violet-600">100</button> <button data-value="400" class="tick hover:text-violet-600">400</button> <button data-value="700" class="tick hover:text-violet-600">700</button> <button data-value="900" class="tick hover:text-violet-600">900</button></div>
                                     </div>
                                     <div class="w-full">
-                                        <div class="flex justify-between items-center">
-                                            <label for="member-name-weight" class="text-sm text-gray-500">姓名粗细:</label>
-                                            <input type="number" id="member-name-weight-input" min="100" max="900" value="500" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
-                                        </div>
+                                        <div class="flex justify-between items-center"><label for="member-name-weight" class="text-sm text-gray-500"><span data-i18n-key="memberNameWeightLabel">姓名粗细:</span></label><input type="number" id="member-name-weight-input" min="100" max="900" value="500" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200"></div>
                                         <input type="range" id="member-name-weight" min="100" max="900" value="500" step="1" class="w-full">
-                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="member-name-weight">
-                                            <button data-value="100" class="tick hover:text-violet-600">100</button>
-                                            <button data-value="400" class="tick hover:text-violet-600">400</button>
-                                            <button data-value="700" class="tick hover:text-violet-600">700</button>
-                                            <button data-value="900" class="tick hover:text-violet-600">900</button>
-                                        </div>
+                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="member-name-weight"><button data-value="100" class="tick hover:text-violet-600">100</button> <button data-value="400" class="tick hover:text-violet-600">400</button> <button data-value="700" class="tick hover:text-violet-600">700</button> <button data-value="900" class="tick hover:text-violet-600">900</button></div>
                                     </div>
                                     <div class="w-full">
-                                        <div class="flex justify-between items-center">
-                                            <label for="romaji-name-weight" class="text-sm text-gray-500">罗马字粗细:</label>
-                                            <input type="number" id="romaji-name-weight-input" min="100" max="900" value="400" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
-                                        </div>
+                                        <div class="flex justify-between items-center"><label for="romaji-name-weight" class="text-sm text-gray-500"><span data-i18n-key="romajiNameWeightLabel">罗马字粗细:</span></label><input type="number" id="romaji-name-weight-input" min="100" max="900" value="400" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200"></div>
                                         <input type="range" id="romaji-name-weight" min="100" max="900" value="400" step="1" class="w-full">
-                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="romaji-name-weight">
-                                            <button data-value="100" class="tick hover:text-violet-600">100</button>
-                                            <button data-value="400" class="tick hover:text-violet-600">400</button>
-                                            <button data-value="700" class="tick hover:text-violet-600">700</button>
-                                            <button data-value="900" class="tick hover:text-violet-600">900</button>
-                                        </div>
+                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="romaji-name-weight"><button data-value="100" class="tick hover:text-violet-600">100</button> <button data-value="400" class="tick hover:text-violet-600">400</button> <button data-value="700" class="tick hover:text-violet-600">700</button> <button data-value="900" class="tick hover:text-violet-600">900</button></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </details>
-
-                <button id="download-btn"
-                    class="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 !mt-6">
-                    生成并下载图片
-                </button>
-                <p id="loading-text" class="text-center mt-4 text-sm text-gray-500 hidden">正在生成图片，请稍候...</p>
-
-                <!-- MODIFIED: Author Info & Feedback Section -->
+                <button id="download-btn" data-i18n-key="generateButton" class="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 !mt-6">生成并下载图片</button>
+                <p id="loading-text" data-i18n-key="loadingText" class="text-center mt-4 text-sm text-gray-500 hidden">正在生成图片，请稍候...</p>
                 <details class="pt-4 mt-2 border-t border-gray-200">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>作者信息 & 反馈</span>
-                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
+                        <span data-i18n-key="authorInfoLabel">作者信息 & 反馈</span>
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </summary>
                     <div class="mt-4 space-y-6 text-sm text-gray-600">
                         <div>
-                            <h3 class="font-semibold text-gray-700 mb-2">作者信息</h3>
+                            <h3 data-i18n-key="authorInfoLabel" class="font-semibold text-gray-700 mb-2">作者信息</h3>
                             <div class="space-y-1">
-                                <p>作者: <span class="font-mono">多线程败犬Yoru</span></p>
+                                <p><span data-i18n-key="authorNameLabel">作者:</span> <span class="font-mono">多线程败犬Yoru</span></p>
                                 <p>B站: <a href="https://space.bilibili.com/1598960?spm_id_from=333.1007.0.0" target="_blank" class="text-violet-600 hover:underline">多线程败犬Yoru</a></p>
                                 <p>稍转樱的小号: <a href="https://space.bilibili.com/348497813" target="_blank" class="text-violet-600 hover:underline">多线程败犬</a></p>
                                 <p>微博: <a href="https://weibo.com/u/2247228730" target="_blank" class="text-violet-600 hover:underline">多线程败犬Yoru</a></p>
@@ -499,55 +282,38 @@
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-700 mb-2">问题反馈 (Bugs/建议)</h3>
-                            <a href="https://forms.gle/xKJbXsUP4g8pLJSf7" target="_blank" rel="noopener noreferrer"
-                                id="feedback-link"
-                                class="block text-center mt-2 w-full bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                                点击此处提交反馈
-                            </a>
+                            <h3 data-i18n-key="feedbackLabel" class="font-semibold text-gray-700 mb-2">问题反馈 (Bugs/建议)</h3>
+                            <a href="https://forms.gle/xKJbXsUP4g8pLJSf7" target="_blank" rel="noopener noreferrer" id="feedback-link" data-i18n-key="feedbackButton" class="block text-center mt-2 w-full bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">点击此处提交反馈</a>
                         </div>
                     </div>
                 </details>
             </div>
-
             <!-- 预览区域 -->
             <div>
                 <div class="sticky top-8">
                     <div id="photo-card" class="w-full max-w-sm bg-gray-200 rounded-lg overflow-hidden mx-auto">
                         <div id="image-container" class="relative w-full aspect-photo overflow-hidden">
-                            <img id="preview-image" src="https://placehold.co/594x847/e2e8f0/a0aec0?text=请上传图片" alt="预览图片"
-                                class="absolute w-full h-full object-cover"
-                                style="transform: translate(0px, 0px) scale(1);">
-
+                            <img id="preview-image" src="https://placehold.co/594x847/e2e8f0/a0aec0?text=请上传图片" alt="预览图片" data-i18n-key-alt="previewImageAlt" data-i18n-key-text="uploadPlaceholder" class="absolute w-full h-full object-cover" style="transform: translate(0px, 0px) scale(1);">
                             <div id="info-bar-container" class="absolute" style="bottom: 34px; left: 29px; right: 29px;">
-                                <div id="info-bar" class="sakura-text-color"
-                                    style="background-color: rgb(255, 255, 255); border: 2px solid rgb(241, 157, 181); padding-top: 22px; padding-bottom: 22px; color: rgb(241, 157, 181);">
-                                    
+                                <div id="info-bar" class="sakura-text-color" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(241, 157, 181); padding-top: 22px; padding-bottom: 22px; color: rgb(241, 157, 181);">
                                     <div id="logo-block" class="movable-block" style="left: 8px; transform: translateY(calc(-50% + 0px));">
                                         <div id="logo-container" class="flex items-center" style="height: 34px;">
-                                            <svg id="svg-logo" width="100%" height="100%" viewBox="0 0 100 100" class="fill-current hidden" style="fill: rgb(241, 157, 181);">
-                                                <path d="M5,90 L50,10 L95,90 Z"></path>
-                                                <path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path>
-                                            </svg>
-                                            <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
+                                            <svg id="svg-logo" width="100%" height="100%" viewBox="0 0 100 100" class="fill-current hidden" style="fill: rgb(241, 157, 181);"><path d="M5,90 L50,10 L95,90 Z"></path><path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path></svg>
+                                            <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" data-i18n-key-alt="customLogoAlt" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
                                         </div>
                                     </div>
-                                    <!-- MODIFIED: Replaced span with img for group name -->
                                     <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 1px));">
-                                        <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;">
+                                        <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" data-i18n-key-alt="groupNameAlt" class="h-auto" style="height: 14px;">
                                     </div>
-
                                     <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 12px), calc(-50% + 0px));">
-                                         <p id="preview-theme" class="text-center" style="font-size: 9px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
+                                         <p id="preview-theme" class="text-center" style="font-size: 9px; font-weight: 100; font-family: "Kosugi Maru", sans-serif;"></p>
                                     </div>
-                                    
                                     <div id="name-block" class="movable-block text-right" style="right: 7px; transform: translateY(calc(-50% + 0px));">
-                                        <p id="preview-name" class="" style="font-size: 20px; font-weight: 500; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
+                                        <p id="preview-name" class="" style="font-size: 20px; font-weight: 500; font-family: "Kosugi Maru", sans-serif;"></p>
                                     </div>
                                     <div id="romaji-block" class="movable-block text-right hidden" style="right: -12px; transform: translateY(calc(-50% + 14px));">
-                                        <p id="preview-romaji" class="" style="font-size: 13px; font-weight: 400; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
+                                        <p id="preview-romaji" class="" style="font-size: 13px; font-weight: 400; font-family: "Kosugi Maru", sans-serif;"></p>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -559,25 +325,23 @@
 
     <!-- CROP MODAL -->
     <div id="crop-modal" class="fixed inset-0 z-50 flex-col items-center justify-center hidden">
-        <div id="crop-container">
-            <img id="image-to-crop" src="">
-        </div>
+        <div id="crop-container"><img id="image-to-crop" src=""></div>
         <div class="flex items-center mt-4 space-x-4">
-            <button id="cancel-crop-btn" class="px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700">取消</button>
-            <button id="crop-btn" class="px-6 py-2 bg-violet-600 text-white font-bold rounded-lg hover:bg-violet-700">裁切</button>
+            <button id="cancel-crop-btn" data-i18n-key="cancelButton" class="px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700">取消</button>
+            <button id="crop-btn" data-i18n-key="cropButton" class="px-6 py-2 bg-violet-600 text-white font-bold rounded-lg hover:bg-violet-700">裁切</button>
         </div>
     </div>
 
+    <!-- ERROR MODAL -->
     <div id="error-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">发生错误</h3>
+                <h3 id="error-title" data-i18n-key="errorTitle" class="text-lg leading-6 font-medium text-gray-900">发生错误</h3>
                 <div class="mt-2 px-7 py-3">
-                    <p id="error-message" class="text-sm text-gray-500">图片生成失败，请稍后再试。</p>
+                    <p id="error-message" data-i18n-key="errorText" class="text-sm text-gray-500">图片生成失败，请稍后再试。</p>
                 </div>
                 <div class="items-center px-4 py-3">
-                    <button id="close-modal-btn"
-                        class="px-4 py-2 bg-violet-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300">关闭</button>
+                    <button id="close-modal-btn" data-i18n-key="closeButton" class="px-4 py-2 bg-violet-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300">关闭</button>
                 </div>
             </div>
         </div>
@@ -585,10 +349,14 @@
 
     <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    <!-- 【新增】引入翻译文件 -->
+    <script src="./translations.js"></script>
+    <!-- 主应用脚本 -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Element cache
             const ui = {
+                htmlTag: document.documentElement,
                 mainTitle: document.getElementById('main-title'),
                 body: document.body,
                 imageUpload: document.getElementById('image-upload'),
@@ -604,7 +372,7 @@
                 svgLogo: document.getElementById('svg-logo'),
                 imageLogo: document.getElementById('image-logo'),
                 logoContainer: document.getElementById('logo-container'),
-                groupNameImage: document.getElementById('group-name-image'), // MODIFIED
+                groupNameImage: document.getElementById('group-name-image'),
                 previewName: document.getElementById('preview-name'),
                 previewRomaji: document.getElementById('preview-romaji'),
                 previewTheme: document.getElementById('preview-theme'),
@@ -624,8 +392,6 @@
                 resetImageBtn: document.getElementById('reset-image-btn'),
                 borderThickness: document.getElementById('border-thickness'),
                 borderThicknessValue: document.getElementById('border-thickness-value'),
-                
-                // Sizing controls
                 infoBarPaddingY: document.getElementById('info-bar-padding-y'),
                 infoBarPaddingYValue: document.getElementById('info-bar-padding-y-value'),
                 logoSize: document.getElementById('logo-size'),
@@ -638,39 +404,31 @@
                 memberNameSizeValue: document.getElementById('member-name-size-value'),
                 romajiNameSize: document.getElementById('romaji-name-size'),
                 romajiNameSizeValue: document.getElementById('romaji-name-size-value'),
-
-                // Positioning controls
                 logoBlock: document.getElementById('logo-block'),
                 logoX: document.getElementById('logo-x'),
                 logoXValue: document.getElementById('logo-x-value'),
                 logoY: document.getElementById('logo-y'),
                 logoYValue: document.getElementById('logo-y-value'),
-
                 groupNameBlock: document.getElementById('group-name-block'),
                 groupNameX: document.getElementById('group-name-x'),
                 groupNameXValue: document.getElementById('group-name-x-value'),
                 groupNameY: document.getElementById('group-name-y'),
                 groupNameYValue: document.getElementById('group-name-y-value'),
-                
                 themeBlock: document.getElementById('theme-block'),
                 themeX: document.getElementById('theme-x'),
                 themeXValue: document.getElementById('theme-x-value'),
                 themeY: document.getElementById('theme-y'),
                 themeYValue: document.getElementById('theme-y-value'),
-                
                 nameBlock: document.getElementById('name-block'),
                 nameX: document.getElementById('name-x'),
                 nameXValue: document.getElementById('name-x-value'),
                 nameY: document.getElementById('name-y'),
                 nameYValue: document.getElementById('name-y-value'),
-
                 romajiBlock: document.getElementById('romaji-block'),
                 romajiX: document.getElementById('romaji-x'),
                 romajiXValue: document.getElementById('romaji-x-value'),
                 romajiY: document.getElementById('romaji-y'),
                 romajiYValue: document.getElementById('romaji-y-value'),
-
-                // Font controls
                 themeFontFamily: document.getElementById('theme-font-family'),
                 nameFontFamily: document.getElementById('name-font-family'),
                 themeWeight: document.getElementById('theme-weight'),
@@ -682,556 +440,235 @@
                 romajiToggle: document.getElementById('romaji-toggle'),
                 fontUpload: document.getElementById('font-upload'),
                 fontUploadStatus: document.getElementById('font-upload-status'),
-
-                // Modal
                 errorModal: document.getElementById('error-modal'),
                 errorMessage: document.getElementById('error-message'),
                 closeModalBtn: document.getElementById('close-modal-btn'),
-
-                // Crop Modal Elements
                 cropModal: document.getElementById('crop-modal'),
                 imageToCrop: document.getElementById('image-to-crop'),
                 cropBtn: document.getElementById('crop-btn'),
                 cancelCropBtn: document.getElementById('cancel-crop-btn'),
+                // 【新增】语言切换器
+                languageSwitcher: document.getElementById('language-switcher'),
             };
 
-            const colorPresets = {
-                '櫻坂46': { bg: '#FFFFFF', text: '#F19DB5', border: '#F19DB5', bodyBg: '#f0f2f5', titleColor: '#F19DB5' },
-                '乃木坂46': { bg: '#742581', text: '#FFFFFF', border: '#742581', bodyBg: '#f0f2f5', titleColor: '#742581' },
-                '日向坂46': { bg: '#7cc7e8', text: '#FFFFFF', border: '#7cc7e8', bodyBg: '#7cc7e8', titleColor: '#FFFFFF' }
-            };
-            
-            const groupLogos = {
-                '櫻坂46': 'images/樱坂46logo.png',
-                '日向坂46': 'images/日向坂46logo.png',
-                '乃木坂46': 'images/乃木坂46logo.png'
-            };
-
-            // NEW: Image paths for group names
-            const groupNameImages = {
-                '櫻坂46': 'images/樱坂46文字.png',
-                '日向坂46': 'images/日向坂46文字.png',
-                '乃木坂46': 'images/乃木坂46文字.png'
-            };
+            const colorPresets = { '櫻坂46': { bg: '#FFFFFF', text: '#F19DB5', border: '#F19DB5', bodyBg: '#f0f2f5', titleColor: '#F19DB5' }, '乃木坂46': { bg: '#742581', text: '#FFFFFF', border: '#742581', bodyBg: '#f0f2f5', titleColor: '#742581' }, '日向坂46': { bg: '#7cc7e8', text: '#FFFFFF', border: '#7cc7e8', bodyBg: '#7cc7e8', titleColor: '#FFFFFF' } };
+            const groupLogos = { '櫻坂46': 'images/樱坂46logo.png', '日向坂46': 'images/日向坂46logo.png', '乃木坂46': 'images/乃木坂46logo.png' };
+            const groupNameImages = { '櫻坂46': 'images/樱坂46文字.png', '日向坂46': 'images/日向坂46文字.png', '乃木坂46': 'images/乃木坂46文字.png' };
 
             let imageState = { scale: 1, translateX: 0, translateY: 0 };
             let isDragging = false;
             let startX, startY;
             let cropper = null;
+            // 【新增】当前语言全局变量
+            let currentLang = 'zh';
+
+            // --- 【新增】I18n (国际化) 功能 ---
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+                currentLang = lang;
+
+                // 更新 <html> 标签的 lang 属性
+                ui.htmlTag.lang = lang;
+
+                // 更新所有带 data-i18n-key 的元素文本
+                document.querySelectorAll('[data-i18n-key]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.innerText = translations[lang][key];
+                    }
+                });
+
+                // 更新所有 placeholder
+                document.querySelectorAll('[data-i18n-key-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-key-placeholder');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.placeholder = translations[lang][key];
+                    }
+                });
+                
+                // 更新所有 alt 文本
+                document.querySelectorAll('[data-i18n-key-alt]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-key-alt');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.alt = translations[lang][key];
+                    }
+                });
+
+                // 如果预览图片是占位符，则更新其文本
+                if (ui.previewImage.src.includes('placehold.co')) {
+                    const key = ui.previewImage.getAttribute('data-i18n-key-text');
+                     if (translations[lang] && translations[lang][key]) {
+                        const text = encodeURIComponent(translations[lang][key]);
+                        ui.previewImage.src = `https://placehold.co/594x847/e2e8f0/a0aec0?text=${text}`;
+                    }
+                }
+                
+                // 更新语言切换按钮的样式
+                ui.languageSwitcher.querySelectorAll('button').forEach(btn => {
+                    btn.classList.toggle('bg-violet-500', btn.dataset.lang === lang);
+                    btn.classList.toggle('text-white', btn.dataset.lang === lang);
+                    btn.classList.toggle('bg-gray-200', btn.dataset.lang !== lang);
+                });
+
+                // 记住用户的选择
+                localStorage.setItem('preferredLanguage', lang);
+            };
+
+            const getInitialLanguage = () => {
+                const savedLang = localStorage.getItem('preferredLanguage');
+                if (savedLang && translations[savedLang]) {
+                    return savedLang;
+                }
+                const browserLang = navigator.language.split('-')[0]; // 'en-US' -> 'en'
+                if (translations[browserLang]) {
+                    return browserLang;
+                }
+                return 'zh'; // 默认语言
+            };
 
             // --- Update Functions ---
             const update = {
-                infoBarBorder() {
-                    const isEnabled = ui.borderToggle.checked;
-                    ui.borderColor.disabled = !isEnabled;
-                    ui.borderThickness.disabled = !isEnabled;
-                    if (isEnabled) {
-                        const thickness = ui.borderThickness.value;
-                        ui.infoBar.style.border = `${thickness}px solid ${ui.borderColor.value}`;
-                        ui.borderThicknessValue.textContent = thickness;
-                    } else {
-                        ui.infoBar.style.border = 'none';
-                    }
-                },
-                infoColor() {
-                    const newColor = ui.infoColor.value;
-                    ui.infoBar.style.color = newColor;
-                    ui.svgLogo.style.fill = newColor;
-                },
-                infoBarBgColor() {
-                    ui.infoBar.style.backgroundColor = ui.infoBarBgColor.value;
-                },
-                position() {
-                    const bottom = ui.marginBottom.value;
-                    const x = ui.marginX.value;
-                    ui.infoBarContainer.style.bottom = `${bottom}px`;
-                    ui.infoBarContainer.style.left = `${x}px`;
-                    ui.infoBarContainer.style.right = `${x}px`;
-                    ui.marginBottomValue.textContent = bottom;
-                    ui.marginXValue.textContent = x;
-                },
-                imageTransform() {
-                    ui.previewImage.style.transform = `translate(${imageState.translateX}px, ${imageState.translateY}px) scale(${imageState.scale})`;
-                },
-                sizes() {
-                    const paddingY = ui.infoBarPaddingY.value;
-                    ui.infoBar.style.paddingTop = `${paddingY}px`;
-                    ui.infoBar.style.paddingBottom = `${paddingY}px`;
-                    ui.infoBarPaddingYValue.textContent = paddingY;
-
-                    ui.logoContainer.style.height = `${ui.logoSize.value}px`;
-                    ui.logoSizeValue.textContent = ui.logoSize.value;
-
-                    // MODIFIED: Control image height instead of font size
-                    ui.groupNameImage.style.height = `${ui.groupNameSize.value}px`;
-                    ui.groupNameSizeValue.textContent = ui.groupNameSize.value;
-                    
-                    ui.previewTheme.style.fontSize = `${ui.themeSize.value}px`;
-                    ui.themeSizeValue.textContent = ui.themeSize.value;
-
-                    ui.previewName.style.fontSize = `${ui.memberNameSize.value}px`;
-                    ui.memberNameSizeValue.textContent = ui.memberNameSize.value;
-
-                    ui.previewRomaji.style.fontSize = `${ui.romajiNameSize.value}px`;
-                    ui.romajiNameSizeValue.textContent = ui.romajiNameSize.value;
-                },
-                elementPositions() {
-                    const logoX = ui.logoX.value;
-                    const logoY = ui.logoY.value;
-                    ui.logoBlock.style.left = `${logoX}px`;
-                    ui.logoBlock.style.transform = `translateY(calc(-50% + ${logoY}px))`;
-                    ui.logoXValue.textContent = logoX;
-                    ui.logoYValue.textContent = logoY;
-
-                    const groupNameX = ui.groupNameX.value;
-                    const groupNameY = ui.groupNameY.value;
-                    ui.groupNameBlock.style.left = `${groupNameX}px`;
-                    ui.groupNameBlock.style.transform = `translateY(calc(-50% + ${groupNameY}px))`;
-                    ui.groupNameXValue.textContent = groupNameX;
-                    ui.groupNameYValue.textContent = groupNameY;
-
-                    const themeX = ui.themeX.value;
-                    const themeY = ui.themeY.value;
-                    ui.themeBlock.style.transform = `translate(calc(-50% + ${themeX}px), calc(-50% + ${themeY}px))`;
-                    ui.themeXValue.textContent = themeX;
-                    ui.themeYValue.textContent = themeY;
-
-                    const nameX = ui.nameX.value;
-                    const nameY = ui.nameY.value;
-                    ui.nameBlock.style.right = `${-nameX}px`;
-                    ui.nameBlock.style.transform = `translateY(calc(-50% + ${nameY}px))`;
-                    ui.nameXValue.textContent = nameX;
-                    ui.nameYValue.textContent = nameY;
-
-                    const romajiX = ui.romajiX.value;
-                    const romajiY = ui.romajiY.value;
-                    ui.romajiBlock.style.right = `${-romajiX}px`;
-                    ui.romajiBlock.style.transform = `translateY(calc(-50% + ${romajiY}px))`;
-                    ui.romajiXValue.textContent = romajiX;
-                    ui.romajiYValue.textContent = romajiY;
-                },
-                fontStyles() {
-                    // MODIFIED: Removed group name font styling
-                    ui.previewTheme.style.fontFamily = ui.themeFontFamily.value;
-                    const nameFont = ui.nameFontFamily.value;
-                    ui.previewName.style.fontFamily = nameFont;
-                    ui.previewRomaji.style.fontFamily = nameFont;
-                    
-                    ui.previewTheme.style.fontWeight = ui.themeWeight.value;
-                    ui.themeWeightInput.value = ui.themeWeight.value;
-
-                    ui.previewName.style.fontWeight = ui.memberNameWeight.value;
-                    ui.memberNameWeightInput.value = ui.memberNameWeight.value;
-
-                    ui.previewRomaji.style.fontWeight = ui.romajiNameWeight.value;
-                    ui.romajiNameWeightInput.value = ui.romajiNameWeight.value;
-                },
-                groupTheme() {
-                    const groupName = ui.groupNameSelect.value;
-                    const preset = colorPresets[groupName];
-                    if (preset) {
-                        ui.infoBarBgColor.value = preset.bg;
-                        ui.infoColor.value = preset.text;
-                        ui.borderColor.value = preset.border;
-                        ui.body.style.backgroundColor = preset.bodyBg;
-                        ui.mainTitle.style.color = preset.titleColor;
-
-                        update.infoBarBgColor();
-                        update.infoColor();
-                        update.infoBarBorder();
-                    }
-                    
-                    const logoSrc = groupLogos[groupName];
-                    if (logoSrc) {
-                        ui.imageLogo.src = logoSrc;
-                        ui.imageLogo.style.display = 'block';
-                        ui.svgLogo.classList.add('hidden');
-                    }
-
-                    // NEW: Update group name image
-                    const groupNameImgSrc = groupNameImages[groupName];
-                    if (groupNameImgSrc) {
-                        ui.groupNameImage.src = groupNameImgSrc;
-                    }
-                }
+                infoBarBorder() { /* ... */ }, infoColor() { /* ... */ }, infoBarBgColor() { /* ... */ },
+                position() { /* ... */ }, imageTransform() { /* ... */ }, sizes() { /* ... */ },
+                elementPositions() { /* ... */ }, fontStyles() { /* ... */ }, groupTheme() { /* ... */ },
             };
+            // (为了简洁，这里省略了 update 对象内部的实现细节，它们与你原始代码一致)
+            Object.assign(update, {
+                infoBarBorder: () => { const isEnabled = ui.borderToggle.checked; ui.borderColor.disabled = !isEnabled; ui.borderThickness.disabled = !isEnabled; if (isEnabled) { const thickness = ui.borderThickness.value; ui.infoBar.style.border = `${thickness}px solid ${ui.borderColor.value}`; ui.borderThicknessValue.textContent = thickness; } else { ui.infoBar.style.border = 'none'; } },
+                infoColor: () => { const newColor = ui.infoColor.value; ui.infoBar.style.color = newColor; ui.svgLogo.style.fill = newColor; },
+                infoBarBgColor: () => { ui.infoBar.style.backgroundColor = ui.infoBarBgColor.value; },
+                position: () => { const bottom = ui.marginBottom.value; const x = ui.marginX.value; ui.infoBarContainer.style.bottom = `${bottom}px`; ui.infoBarContainer.style.left = `${x}px`; ui.infoBarContainer.style.right = `${x}px`; ui.marginBottomValue.textContent = bottom; ui.marginXValue.textContent = x; },
+                imageTransform: () => { ui.previewImage.style.transform = `translate(${imageState.translateX}px, ${imageState.translateY}px) scale(${imageState.scale})`; },
+                sizes: () => { const paddingY = ui.infoBarPaddingY.value; ui.infoBar.style.paddingTop = `${paddingY}px`; ui.infoBar.style.paddingBottom = `${paddingY}px`; ui.infoBarPaddingYValue.textContent = paddingY; ui.logoContainer.style.height = `${ui.logoSize.value}px`; ui.logoSizeValue.textContent = ui.logoSize.value; ui.groupNameImage.style.height = `${ui.groupNameSize.value}px`; ui.groupNameSizeValue.textContent = ui.groupNameSize.value; ui.previewTheme.style.fontSize = `${ui.themeSize.value}px`; ui.themeSizeValue.textContent = ui.themeSize.value; ui.previewName.style.fontSize = `${ui.memberNameSize.value}px`; ui.memberNameSizeValue.textContent = ui.memberNameSize.value; ui.previewRomaji.style.fontSize = `${ui.romajiNameSize.value}px`; ui.romajiNameSizeValue.textContent = ui.romajiNameSize.value; },
+                elementPositions: () => { const logoX = ui.logoX.value, logoY = ui.logoY.value; ui.logoBlock.style.left = `${logoX}px`; ui.logoBlock.style.transform = `translateY(calc(-50% + ${logoY}px))`; ui.logoXValue.textContent = logoX; ui.logoYValue.textContent = logoY; const groupNameX = ui.groupNameX.value, groupNameY = ui.groupNameY.value; ui.groupNameBlock.style.left = `${groupNameX}px`; ui.groupNameBlock.style.transform = `translateY(calc(-50% + ${groupNameY}px))`; ui.groupNameXValue.textContent = groupNameX; ui.groupNameYValue.textContent = groupNameY; const themeX = ui.themeX.value, themeY = ui.themeY.value; ui.themeBlock.style.transform = `translate(calc(-50% + ${themeX}px), calc(-50% + ${themeY}px))`; ui.themeXValue.textContent = themeX; ui.themeYValue.textContent = themeY; const nameX = ui.nameX.value, nameY = ui.nameY.value; ui.nameBlock.style.right = `${-nameX}px`; ui.nameBlock.style.transform = `translateY(calc(-50% + ${nameY}px))`; ui.nameXValue.textContent = nameX; ui.nameYValue.textContent = nameY; const romajiX = ui.romajiX.value, romajiY = ui.romajiY.value; ui.romajiBlock.style.right = `${-romajiX}px`; ui.romajiBlock.style.transform = `translateY(calc(-50% + ${romajiY}px))`; ui.romajiXValue.textContent = romajiX; ui.romajiYValue.textContent = romajiY; },
+                fontStyles: () => { ui.previewTheme.style.fontFamily = ui.themeFontFamily.value; const nameFont = ui.nameFontFamily.value; ui.previewName.style.fontFamily = nameFont; ui.previewRomaji.style.fontFamily = nameFont; ui.previewTheme.style.fontWeight = ui.themeWeight.value; ui.themeWeightInput.value = ui.themeWeight.value; ui.previewName.style.fontWeight = ui.memberNameWeight.value; ui.memberNameWeightInput.value = ui.memberNameWeight.value; ui.previewRomaji.style.fontWeight = ui.romajiNameWeight.value; ui.romajiNameWeightInput.value = ui.romajiNameWeight.value; },
+                groupTheme: () => { const groupName = ui.groupNameSelect.value; const preset = colorPresets[groupName]; if (preset) { ui.infoBarBgColor.value = preset.bg; ui.infoColor.value = preset.text; ui.borderColor.value = preset.border; ui.body.style.backgroundColor = preset.bodyBg; ui.mainTitle.style.color = preset.titleColor; update.infoBarBgColor(); update.infoColor(); update.infoBarBorder(); } const logoSrc = groupLogos[groupName]; if (logoSrc) { ui.imageLogo.src = logoSrc; ui.imageLogo.style.display = 'block'; ui.svgLogo.classList.add('hidden'); } const groupNameImgSrc = groupNameImages[groupName]; if (groupNameImgSrc) { ui.groupNameImage.src = groupNameImgSrc; } }
+            });
             
             // --- Event Handlers ---
-
-            const handleRomajiToggle = () => {
-                if (ui.romajiToggle.checked) {
-                    ui.romajiBlock.classList.remove('hidden');
-                    ui.nameY.value = -7;
-                    ui.romajiY.value = 14;
-                } else {
-                    ui.romajiBlock.classList.add('hidden');
-                    ui.nameY.value = 0;
-                }
-                update.elementPositions();
-            };
-            
-            const handleFontUpload = async (event) => {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                const fontName = file.name.replace(/\.(ttf|otf|woff|woff2)$/, '');
-                ui.fontUploadStatus.textContent = `正在加载字体 "${fontName}"...`;
-                
-                const reader = new FileReader();
-                reader.onload = async (e) => {
-                    try {
-                        const fontBuffer = e.target.result;
-                        const fontFace = new FontFace(fontName, fontBuffer);
-                        await fontFace.load();
-                        document.fonts.add(fontFace);
-                        
-                        addCustomFontToSelectors(fontName);
-                        update.fontStyles();
-
-                        ui.fontUploadStatus.textContent = `字体 "${fontName}" 加载成功!`;
-                        setTimeout(() => ui.fontUploadStatus.textContent = '', 3000);
-
-                    } catch (err) {
-                        console.error('Font loading failed:', err);
-                        ui.fontUploadStatus.textContent = '字体加载失败，请检查文件格式。';
-                    }
-                };
-                reader.readAsArrayBuffer(file);
-                event.target.value = '';
-            };
-
-            const addCustomFontToSelectors = (fontName) => {
-                const selectors = [ui.themeFontFamily, ui.nameFontFamily]; // MODIFIED: Removed group name selector
-                selectors.forEach(select => {
-                    if ([...select.options].some(opt => opt.value === fontName)) return;
-
-                    const option = document.createElement('option');
-                    option.value = fontName;
-                    option.textContent = `${fontName} (自定义)`;
-                    select.appendChild(option);
-                    select.value = fontName;
-                });
-            };
+            const handleRomajiToggle = () => { /* ... */ };
+            const handleFontUpload = async (event) => { /* ... */ };
+            const addCustomFontToSelectors = (fontName) => { /* ... */ };
+            // (为了简洁，这里省略了这几个函数内部的实现细节，它们与你原始代码一致)
+            Object.assign(window, {
+                handleRomajiToggle: () => { if (ui.romajiToggle.checked) { ui.romajiBlock.classList.remove('hidden'); ui.nameY.value = -7; ui.romajiY.value = 14; } else { ui.romajiBlock.classList.add('hidden'); ui.nameY.value = 0; } update.elementPositions(); },
+                handleFontUpload: async (event) => {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    const fontName = file.name.replace(/\.(ttf|otf|woff|woff2)$/, '');
+                    // 【修改】使用多语言提示
+                    ui.fontUploadStatus.textContent = `${translations[currentLang].fontUploadLoading} "${fontName}"...`;
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const fontFace = new FontFace(fontName, e.target.result);
+                            await fontFace.load();
+                            document.fonts.add(fontFace);
+                            addCustomFontToSelectors(fontName);
+                            update.fontStyles();
+                            // 【修改】使用多语言提示
+                            ui.fontUploadStatus.textContent = `"${fontName}" ${translations[currentLang].fontUploadSuccess}`;
+                            setTimeout(() => ui.fontUploadStatus.textContent = '', 3000);
+                        } catch (err) {
+                            console.error('Font loading failed:', err);
+                            // 【修改】使用多语言提示
+                            ui.fontUploadStatus.textContent = translations[currentLang].fontUploadFailed;
+                        }
+                    };
+                    reader.readAsArrayBuffer(file);
+                    event.target.value = '';
+                },
+                addCustomFontToSelectors: (fontName) => { ['theme-font-family', 'name-font-family'].forEach(id => { const select = document.getElementById(id); if ([...select.options].some(opt => opt.value === fontName)) return; const option = document.createElement('option'); option.value = fontName; option.textContent = `${fontName} (Custom)`; select.appendChild(option); select.value = fontName; }); }
+            });
 
             const setupListeners = () => {
-                ui.imageUpload.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            ui.imageToCrop.src = event.target.result;
-                            ui.cropModal.classList.remove('hidden');
-                            ui.cropModal.classList.add('flex');
-                            
-                            if(cropper) cropper.destroy();
-
-                            cropper = new Cropper(ui.imageToCrop, {
-                                aspectRatio: 89 / 127, viewMode: 1, dragMode: 'move', background: false, autoCropArea: 1,
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                    e.target.value = '';
-                });
-
-                ui.logoUpload.addEventListener('change', (e) => handleFileUpload(e, (result) => {
-                    ui.imageLogo.src = result;
-                    ui.imageLogo.style.display = 'block';
-                    ui.svgLogo.classList.add('hidden');
-                }));
-
+                ui.imageUpload.addEventListener('change', (e) => { const file = e.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (event) => { ui.imageToCrop.src = event.target.result; ui.cropModal.classList.remove('hidden'); ui.cropModal.classList.add('flex'); if(cropper) cropper.destroy(); cropper = new Cropper(ui.imageToCrop, { aspectRatio: 89 / 127, viewMode: 1, dragMode: 'move', background: false, autoCropArea: 1 }); }; reader.readAsDataURL(file); } e.target.value = ''; });
+                ui.logoUpload.addEventListener('change', (e) => handleFileUpload(e, (result) => { ui.imageLogo.src = result; ui.imageLogo.style.display = 'block'; ui.svgLogo.classList.add('hidden'); }));
                 ui.fontUpload.addEventListener('change', handleFontUpload);
-
                 const addInputListener = (element, handler) => element.addEventListener('input', handler);
                 const addChangeListener = (element, handler) => element.addEventListener('change', handler);
-
-                addInputListener(ui.borderToggle, update.infoBarBorder);
-                addInputListener(ui.borderColor, update.infoBarBorder);
-                addInputListener(ui.borderThickness, update.infoBarBorder);
-                addInputListener(ui.infoColor, update.infoColor);
-                addInputListener(ui.infoBarBgColor, update.infoBarBgColor);
-                addInputListener(ui.marginBottom, update.position);
-                addInputListener(ui.marginX, update.position);
-
+                addInputListener(ui.borderToggle, update.infoBarBorder); addInputListener(ui.borderColor, update.infoBarBorder); addInputListener(ui.borderThickness, update.infoBarBorder); addInputListener(ui.infoColor, update.infoColor); addInputListener(ui.infoBarBgColor, update.infoBarBgColor); addInputListener(ui.marginBottom, update.position); addInputListener(ui.marginX, update.position);
                 [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
                 [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
-                
-                [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles)); // MODIFIED
-                [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles)); // MODIFIED
-
-
-                addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
-                addInputListener(ui.romajiName, (e) => ui.previewRomaji.textContent = e.target.value);
-                addInputListener(ui.photoTheme, (e) => ui.previewTheme.textContent = e.target.value);
-                addChangeListener(ui.groupNameSelect, update.groupTheme);
-                
+                [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles));
+                [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles));
+                addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value); addInputListener(ui.romajiName, (e) => ui.previewRomaji.textContent = e.target.value); addInputListener(ui.photoTheme, (e) => ui.previewTheme.textContent = e.target.value); addChangeListener(ui.groupNameSelect, update.groupTheme);
                 addChangeListener(ui.romajiToggle, handleRomajiToggle);
-
-                document.querySelectorAll('.swatch-container button').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const targetId = e.currentTarget.parentElement.dataset.target;
-                        const color = e.currentTarget.dataset.color;
-                        const colorInput = document.getElementById(targetId);
-                        if (colorInput) {
-                            colorInput.value = color;
-                            colorInput.dispatchEvent(new Event('input', { bubbles: true }));
-                        }
-                    });
-                });
-
-                ui.imageZoom.addEventListener('input', (e) => {
-                    imageState.scale = parseFloat(e.target.value);
-                    ui.imageZoomValue.textContent = parseFloat(imageState.scale).toFixed(2);
-                    update.imageTransform();
-                });
+                document.querySelectorAll('.swatch-container button').forEach(button => { button.addEventListener('click', (e) => { const targetId = e.currentTarget.parentElement.dataset.target, color = e.currentTarget.dataset.color, colorInput = document.getElementById(targetId); if (colorInput) { colorInput.value = color; colorInput.dispatchEvent(new Event('input', { bubbles: true })); } }); });
+                ui.imageZoom.addEventListener('input', (e) => { imageState.scale = parseFloat(e.target.value); ui.imageZoomValue.textContent = parseFloat(imageState.scale).toFixed(2); update.imageTransform(); });
                 ui.resetImageBtn.addEventListener('click', resetImageTransform);
-                ui.imageContainer.addEventListener('mousedown', startDrag);
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('mouseup', stopDrag);
-
-                ui.cropBtn.addEventListener('click', () => {
-                    if (cropper) {
-                        ui.previewImage.src = cropper.getCroppedCanvas().toDataURL('image/png');
-                        resetImageTransform();
-                        cropper.destroy();
-                        cropper = null;
-                        ui.cropModal.classList.add('hidden');
-                        ui.cropModal.classList.remove('flex');
-                    }
-                });
-                ui.cancelCropBtn.addEventListener('click', () => {
-                    if(cropper) {
-                        cropper.destroy();
-                        cropper = null;
-                    }
-                    ui.cropModal.classList.add('hidden');
-                    ui.cropModal.classList.remove('flex');
-                });
-                
-                document.addEventListener('keydown', (e) => {
-                    if (!ui.cropModal.classList.contains('hidden')) {
-                        if (e.key === 'Enter') {
-                            e.preventDefault(); 
-                            ui.cropBtn.click();
-                        } else if (e.key === 'Escape') {
-                            ui.cancelCropBtn.click();
-                        }
-                    }
-                });
-
+                ui.imageContainer.addEventListener('mousedown', startDrag); document.addEventListener('mousemove', drag); document.addEventListener('mouseup', stopDrag);
+                ui.cropBtn.addEventListener('click', () => { if (cropper) { ui.previewImage.src = cropper.getCroppedCanvas().toDataURL('image/png'); resetImageTransform(); cropper.destroy(); cropper = null; ui.cropModal.classList.add('hidden'); ui.cropModal.classList.remove('flex'); } });
+                ui.cancelCropBtn.addEventListener('click', () => { if(cropper) { cropper.destroy(); cropper = null; } ui.cropModal.classList.add('hidden'); ui.cropModal.classList.remove('flex'); });
+                document.addEventListener('keydown', (e) => { if (!ui.cropModal.classList.contains('hidden')) { if (e.key === 'Enter') { e.preventDefault(); ui.cropBtn.click(); } else if (e.key === 'Escape') { ui.cancelCropBtn.click(); } } });
                 ui.downloadBtn.addEventListener('click', handleDownload);
                 ui.closeModalBtn.addEventListener('click', () => ui.errorModal.classList.add('hidden'));
-
-                const weightControls = [
-                    { slider: ui.themeWeight, input: ui.themeWeightInput },
-                    { slider: ui.memberNameWeight, input: ui.memberNameWeightInput },
-                    { slider: ui.romajiNameWeight, input: ui.romajiNameWeightInput },
-                ]; // MODIFIED
-
-                weightControls.forEach(control => {
-                    control.input.addEventListener('input', () => {
-                        control.slider.value = control.input.value;
-                        update.fontStyles();
-                    });
-                });
-
-                document.querySelectorAll('.tick-container').forEach(container => {
-                    container.addEventListener('click', (e) => {
-                        const tick = e.target.closest('.tick');
-                        if (!tick) return;
-
-                        const value = tick.dataset.value;
-                        const controlsId = container.dataset.controls;
-                        
-                        const slider = document.getElementById(controlsId);
-                        const input = document.getElementById(controlsId + '-input');
-
-                        if (slider && input) {
-                            slider.value = value;
-                            input.value = value;
-                            update.fontStyles();
-                        }
-                    });
+                [{ slider: ui.themeWeight, input: ui.themeWeightInput }, { slider: ui.memberNameWeight, input: ui.memberNameWeightInput }, { slider: ui.romajiNameWeight, input: ui.romajiNameWeightInput }].forEach(control => { control.input.addEventListener('input', () => { control.slider.value = control.input.value; update.fontStyles(); }); });
+                document.querySelectorAll('.tick-container').forEach(container => { container.addEventListener('click', (e) => { const tick = e.target.closest('.tick'); if (!tick) return; const value = tick.dataset.value, controlsId = container.dataset.controls; const slider = document.getElementById(controlsId), input = document.getElementById(controlsId + '-input'); if (slider && input) { slider.value = value; input.value = value; update.fontStyles(); } }); });
+                
+                // 【新增】为语言切换器添加事件监听
+                ui.languageSwitcher.addEventListener('click', (e) => {
+                    const target = e.target.closest('button');
+                    if (target && target.dataset.lang) {
+                        setLanguage(target.dataset.lang);
+                    }
                 });
             };
 
-            const handleFileUpload = (event, callback) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => callback(e.target.result);
-                    reader.readAsDataURL(file);
+            const handleFileUpload = (event, callback) => { /* ... */ };
+            const resetImageTransform = () => { /* ... */ };
+            const startDrag = (e) => { /* ... */ };
+            const drag = (e) => { /* ... */ };
+            const stopDrag = () => { /* ... */ };
+            const handleDownload = async () => { /* ... */ };
+            // (为了简洁，这里省略了这几个函数内部的实现细节，它们与你原始代码一致)
+            Object.assign(window, {
+                handleFileUpload: (event, callback) => { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => callback(e.target.result); reader.readAsDataURL(file); } },
+                resetImageTransform: () => { imageState = { scale: 1, translateX: 0, translateY: 0 }; ui.imageZoom.value = 1; ui.imageZoomValue.textContent = '1.00'; update.imageTransform(); },
+                startDrag: (e) => { e.preventDefault(); isDragging = true; startX = e.clientX - imageState.translateX; startY = e.clientY - imageState.translateY; ui.imageContainer.style.cursor = 'grabbing'; },
+                drag: (e) => { if (!isDragging) return; e.preventDefault(); imageState.translateX = e.clientX - startX; imageState.translateY = e.clientY - startY; update.imageTransform(); },
+                stopDrag: () => { isDragging = false; ui.imageContainer.style.cursor = 'grab'; },
+                handleDownload: async () => {
+                    ui.loadingText.classList.remove('hidden'); ui.downloadBtn.disabled = true; ui.downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    try {
+                        await document.fonts.ready;
+                        const scaleFactor = 3, rect = ui.photoCard.getBoundingClientRect(), finalCanvas = document.createElement('canvas');
+                        finalCanvas.width = rect.width * scaleFactor; finalCanvas.height = rect.height * scaleFactor;
+                        const ctx = finalCanvas.getContext('2d');
+                        ctx.scale(scaleFactor, scaleFactor);
+                        const img = ui.previewImage;
+                        if (img.src && img.complete && img.naturalWidth > 0) { const containerRect = ui.imageContainer.getBoundingClientRect(), photoCardRect = ui.photoCard.getBoundingClientRect(), containerX = containerRect.left - photoCardRect.left, containerY = containerRect.top - photoCardRect.top; ctx.save(); ctx.beginPath(); ctx.rect(containerX, containerY, containerRect.width, containerRect.height); ctx.clip(); const transformedWidth = containerRect.width * imageState.scale, transformedHeight = containerRect.height * imageState.scale, drawX = containerX + imageState.translateX + (containerRect.width - transformedWidth) / 2, drawY = containerY + imageState.translateY + (containerRect.height - transformedHeight) / 2; ctx.drawImage(img, drawX, drawY, transformedWidth, transformedHeight); ctx.restore(); }
+                        const photoCardRect = ui.photoCard.getBoundingClientRect(), infoBarRect = ui.infoBar.getBoundingClientRect(), infoBarX = infoBarRect.left - photoCardRect.left, infoBarY = infoBarRect.top - photoCardRect.top, infoBarWidth = infoBarRect.width, infoBarHeight = infoBarRect.height;
+                        ctx.fillStyle = ui.infoBarBgColor.value; ctx.fillRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
+                        if (ui.borderToggle.checked) { ctx.strokeStyle = ui.borderColor.value; ctx.lineWidth = parseFloat(ui.borderThickness.value); ctx.strokeRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight); }
+                        const elementsToDraw = [{ el: ui.logoContainer, isLogo: true }, { el: ui.groupNameImage, isImage: true }, { el: ui.previewTheme }, { el: ui.previewName }, { el: ui.previewRomaji, isOptional: true },];
+                        for (const item of elementsToDraw) { if (item.isOptional && ui.romajiBlock.classList.contains('hidden')) continue; if (!item.el) continue; const elRect = item.el.getBoundingClientRect(), x = elRect.left - infoBarRect.left, y = elRect.top - infoBarRect.top, drawX = infoBarX + x, drawY = infoBarY + y; if (item.isLogo || item.isImage) { const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el; if (targetImg.tagName === 'IMG') { if (targetImg.complete && targetImg.naturalWidth > 0) { ctx.drawImage(targetImg, drawX, drawY, elRect.width, elRect.height); } } else { const svgText = new XMLSerializer().serializeToString(targetImg), coloredSvgText = svgText.replace(/class="fill-current"/g, `fill="${ui.infoColor.value}"`), svgBlob = new Blob([coloredSvgText], { type: 'image/svg+xml;charset=utf-8' }), url = URL.createObjectURL(svgBlob); const svgImage = await new Promise(resolve => { const img = new Image(); img.onload = () => resolve(img); img.onerror = () => resolve(null); img.src = url; }); if (svgImage) { ctx.drawImage(svgImage, drawX, drawY, elRect.width, elRect.height); } URL.revokeObjectURL(url); } } else { const computedStyle = getComputedStyle(item.el); ctx.fillStyle = computedStyle.color; ctx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} ${computedStyle.fontFamily}`; ctx.textAlign = computedStyle.textAlign; ctx.textBaseline = 'middle'; let textX = drawX; if (ctx.textAlign === 'right') { textX = drawX + elRect.width; } else if (ctx.textAlign === 'center') { textX = drawX + elRect.width / 2; } const textY = drawY + elRect.height / 2; ctx.fillText(item.el.textContent, textX, textY); } }
+                        const finalLink = document.createElement('a'), memberName = ui.memberName.value.trim() || 'member', theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
+                        finalLink.download = `photo_card_${memberName}_${theme}.png`; finalLink.href = finalCanvas.toDataURL('image/png'); finalLink.click();
+                    } catch (err) {
+                        console.error('图片生成失败:', err);
+                        // 【修改】使用多语言错误提示
+                        ui.errorMessage.textContent = translations[currentLang].errorText;
+                        ui.errorModal.classList.remove('hidden');
+                    } finally {
+                        ui.loadingText.classList.add('hidden'); ui.downloadBtn.disabled = false; ui.downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
                 }
-            };
-
-            const resetImageTransform = () => {
-                imageState = { scale: 1, translateX: 0, translateY: 0 };
-                ui.imageZoom.value = 1;
-                ui.imageZoomValue.textContent = '1.00';
-                update.imageTransform();
-            };
-
-            const startDrag = (e) => {
-                e.preventDefault();
-                isDragging = true;
-                startX = e.clientX - imageState.translateX;
-                startY = e.clientY - imageState.translateY;
-                ui.imageContainer.style.cursor = 'grabbing';
-            };
-
-            const drag = (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                imageState.translateX = e.clientX - startX;
-                imageState.translateY = e.clientY - startY;
-                update.imageTransform();
-            };
-
-            const stopDrag = () => {
-                isDragging = false;
-                ui.imageContainer.style.cursor = 'grab';
-            };
-
-            const handleDownload = async () => {
-                ui.loadingText.classList.remove('hidden');
-                ui.downloadBtn.disabled = true;
-                ui.downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
-
-                try {
-                    await document.fonts.ready;
-
-                    const scaleFactor = 3;
-                    const rect = ui.photoCard.getBoundingClientRect();
-                    const finalCanvas = document.createElement('canvas');
-                    finalCanvas.width = rect.width * scaleFactor;
-                    finalCanvas.height = rect.height * scaleFactor;
-                    const ctx = finalCanvas.getContext('2d');
-                    ctx.scale(scaleFactor, scaleFactor);
-
-                    const img = ui.previewImage;
-                    if (img.src && img.complete && img.naturalWidth > 0) {
-                        const containerRect = ui.imageContainer.getBoundingClientRect();
-                        const photoCardRect = ui.photoCard.getBoundingClientRect();
-                        const containerX = containerRect.left - photoCardRect.left;
-                        const containerY = containerRect.top - photoCardRect.top;
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.rect(containerX, containerY, containerRect.width, containerRect.height);
-                        ctx.clip();
-                        
-                        const transformedWidth = containerRect.width * imageState.scale;
-                        const transformedHeight = containerRect.height * imageState.scale;
-                        const drawX = containerX + imageState.translateX + (containerRect.width - transformedWidth) / 2;
-                        const drawY = containerY + imageState.translateY + (containerRect.height - transformedHeight) / 2;
-
-                        ctx.drawImage(img, drawX, drawY, transformedWidth, transformedHeight);
-                        ctx.restore();
-                    }
-
-                    const photoCardRect = ui.photoCard.getBoundingClientRect();
-                    const infoBarRect = ui.infoBar.getBoundingClientRect();
-                    const infoBarX = infoBarRect.left - photoCardRect.left;
-                    const infoBarY = infoBarRect.top - photoCardRect.top;
-                    const infoBarWidth = infoBarRect.width;
-                    const infoBarHeight = infoBarRect.height;
-
-                    ctx.fillStyle = ui.infoBarBgColor.value;
-                    ctx.fillRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
-
-                    if (ui.borderToggle.checked) {
-                        ctx.strokeStyle = ui.borderColor.value;
-                        ctx.lineWidth = parseFloat(ui.borderThickness.value);
-                        ctx.strokeRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
-                    }
-
-                    const elementsToDraw = [
-                        { el: ui.logoContainer, isLogo: true },
-                        { el: ui.groupNameImage, isImage: true }, // MODIFIED
-                        { el: ui.previewTheme },
-                        { el: ui.previewName },
-                        { el: ui.previewRomaji, isOptional: true },
-                    ];
-
-                    for (const item of elementsToDraw) {
-                        if (item.isOptional && ui.romajiBlock.classList.contains('hidden')) continue;
-                        if (!item.el) continue;
-
-                        const elRect = item.el.getBoundingClientRect();
-                        const x = elRect.left - infoBarRect.left;
-                        const y = elRect.top - infoBarRect.top;
-                        
-                        const drawX = infoBarX + x;
-                        const drawY = infoBarY + y;
-
-                        if (item.isLogo || item.isImage) { // MODIFIED: Combined logic for logo and group name image
-                            const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el;
-                            
-                            if (targetImg.tagName === 'IMG') {
-                                if (targetImg.complete && targetImg.naturalWidth > 0) {
-                                    ctx.drawImage(targetImg, drawX, drawY, elRect.width, elRect.height);
-                                }
-                            } else { // SVG Logic
-                                const svgText = new XMLSerializer().serializeToString(targetImg);
-                                const coloredSvgText = svgText.replace(/class="fill-current"/g, `fill="${ui.infoColor.value}"`);
-                                const svgBlob = new Blob([coloredSvgText], { type: 'image/svg+xml;charset=utf-8' });
-                                const url = URL.createObjectURL(svgBlob);
-                                const svgImage = await new Promise(resolve => {
-                                    const img = new Image();
-                                    img.onload = () => resolve(img);
-                                    img.onerror = () => resolve(null);
-                                    img.src = url;
-                                });
-                                if (svgImage) {
-                                    ctx.drawImage(svgImage, drawX, drawY, elRect.width, elRect.height);
-                                }
-                                URL.revokeObjectURL(url);
-                            }
-                        } else {
-                            const computedStyle = getComputedStyle(item.el);
-                            ctx.fillStyle = computedStyle.color;
-                            ctx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} ${computedStyle.fontFamily}`;
-                            ctx.textAlign = computedStyle.textAlign;
-                            ctx.textBaseline = 'middle';
-                            
-                            let textX = drawX;
-                            if(ctx.textAlign === 'right') {
-                                textX = drawX + elRect.width;
-                            } else if (ctx.textAlign === 'center') {
-                                textX = drawX + elRect.width / 2;
-                            }
-                            const textY = drawY + elRect.height / 2;
-                            ctx.fillText(item.el.textContent, textX, textY);
-                        }
-                    }
-
-                    const finalLink = document.createElement('a');
-                    const memberName = ui.memberName.value.trim() || 'member';
-                    const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
-                    finalLink.download = `photo_card_${memberName}_${theme}.png`;
-                    finalLink.href = finalCanvas.toDataURL('image/png');
-                    finalLink.click();
-
-                } catch (err) {
-                    console.error('图片生成失败:', err);
-                    ui.errorMessage.textContent = '图片生成失败。请检查浏览器控制台获取技术信息。';
-                    ui.errorModal.classList.remove('hidden');
-                } finally {
-                    ui.loadingText.classList.add('hidden');
-                    ui.downloadBtn.disabled = false;
-                    ui.downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                }
-            };
+            });
 
             // --- Initialization ---
             const init = () => {
                 setupListeners();
                 Object.values(update).forEach(func => func());
                 handleRomajiToggle();
+                
+                // 【新增】初始化语言
+                const initialLang = getInitialLanguage();
+                setLanguage(initialLang);
             };
 
             init();
         });
     </script>
 </body>
-
 </html>
