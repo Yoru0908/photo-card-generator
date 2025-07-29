@@ -546,7 +546,8 @@
                                                 <path d="M5,90 L50,10 L95,90 Z"></path>
                                                 <path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path>
                                             </svg>
-                                            <img id="image-logo" src="https://upload.wikimedia.org/wikipedia/ja/thumb/2/2f/Sakurazaka46_logo.svg/200px-Sakurazaka46_logo.svg.png" alt="Custom Logo" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
+                                            <!-- MODIFIED: Reverted to local image path -->
+                                            <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
                                         </div>
                                     </div>
                                     <div id="group-name-block" class="movable-block" style="left: 48px; transform: translateY(calc(-50% + 1px));">
@@ -714,16 +715,15 @@
 
             const colorPresets = {
                 '櫻坂46': { bg: '#FFFFFF', text: '#F19DB5', border: '#F19DB5', bodyBg: '#f0f2f5', titleColor: '#F19DB5' },
-                // MODIFIED: Nogizaka colors updated
                 '乃木坂46': { bg: '#742581', text: '#FFFFFF', border: '#742581', bodyBg: '#f0f2f5', titleColor: '#742581' },
                 '日向坂46': { bg: '#7cc7e8', text: '#FFFFFF', border: '#7cc7e8', bodyBg: '#7cc7e8', titleColor: '#FFFFFF' }
             };
             
+            // MODIFIED: Reverted to local image paths
             const groupLogos = {
-                // Using public URLs for logos
-                '櫻坂46': 'https://upload.wikimedia.org/wikipedia/ja/thumb/2/2f/Sakurazaka46_logo.svg/200px-Sakurazaka46_logo.svg.png',
-                '日向坂46': 'https://upload.wikimedia.org/wikipedia/ja/thumb/8/8c/Hinatazaka46_logo.svg/200px-Hinatazaka46_logo.svg.png',
-                '乃木坂46': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Nogizaka46_logo.svg/200px-Nogizaka46_logo.svg.png'
+                '櫻坂46': 'images/樱坂46logo.png',
+                '日向坂46': 'images/日向坂46logo.png',
+                '乃木坂46': 'images/乃木坂46logo.png'
             };
 
             let imageState = { scale: 1, translateX: 0, translateY: 0 };
