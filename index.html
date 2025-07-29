@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生写真模板生成器</title>
-    <!-- NEW: Favicon added -->
     <link rel="icon" type="image/jpeg" href="images/sakamichi.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -198,7 +197,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="info-color" class="block text-sm text-gray-500">文字颜色</label>
+                                <label for="info-color" class="block text-sm text-gray-500">文字/Logo颜色</label>
                                 <input type="color" id="info-color" value="#F19DB5"
                                     class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-color">
@@ -339,7 +338,7 @@
                                      <p class="text-sm text-gray-600 font-semibold">Logo 位置</p>
                                      <div>
                                         <label for="logo-x" class="text-sm text-gray-500">水平位置 (X): <span id="logo-x-value">8</span>px</label>
-                                        <input type="range" id="logo-x" min="0" max="50" value="8" class="w-full">
+                                        <input type="range" id="logo-x" min="0" max="50" value="4" class="w-full">
                                      </div>
                                      <div>
                                         <label for="logo-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
@@ -349,19 +348,19 @@
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">团名位置</p>
                                      <div>
-                                        <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">48</span>px</label>
-                                        <input type="range" id="group-name-x" min="0" max="100" value="48" class="w-full">
+                                        <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
+                                        <input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full">
                                      </div>
                                      <div>
                                         <label for="group-name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
-                                        <input type="range" id="group-name-y" min="-30" max="30" value="1" class="w-full">
+                                        <input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">主题</p>
                                      <div>
-                                        <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-2</span>px</label>
-                                        <input type="range" id="theme-x" min="-100" max="100" value="-2" class="w-full">
+                                        <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
+                                        <input type="range" id="theme-x" min="-100" max="100" value="-12" class="w-full">
                                      </div>
                                      <div>
                                         <label for="theme-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
@@ -371,8 +370,8 @@
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">姓名位置</p>
                                      <div>
-                                        <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-12</span>px</label>
-                                        <input type="range" id="name-x" min="-50" max="50" value="-12" class="w-full">
+                                        <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-7</span>px</label>
+                                        <input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full">
                                      </div>
                                      <div>
                                         <label for="name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
@@ -397,18 +396,6 @@
                         <div class="pt-2">
                             <h3 class="block text-sm font-medium text-gray-600 mb-2">字体样式微调</h3>
                             <div class="space-y-4">
-                                <div>
-                                    <label for="group-name-font-family" class="text-sm text-gray-500">团名</label>
-                                    <select id="group-name-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
-                                        <option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option>
-                                        <option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option>
-                                        <option value="'Kiwi Maru', sans-serif">Kiwi Maru</option>
-                                        <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
-                                        <option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option>
-                                        <option value="serif">系统衬线体</option>
-                                        <option value="sans-serif">系统无衬线体</option>
-                                    </select>
-                                </div>
                                 <div>
                                     <label for="theme-font-family" class="text-sm text-gray-500">主题</label>
                                     <select id="theme-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
@@ -441,19 +428,6 @@
                                     <p id="font-upload-status" class="text-xs text-gray-500 mt-2 h-4"></p>
                                 </div>
                                 <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-                                    <div class="w-full">
-                                        <div class="flex justify-between items-center">
-                                            <label for="group-name-weight" class="text-sm text-gray-500">团名粗细:</label>
-                                            <input type="number" id="group-name-weight-input" min="100" max="900" value="100" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
-                                        </div>
-                                        <input type="range" id="group-name-weight" min="100" max="900" value="100" step="1" class="w-full">
-                                        <div class="flex justify-between w-full text-xs text-gray-400 px-1 tick-container" data-controls="group-name-weight">
-                                            <button data-value="100" class="tick hover:text-violet-600">100</button>
-                                            <button data-value="400" class="tick hover:text-violet-600">400</button>
-                                            <button data-value="700" class="tick hover:text-violet-600">700</button>
-                                            <button data-value="900" class="tick hover:text-violet-600">900</button>
-                                        </div>
-                                    </div>
                                     <div class="w-full">
                                         <div class="flex justify-between items-center">
                                             <label for="theme-weight" class="text-sm text-gray-500">主题粗细:</label>
@@ -555,19 +529,19 @@
                                                 <path d="M5,90 L50,10 L95,90 Z"></path>
                                                 <path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path>
                                             </svg>
-                                            <!-- MODIFIED: Reverted to local image path -->
                                             <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
                                         </div>
                                     </div>
-                                    <div id="group-name-block" class="movable-block" style="left: 48px; transform: translateY(calc(-50% + 1px));">
-                                        <span id="group-name-span" class="tracking-wider" style="font-size: 14px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;">櫻坂46</span>
+                                    <!-- MODIFIED: Replaced span with img for group name -->
+                                    <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 1px));">
+                                        <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;">
                                     </div>
 
-                                    <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 2px), calc(-50% + 0px));">
+                                    <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 12px), calc(-50% + 0px));">
                                          <p id="preview-theme" class="text-center" style="font-size: 9px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
                                     </div>
                                     
-                                    <div id="name-block" class="movable-block text-right" style="right: -12px; transform: translateY(calc(-50% + 0px));">
+                                    <div id="name-block" class="movable-block text-right" style="right: 7px; transform: translateY(calc(-50% + 0px));">
                                         <p id="preview-name" class="" style="font-size: 20px; font-weight: 500; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
                                     </div>
                                     <div id="romaji-block" class="movable-block text-right hidden" style="right: -12px; transform: translateY(calc(-50% + 14px));">
@@ -630,7 +604,7 @@
                 svgLogo: document.getElementById('svg-logo'),
                 imageLogo: document.getElementById('image-logo'),
                 logoContainer: document.getElementById('logo-container'),
-                groupNameSpan: document.getElementById('group-name-span'),
+                groupNameImage: document.getElementById('group-name-image'), // MODIFIED
                 previewName: document.getElementById('preview-name'),
                 previewRomaji: document.getElementById('preview-romaji'),
                 previewTheme: document.getElementById('preview-theme'),
@@ -697,19 +671,15 @@
                 romajiYValue: document.getElementById('romaji-y-value'),
 
                 // Font controls
-                groupNameFontFamily: document.getElementById('group-name-font-family'),
                 themeFontFamily: document.getElementById('theme-font-family'),
                 nameFontFamily: document.getElementById('name-font-family'),
-                groupNameWeight: document.getElementById('group-name-weight'),
                 themeWeight: document.getElementById('theme-weight'),
                 memberNameWeight: document.getElementById('member-name-weight'),
                 romajiNameWeight: document.getElementById('romaji-name-weight'),
-                groupNameWeightInput: document.getElementById('group-name-weight-input'),
                 themeWeightInput: document.getElementById('theme-weight-input'),
                 memberNameWeightInput: document.getElementById('member-name-weight-input'),
                 romajiNameWeightInput: document.getElementById('romaji-name-weight-input'),
                 romajiToggle: document.getElementById('romaji-toggle'),
-                // NEW: Font Upload UI
                 fontUpload: document.getElementById('font-upload'),
                 fontUploadStatus: document.getElementById('font-upload-status'),
 
@@ -731,11 +701,17 @@
                 '日向坂46': { bg: '#7cc7e8', text: '#FFFFFF', border: '#7cc7e8', bodyBg: '#7cc7e8', titleColor: '#FFFFFF' }
             };
             
-            // MODIFIED: Reverted to local image paths
             const groupLogos = {
                 '櫻坂46': 'images/樱坂46logo.png',
                 '日向坂46': 'images/日向坂46logo.png',
                 '乃木坂46': 'images/乃木坂46logo.png'
+            };
+
+            // NEW: Image paths for group names
+            const groupNameImages = {
+                '櫻坂46': 'images/樱坂46文字.png',
+                '日向坂46': 'images/日向坂46文字.png',
+                '乃木坂46': 'images/乃木坂46文字.png'
             };
 
             let imageState = { scale: 1, translateX: 0, translateY: 0 };
@@ -786,7 +762,8 @@
                     ui.logoContainer.style.height = `${ui.logoSize.value}px`;
                     ui.logoSizeValue.textContent = ui.logoSize.value;
 
-                    ui.groupNameSpan.style.fontSize = `${ui.groupNameSize.value}px`;
+                    // MODIFIED: Control image height instead of font size
+                    ui.groupNameImage.style.height = `${ui.groupNameSize.value}px`;
                     ui.groupNameSizeValue.textContent = ui.groupNameSize.value;
                     
                     ui.previewTheme.style.fontSize = `${ui.themeSize.value}px`;
@@ -834,14 +811,11 @@
                     ui.romajiYValue.textContent = romajiY;
                 },
                 fontStyles() {
-                    ui.groupNameSpan.style.fontFamily = ui.groupNameFontFamily.value;
+                    // MODIFIED: Removed group name font styling
                     ui.previewTheme.style.fontFamily = ui.themeFontFamily.value;
                     const nameFont = ui.nameFontFamily.value;
                     ui.previewName.style.fontFamily = nameFont;
                     ui.previewRomaji.style.fontFamily = nameFont;
-
-                    ui.groupNameSpan.style.fontWeight = ui.groupNameWeight.value;
-                    ui.groupNameWeightInput.value = ui.groupNameWeight.value;
                     
                     ui.previewTheme.style.fontWeight = ui.themeWeight.value;
                     ui.themeWeightInput.value = ui.themeWeight.value;
@@ -854,7 +828,6 @@
                 },
                 groupTheme() {
                     const groupName = ui.groupNameSelect.value;
-                    ui.groupNameSpan.textContent = groupName;
                     const preset = colorPresets[groupName];
                     if (preset) {
                         ui.infoBarBgColor.value = preset.bg;
@@ -874,6 +847,12 @@
                         ui.imageLogo.style.display = 'block';
                         ui.svgLogo.classList.add('hidden');
                     }
+
+                    // NEW: Update group name image
+                    const groupNameImgSrc = groupNameImages[groupName];
+                    if (groupNameImgSrc) {
+                        ui.groupNameImage.src = groupNameImgSrc;
+                    }
                 }
             };
             
@@ -881,19 +860,16 @@
 
             const handleRomajiToggle = () => {
                 if (ui.romajiToggle.checked) {
-                    // State when Romaji is ENABLED
                     ui.romajiBlock.classList.remove('hidden');
                     ui.nameY.value = -7;
                     ui.romajiY.value = 14;
                 } else {
-                    // State when Romaji is DISABLED
                     ui.romajiBlock.classList.add('hidden');
                     ui.nameY.value = 0;
                 }
                 update.elementPositions();
             };
             
-            // NEW: Function to handle font upload
             const handleFontUpload = async (event) => {
                 const file = event.target.files[0];
                 if (!file) return;
@@ -921,21 +897,19 @@
                     }
                 };
                 reader.readAsArrayBuffer(file);
-                event.target.value = ''; // Reset input
+                event.target.value = '';
             };
 
-            // NEW: Helper to add font to dropdowns
             const addCustomFontToSelectors = (fontName) => {
-                const selectors = [ui.groupNameFontFamily, ui.themeFontFamily, ui.nameFontFamily];
+                const selectors = [ui.themeFontFamily, ui.nameFontFamily]; // MODIFIED: Removed group name selector
                 selectors.forEach(select => {
-                    // Avoid adding duplicate fonts
                     if ([...select.options].some(opt => opt.value === fontName)) return;
 
                     const option = document.createElement('option');
                     option.value = fontName;
                     option.textContent = `${fontName} (自定义)`;
                     select.appendChild(option);
-                    select.value = fontName; // Auto-select the new font
+                    select.value = fontName;
                 });
             };
 
@@ -966,7 +940,6 @@
                     ui.svgLogo.classList.add('hidden');
                 }));
 
-                // NEW: Add listener for font upload
                 ui.fontUpload.addEventListener('change', handleFontUpload);
 
                 const addInputListener = (element, handler) => element.addEventListener('input', handler);
@@ -983,8 +956,8 @@
                 [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
                 [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
                 
-                [ui.groupNameFontFamily, ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles));
-                [ui.groupNameWeight, ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles));
+                [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles)); // MODIFIED
+                [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles)); // MODIFIED
 
 
                 addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
@@ -1049,13 +1022,11 @@
                 ui.downloadBtn.addEventListener('click', handleDownload);
                 ui.closeModalBtn.addEventListener('click', () => ui.errorModal.classList.add('hidden'));
 
-                // Listeners for font weight number inputs and ticks
                 const weightControls = [
-                    { slider: ui.groupNameWeight, input: ui.groupNameWeightInput },
                     { slider: ui.themeWeight, input: ui.themeWeightInput },
                     { slider: ui.memberNameWeight, input: ui.memberNameWeightInput },
                     { slider: ui.romajiNameWeight, input: ui.romajiNameWeightInput },
-                ];
+                ]; // MODIFIED
 
                 weightControls.forEach(control => {
                     control.input.addEventListener('input', () => {
@@ -1175,7 +1146,7 @@
 
                     const elementsToDraw = [
                         { el: ui.logoContainer, isLogo: true },
-                        { el: ui.groupNameSpan },
+                        { el: ui.groupNameImage, isImage: true }, // MODIFIED
                         { el: ui.previewTheme },
                         { el: ui.previewName },
                         { el: ui.previewRomaji, isOptional: true },
@@ -1192,12 +1163,15 @@
                         const drawX = infoBarX + x;
                         const drawY = infoBarY + y;
 
-                        if (item.isLogo) {
-                            const logoTarget = ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo;
-                            if (logoTarget.tagName === 'IMG') {
-                                ctx.drawImage(logoTarget, drawX, drawY, elRect.width, elRect.height);
-                            } else {
-                                const svgText = new XMLSerializer().serializeToString(logoTarget);
+                        if (item.isLogo || item.isImage) { // MODIFIED: Combined logic for logo and group name image
+                            const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el;
+                            
+                            if (targetImg.tagName === 'IMG') {
+                                if (targetImg.complete && targetImg.naturalWidth > 0) {
+                                    ctx.drawImage(targetImg, drawX, drawY, elRect.width, elRect.height);
+                                }
+                            } else { // SVG Logic
+                                const svgText = new XMLSerializer().serializeToString(targetImg);
                                 const coloredSvgText = svgText.replace(/class="fill-current"/g, `fill="${ui.infoColor.value}"`);
                                 const svgBlob = new Blob([coloredSvgText], { type: 'image/svg+xml;charset=utf-8' });
                                 const url = URL.createObjectURL(svgBlob);
@@ -1251,9 +1225,7 @@
             // --- Initialization ---
             const init = () => {
                 setupListeners();
-                // Update all values on load
                 Object.values(update).forEach(func => func());
-                // Set initial romaji visibility and position
                 handleRomajiToggle();
             };
 
