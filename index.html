@@ -124,45 +124,52 @@
 </head>
 
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+    
+    <div class="fixed top-4 right-4 z-50">
+        <select id="language-switcher" class="bg-white border border-gray-300 rounded-md py-2 px-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+        </select>
+    </div>
 
     <div class="w-full max-w-5xl mx-auto">
-        <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color">生写真模板生成器</h1>
+        <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color" data-translate="mainTitle">生写真模板生成器</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- 控制面板 -->
             <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
-                <h2 class="text-xl font-semibold text-gray-700">自定义内容</h2>
+                <h2 class="text-xl font-semibold text-gray-700" data-translate="customContentTitle">自定义内容</h2>
 
                 <div>
-                    <label for="image-upload" class="block text-sm font-medium text-gray-600 mb-2">1. 上传主图片</label>
+                    <label for="image-upload" class="block text-sm font-medium text-gray-600 mb-2" data-translate="uploadMainImageLabel">1. 上传主图片</label>
                     <input type="file" id="image-upload" accept="image/*"
                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                 </div>
 
                 <div>
-                    <label for="member-name" class="block text-sm font-medium text-gray-600 mb-2">2. 成员姓名</label>
+                    <label for="member-name" class="block text-sm font-medium text-gray-600 mb-2" data-translate="memberNameLabel">2. 成员姓名</label>
                     <input type="text" id="member-name" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入成员姓名">
+                        data-translate-placeholder="memberNamePlaceholder" placeholder="请输入成员姓名">
                 </div>
 
                 <div>
-                    <label for="romaji-name" class="block text-sm font-medium text-gray-600 mb-2">3. 罗马字 (可选)</label>
+                    <label for="romaji-name" class="block text-sm font-medium text-gray-600 mb-2" data-translate="romajiNameLabel">3. 罗马字 (可选)</label>
                     <input type="text" id="romaji-name" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入罗马字">
+                        data-translate-placeholder="romajiNamePlaceholder" placeholder="请输入罗马字">
                 </div>
 
                 <div>
-                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2">4. 主题/其他信息</label>
+                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2" data-translate="photoThemeLabel">4. 主题/其他信息</label>
                     <input type="text" id="photo-theme" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                        placeholder="请输入主题">
+                        data-translate-placeholder="photoThemePlaceholder" placeholder="请输入主题">
                 </div>
 
                 <div>
-                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2">5.
-                        团体名字</label>
+                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2" data-translate="groupNameLabel">5. 团体名字</label>
                     <select id="group-name-select"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500">
                         <option value="櫻坂46" selected>櫻坂46</option>
@@ -173,7 +180,7 @@
 
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>6. 颜色与边框</span>
+                        <span data-translate="colorsAndBordersLabel">6. 颜色与边框</span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
@@ -182,7 +189,7 @@
                     <div class="mt-4 space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="info-bar-bg-color" class="block text-sm text-gray-500">信息栏底色</label>
+                                <label for="info-bar-bg-color" class="block text-sm text-gray-500" data-translate="infoBarBgColorLabel">信息栏底色</label>
                                 <input type="color" id="info-bar-bg-color" value="#FFFFFF"
                                     class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-bar-bg-color">
@@ -197,7 +204,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="info-color" class="block text-sm text-gray-500">文字/Logo颜色</label>
+                                <label for="info-color" class="block text-sm text-gray-500" data-translate="textColorLabel">文字/Logo颜色</label>
                                 <input type="color" id="info-color" value="#F19DB5"
                                     class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-color">
@@ -213,7 +220,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-600">信息栏边框</label>
+                            <label class="block text-sm font-medium text-gray-600" data-translate="infoBarBorderLabel">信息栏边框</label>
                             <div class="flex items-center mt-2 space-x-4">
                                 <input type="checkbox" id="border-toggle"
                                     class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600"
@@ -221,7 +228,7 @@
                                 <input type="color" id="border-color" value="#F19DB5"
                                     class="w-10 h-8 p-0 border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                                 <div class="flex-grow">
-                                    <label for="border-thickness" class="text-sm text-gray-500">粗细: <span
+                                    <label for="border-thickness" class="text-sm text-gray-500" id="border-thickness-label" data-translate-template="thicknessLabel">粗细: <span
                                             id="border-thickness-value">2</span>px</label>
                                     <input type="range" id="border-thickness" min="0" max="5" value="1" step="0.5"
                                         class="w-full">
@@ -243,7 +250,7 @@
 
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>7. 高级设置</span>
+                        <span data-translate="advancedSettingsLabel">7. 高级设置</span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
@@ -251,27 +258,27 @@
                     </summary>
                     <div class="mt-4 space-y-4 pl-2 border-l-2 border-gray-200">
                         <div class="pt-2">
-                            <label for="logo-upload" class="block text-sm font-medium text-gray-600 mb-2">自定义Logo</label>
+                            <label for="logo-upload" class="block text-sm font-medium text-gray-600 mb-2" data-translate="customLogoLabel">自定义Logo</label>
                             <input type="file" id="logo-upload" accept="image/*"
                                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                         </div>
                         <div class="pt-2">
                             <div class="flex items-center justify-between mb-2">
-                                <h3 class="block text-sm font-medium text-gray-600">主图片位置</h3>
+                                <h3 class="block text-sm font-medium text-gray-600" data-translate="mainImagePositionLabel">主图片位置</h3>
                                 <button id="reset-image-btn"
-                                    class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full">重置</button>
+                                    class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full" data-translate="resetButton">重置</button>
                             </div>
                         </div>
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">信息栏位置</h3>
+                            <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="infoBarPositionLabel">信息栏位置</h3>
                             <div class="space-y-3">
                                 <div>
-                                    <label for="margin-bottom" class="text-sm text-gray-500">下边距: <span
+                                    <label for="margin-bottom" class="text-sm text-gray-500" id="margin-bottom-label" data-translate-template="marginBottomLabel">下边距: <span
                                             id="margin-bottom-value">34</span>px</label>
                                     <input type="range" id="margin-bottom" min="0" max="50" value="29" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="margin-x" class="text-sm text-gray-500">左右边距: <span
+                                    <label for="margin-x" class="text-sm text-gray-500" id="margin-x-label" data-translate-template="marginXLabel">左右边距: <span
                                             id="margin-x-value">29</span>px</label>
                                     <input type="range" id="margin-x" min="0" max="50" value="26" class="w-full">
                                 </div>
@@ -279,43 +286,43 @@
                         </div>
 
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">字体与尺寸微调</h3>
+                            <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="fontAndSizeTuningLabel">字体与尺寸微调</h3>
                             <div class="space-y-3">
                                 <div class="flex items-center">
                                     <input type="checkbox" id="romaji-toggle"
                                         class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
                                     <label for="romaji-toggle"
-                                        class="ml-2 block text-sm font-medium text-gray-700">显示罗马字</label>
+                                        class="ml-2 block text-sm font-medium text-gray-700" data-translate="showRomajiLabel">显示罗马字</label>
                                 </div>
                                 <div>
-                                    <label for="info-bar-padding-y" class="text-sm text-gray-500">信息栏内边距: <span
+                                    <label for="info-bar-padding-y" class="text-sm text-gray-500" id="info-bar-padding-y-label" data-translate-template="infoBarPaddingYLabel">信息栏内边距: <span
                                             id="info-bar-padding-y-value">22</span>px</label>
                                     <input type="range" id="info-bar-padding-y" min="0" max="40" value="20" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="logo-size" class="text-sm text-gray-500">Logo大小: <span
+                                    <label for="logo-size" class="text-sm text-gray-500" id="logo-size-label" data-translate-template="logoSizeLabel">Logo大小: <span
                                             id="logo-size-value">34</span>px</label>
                                     <input type="range" id="logo-size" min="16" max="48" value="32" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="group-name-size" class="text-sm text-gray-500">团名大小: <span
+                                    <label for="group-name-size" class="text-sm text-gray-500" id="group-name-size-label" data-translate-template="groupNameSizeLabel">团名大小: <span
                                             id="group-name-size-value">14</span>px</label>
                                     <input type="range" id="group-name-size" min="10" max="24" value="14"
                                         class="w-full">
                                 </div>
                                 <div>
-                                    <label for="theme-size" class="text-sm text-gray-500">主题大小: <span
+                                    <label for="theme-size" class="text-sm text-gray-500" id="theme-size-label" data-translate-template="themeSizeLabel">主题大小: <span
                                             id="theme-size-value">9</span>px</label>
                                     <input type="range" id="theme-size" min="8" max="20" value="8" class="w-full">
                                 </div>
                                 <div>
-                                    <label for="member-name-size" class="text-sm text-gray-500">姓名大小: <span
+                                    <label for="member-name-size" class="text-sm text-gray-500" id="member-name-size-label" data-translate-template="memberNameSizeLabel">姓名大小: <span
                                             id="member-name-size-value">20</span>px</label>
                                     <input type="range" id="member-name-size" min="14" max="32" value="20"
                                         class="w-full">
                                 </div>
                                 <div>
-                                    <label for="romaji-name-size" class="text-sm text-gray-500">罗马字大小: <span
+                                    <label for="romaji-name-size" class="text-sm text-gray-500" id="romaji-name-size-label" data-translate-template="romajiNameSizeLabel">罗马字大小: <span
                                             id="romaji-name-size-value">13</span>px</label>
                                     <input type="range" id="romaji-name-size" min="6" max="16" value="13"
                                         class="w-full">
@@ -324,60 +331,60 @@
                         </div>
                         
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">元素位置微调</h3>
+                            <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="elementPositionTuningLabel">元素位置微调</h3>
                             <div class="space-y-3">
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">Logo 位置</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="logoPositionLabel">Logo 位置</p>
                                      <div>
-                                         <label for="logo-x" class="text-sm text-gray-500">水平位置 (X): <span id="logo-x-value">8</span>px</label>
+                                         <label for="logo-x" class="text-sm text-gray-500" id="logo-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="logo-x-value">8</span>px</label>
                                          <input type="range" id="logo-x" min="0" max="50" value="5" class="w-full">
                                      </div>
                                      <div>
-                                         <label for="logo-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
+                                         <label for="logo-y" class="text-sm text-gray-500" id="logo-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
                                          <input type="range" id="logo-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">团名位置</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="groupNamePositionLabel">团名位置</p>
                                      <div>
-                                         <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
+                                         <label for="group-name-x" class="text-sm text-gray-500" id="group-name-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
                                          <input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full">
                                      </div>
                                      <div>
-                                         <label for="group-name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
+                                         <label for="group-name-y" class="text-sm text-gray-500" id="group-name-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
                                          <input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">主题</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="themePositionLabel">主题</p>
                                      <div>
-                                         <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
+                                         <label for="theme-x" class="text-sm text-gray-500" id="theme-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
                                          <input type="range" id="theme-x" min="-100" max="100" value="-6" class="w-full">
                                      </div>
                                      <div>
-                                         <label for="theme-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
+                                         <label for="theme-y" class="text-sm text-gray-500" id="theme-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
                                          <input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">姓名位置</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="namePositionLabel">姓名位置</p>
                                      <div>
-                                         <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-7</span>px</label>
+                                         <label for="name-x" class="text-sm text-gray-500" id="name-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="name-x-value">-7</span>px</label>
                                          <input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full">
                                      </div>
                                      <div>
-                                         <label for="name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
+                                         <label for="name-y" class="text-sm text-gray-500" id="name-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
                                          <input type="range" id="name-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold">罗马字位置</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="romajiPositionLabel">罗马字位置</p>
                                      <div>
-                                         <label for="romaji-x" class="text-sm text-gray-500">水平位置 (X): <span id="romaji-x-value">-12</span>px</label>
+                                         <label for="romaji-x" class="text-sm text-gray-500" id="romaji-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="romaji-x-value">-12</span>px</label>
                                          <input type="range" id="romaji-x" min="-50" max="50" value="-12" class="w-full">
                                      </div>
                                      <div>
-                                         <label for="romaji-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="romaji-y-value">14</span>px</label>
+                                         <label for="romaji-y" class="text-sm text-gray-500" id="romaji-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="romaji-y-value">14</span>px</label>
                                          <input type="range" id="romaji-y" min="-30" max="30" value="14" class="w-full">
                                      </div>
                                 </div>
@@ -386,35 +393,35 @@
 
                         <!-- MODIFIED: Font controls section -->
                         <div class="pt-2">
-                            <h3 class="block text-sm font-medium text-gray-600 mb-2">字体样式微调</h3>
+                            <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="fontStyleTuningLabel">字体样式微调</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="theme-font-family" class="text-sm text-gray-500">主题</label>
+                                    <label for="theme-font-family" class="text-sm text-gray-500" data-translate="themeFontLabel">主题</label>
                                     <select id="theme-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
                                         <option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option>
-                                        <option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option>
+                                        <option value="'Kosugi Maru', sans-serif" selected data-translate="defaultFont">Kosugi Maru (默认)</option>
                                         <option value="'Kiwi Maru', sans-serif">Kiwi Maru</option>
                                         <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
-                                        <option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option>
-                                        <option value="serif">系统衬线体</option>
-                                        <option value="sans-serif">系统无衬线体</option>
+                                        <option value="'Yuji Syuku', serif" data-translate="yujiFont">日式秀气体 (Yuji)</option>
+                                        <option value="serif" data-translate="serifFont">系统衬线体</option>
+                                        <option value="sans-serif" data-translate="sansSerifFont">系统无衬线体</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="name-font-family" class="text-sm text-gray-500">姓名/罗马字</label>
+                                    <label for="name-font-family" class="text-sm text-gray-500" data-translate="nameFontLabel">姓名/罗马字</label>
                                     <select id="name-font-family" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm rounded-md">
                                         <option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c</option>
-                                        <option value="'Kosugi Maru', sans-serif" selected>Kosugi Maru (默认)</option>
+                                        <option value="'Kosugi Maru', sans-serif" selected data-translate="defaultFont">Kosugi Maru (默认)</option>
                                         <option value="'Kiwi Maru', sans-serif">Kiwi Maru</option>
                                         <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
-                                        <option value="'Yuji Syuku', serif">日式秀气体 (Yuji)</option>
-                                        <option value="serif">系统衬线体</option>
-                                        <option value="sans-serif">系统无衬线体</option>
+                                        <option value="'Yuji Syuku', serif" data-translate="yujiFont">日式秀气体 (Yuji)</option>
+                                        <option value="serif" data-translate="serifFont">系统衬线体</option>
+                                        <option value="sans-serif" data-translate="sansSerifFont">系统无衬线体</option>
                                     </select>
                                 </div>
                                 <!-- NEW: Custom Font Upload -->
                                 <div class="pt-2">
-                                    <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2">上传自定义字体</label>
+                                    <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2" data-translate="uploadCustomFontLabel">上传自定义字体</label>
                                      <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                                     <p id="font-upload-status" class="text-xs text-gray-500 mt-2 h-4"></p>
@@ -422,7 +429,7 @@
                                 <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                                     <div class="w-full">
                                         <div class="flex justify-between items-center">
-                                            <label for="theme-weight" class="text-sm text-gray-500">主题粗细:</label>
+                                            <label for="theme-weight" class="text-sm text-gray-500" data-translate="themeWeightLabel">主题粗细:</label>
                                             <input type="number" id="theme-weight-input" min="100" max="900" value="100" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
                                         </div>
                                         <input type="range" id="theme-weight" min="100" max="900" value="100" step="1" class="w-full">
@@ -435,7 +442,7 @@
                                     </div>
                                     <div class="w-full">
                                         <div class="flex justify-between items-center">
-                                            <label for="member-name-weight" class="text-sm text-gray-500">姓名粗细:</label>
+                                            <label for="member-name-weight" class="text-sm text-gray-500" data-translate="nameWeightLabel">姓名粗细:</label>
                                             <input type="number" id="member-name-weight-input" min="100" max="900" value="500" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
                                         </div>
                                         <input type="range" id="member-name-weight" min="100" max="900" value="500" step="1" class="w-full">
@@ -448,7 +455,7 @@
                                     </div>
                                     <div class="w-full">
                                         <div class="flex justify-between items-center">
-                                            <label for="romaji-name-weight" class="text-sm text-gray-500">罗马字粗细:</label>
+                                            <label for="romaji-name-weight" class="text-sm text-gray-500" data-translate="romajiWeightLabel">罗马字粗细:</label>
                                             <input type="number" id="romaji-name-weight-input" min="100" max="900" value="400" step="10" class="w-16 text-right bg-gray-50 rounded-md px-1 py-0.5 border border-gray-200">
                                         </div>
                                         <input type="range" id="romaji-name-weight" min="100" max="900" value="400" step="1" class="w-full">
@@ -466,35 +473,35 @@
                 </details>
 
                 <button id="download-btn"
-                    class="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 !mt-6">
+                    class="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 !mt-6" data-translate="generateButton">
                     生成并下载图片
                 </button>
-                <p id="loading-text" class="text-center mt-4 text-sm text-gray-500 hidden">正在生成图片，请稍候...</p>
+                <p id="loading-text" class="text-center mt-4 text-sm text-gray-500 hidden" data-translate="loadingText">正在生成图片，请稍候...</p>
 
                 <!-- MODIFIED: Author Info & Feedback Section -->
                 <details class="pt-4 mt-2 border-t border-gray-200">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span>作者信息 & 反馈</span>
+                        <span data-translate="authorAndFeedbackLabel">作者信息 & 反馈</span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </summary>
                     <div class="mt-4 space-y-6 text-sm text-gray-600">
                         <div>
-                            <h3 class="font-semibold text-gray-700 mb-2">作者信息</h3>
+                            <h3 class="font-semibold text-gray-700 mb-2" data-translate="authorInfoLabel">作者信息</h3>
                             <div class="space-y-1">
-                                <p>作者: <span class="font-mono">多线程败犬Yoru</span></p>
+                                <p data-translate="authorName">作者: <span class="font-mono">多线程败犬Yoru</span></p>
                                 <p>B站: <a href="https://space.bilibili.com/1598960?spm_id_from=333.1007.0.0" target="_blank" class="text-violet-600 hover:underline">多线程败犬Yoru</a></p>
-                                <p>稍转樱的小号: <a href="https://space.bilibili.com/348497813" target="_blank" class="text-violet-600 hover:underline">多线程败犬</a></p>
+                                <p data-translate="altAccount">稍转樱的小号: <a href="https://space.bilibili.com/348497813" target="_blank" class="text-violet-600 hover:underline">多线程败犬</a></p>
                                 <p>微博: <a href="https://weibo.com/u/2247228730" target="_blank" class="text-violet-600 hover:underline">多线程败犬Yoru</a></p>
-                                <p>没有人的Q群: <span class="font-mono">478628703</span></p>
+                                <p data-translate="qqGroup">没有人的Q群: <span class="font-mono">478628703</span></p>
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-700 mb-2">问题反馈 (Bugs/建议)</h3>
+                            <h3 class="font-semibold text-gray-700 mb-2" data-translate="feedbackLabel">问题反馈 (Bugs/建议)</h3>
                             <a href="https://forms.gle/xKJbXsUP4g8pLJSf7" target="_blank" rel="noopener noreferrer"
                                 id="feedback-link"
-                                class="block text-center mt-2 w-full bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                class="block text-center mt-2 w-full bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" data-translate="feedbackButton">
                                 点击此处提交反馈
                             </a>
                         </div>
@@ -555,21 +562,21 @@
             <img id="image-to-crop" src="">
         </div>
         <div class="flex items-center mt-4 space-x-4">
-            <button id="cancel-crop-btn" class="px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700">取消</button>
-            <button id="crop-btn" class="px-6 py-2 bg-violet-600 text-white font-bold rounded-lg hover:bg-violet-700">裁切</button>
+            <button id="cancel-crop-btn" class="px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700" data-translate="cancelButton">取消</button>
+            <button id="crop-btn" class="px-6 py-2 bg-violet-600 text-white font-bold rounded-lg hover:bg-violet-700" data-translate="cropButton">裁切</button>
         </div>
     </div>
 
     <div id="error-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">发生错误</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900" data-translate="errorTitle">发生错误</h3>
                 <div class="mt-2 px-7 py-3">
-                    <p id="error-message" class="text-sm text-gray-500">图片生成失败，请稍后再试。</p>
+                    <p id="error-message" class="text-sm text-gray-500" data-translate="errorMessage">图片生成失败，请稍后再试。</p>
                 </div>
                 <div class="items-center px-4 py-3">
                     <button id="close-modal-btn"
-                        class="px-4 py-2 bg-violet-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300">关闭</button>
+                        class="px-4 py-2 bg-violet-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300" data-translate="closeButton">关闭</button>
                 </div>
             </div>
         </div>
@@ -577,10 +584,263 @@
 
     <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    
+    <!-- Translations -->
+    <script>
+        const translations = {
+            en: {
+                mainTitle: "Trading Card Generator",
+                customContentTitle: "Customize Content",
+                uploadMainImageLabel: "1. Upload Main Image",
+                memberNameLabel: "2. Member Name",
+                memberNamePlaceholder: "Enter member's name",
+                romajiNameLabel: "3. Romaji (Optional)",
+                romajiNamePlaceholder: "Enter Romaji",
+                photoThemeLabel: "4. Theme / Other Info",
+                photoThemePlaceholder: "Enter theme",
+                groupNameLabel: "5. Group Name",
+                colorsAndBordersLabel: "6. Colors & Borders",
+                infoBarBgColorLabel: "Info Bar BG Color",
+                textColorLabel: "Text/Logo Color",
+                infoBarBorderLabel: "Info Bar Border",
+                thicknessLabel: "Thickness: {value}px",
+                advancedSettingsLabel: "7. Advanced Settings",
+                customLogoLabel: "Custom Logo",
+                mainImagePositionLabel: "Main Image Position",
+                resetButton: "Reset",
+                infoBarPositionLabel: "Info Bar Position",
+                marginBottomLabel: "Bottom Margin: {value}px",
+                marginXLabel: "Side Margin: {value}px",
+                fontAndSizeTuningLabel: "Font & Size Tuning",
+                showRomajiLabel: "Show Romaji",
+                infoBarPaddingYLabel: "Info Bar Padding: {value}px",
+                logoSizeLabel: "Logo Size: {value}px",
+                groupNameSizeLabel: "Group Name Size: {value}px",
+                themeSizeLabel: "Theme Size: {value}px",
+                memberNameSizeLabel: "Name Size: {value}px",
+                romajiNameSizeLabel: "Romaji Size: {value}px",
+                elementPositionTuningLabel: "Element Position Tuning",
+                logoPositionLabel: "Logo Position",
+                horizontalPositionLabel: "Horizontal (X): {value}px",
+                verticalPositionLabel: "Vertical (Y): {value}px",
+                groupNamePositionLabel: "Group Name Position",
+                themePositionLabel: "Theme Position",
+                namePositionLabel: "Name Position",
+                romajiPositionLabel: "Romaji Position",
+                fontStyleTuningLabel: "Font Style Tuning",
+                themeFontLabel: "Theme",
+                defaultFont: "Kosugi Maru (Default)",
+                yujiFont: "Yuji Syuku Style (Yuji)",
+                serifFont: "System Serif",
+                sansSerifFont: "System Sans-Serif",
+                nameFontLabel: "Name/Romaji",
+                uploadCustomFontLabel: "Upload Custom Font",
+                themeWeightLabel: "Theme Weight:",
+                nameWeightLabel: "Name Weight:",
+                romajiWeightLabel: "Romaji Weight:",
+                generateButton: "Generate & Download Image",
+                loadingText: "Generating image, please wait...",
+                authorAndFeedbackLabel: "Author & Feedback",
+                authorInfoLabel: "Author Info",
+                authorName: "Author: Yoru",
+                altAccount: "Alt Account: 多线程败犬",
+                qqGroup: "QQ Group: 478628703",
+                feedbackLabel: "Feedback (Bugs/Suggestions)",
+                feedbackButton: "Click here to submit feedback",
+                cancelButton: "Cancel",
+                cropButton: "Crop",
+                errorTitle: "An Error Occurred",
+                errorMessage: "Image generation failed. Please try again later.",
+                closeButton: "Close",
+                fontLoading: "Loading font \"{fontName}\"...",
+                fontLoaded: "Font \"{fontName}\" loaded successfully!",
+                fontError: "Font loading failed. Please check the file format.",
+                customFontSuffix: " (Custom)"
+            },
+            ja: {
+                mainTitle: "生写真ジェネレーター",
+                customContentTitle: "コンテンツのカスタマイズ",
+                uploadMainImageLabel: "1. メイン画像のアップロード",
+                memberNameLabel: "2. メンバー名",
+                memberNamePlaceholder: "メンバー名を入力",
+                romajiNameLabel: "3. ローマ字 (任意)",
+                romajiNamePlaceholder: "ローマ字を入力",
+                photoThemeLabel: "4. テーマ/その他情報",
+                photoThemePlaceholder: "テーマを入力",
+                groupNameLabel: "5. グループ名",
+                colorsAndBordersLabel: "6. 色と枠線",
+                infoBarBgColorLabel: "情報バーの背景色",
+                textColorLabel: "文字/ロゴの色",
+                infoBarBorderLabel: "情報バーの枠線",
+                thicknessLabel: "太さ: {value}px",
+                advancedSettingsLabel: "7. 詳細設定",
+                customLogoLabel: "カスタムロゴ",
+                mainImagePositionLabel: "メイン画像の位置",
+                resetButton: "リセット",
+                infoBarPositionLabel: "情報バーの位置",
+                marginBottomLabel: "下マージン: {value}px",
+                marginXLabel: "左右マージン: {value}px",
+                fontAndSizeTuningLabel: "フォントとサイズの調整",
+                showRomajiLabel: "ローマ字を表示",
+                infoBarPaddingYLabel: "情報バーのパディング: {value}px",
+                logoSizeLabel: "ロゴサイズ: {value}px",
+                groupNameSizeLabel: "グループ名サイズ: {value}px",
+                themeSizeLabel: "テーマサイズ: {value}px",
+                memberNameSizeLabel: "名前サイズ: {value}px",
+                romajiNameSizeLabel: "ローマ字サイズ: {value}px",
+                elementPositionTuningLabel: "要素位置の微調整",
+                logoPositionLabel: "ロゴの位置",
+                horizontalPositionLabel: "水平位置 (X): {value}px",
+                verticalPositionLabel: "垂直位置 (Y): {value}px",
+                groupNamePositionLabel: "グループ名の位置",
+                themePositionLabel: "テーマの位置",
+                namePositionLabel: "名前の位置",
+                romajiPositionLabel: "ローマ字の位置",
+                fontStyleTuningLabel: "フォントスタイルの微調整",
+                themeFontLabel: "テーマ",
+                defaultFont: "Kosugi Maru (デフォルト)",
+                yujiFont: "游秀体 (Yuji)",
+                serifFont: "システム セリフ",
+                sansSerifFont: "システム サンセリフ",
+                nameFontLabel: "名前/ローマ字",
+                uploadCustomFontLabel: "カスタムフォントをアップロード",
+                themeWeightLabel: "テーマの太さ:",
+                nameWeightLabel: "名前の太さ:",
+                romajiWeightLabel: "ローマ字の太さ:",
+                generateButton: "画像を生成してダウンロード",
+                loadingText: "画像を生成しています、しばらくお待ちください...",
+                authorAndFeedbackLabel: "作者情報とフィードバック",
+                authorInfoLabel: "作者情報",
+                authorName: "作者: 多线程败犬Yoru",
+                altAccount: "Bilibiliサブ垢: 多线程败犬",
+                qqGroup: "QQグループ: 478628703",
+                feedbackLabel: "フィードバック (バグ/提案)",
+                feedbackButton: "こちらをクリックしてフィードバックを送信",
+                cancelButton: "キャンセル",
+                cropButton: "切り抜き",
+                errorTitle: "エラーが発生しました",
+                errorMessage: "画像の生成に失敗しました。後でもう一度お試しください。",
+                closeButton: "閉じる",
+                fontLoading: "フォント「{fontName}」を読み込み中...",
+                fontLoaded: "フォント「{fontName}」の読み込みに成功しました！",
+                fontError: "フォントの読み込みに失敗しました。ファイル形式を確認してください。",
+                customFontSuffix: " (カスタム)"
+            },
+            zh: {
+                mainTitle: "生写真生成器",
+                customContentTitle: "自定义内容",
+                uploadMainImageLabel: "1. 上传主图片",
+                memberNameLabel: "2. 成员姓名",
+                memberNamePlaceholder: "请输入成员姓名",
+                romajiNameLabel: "3. 罗马字 (可选)",
+                romajiNamePlaceholder: "请输入罗马字",
+                photoThemeLabel: "4. 主题/其他信息",
+                photoThemePlaceholder: "请输入主题",
+                groupNameLabel: "5. 团体名字",
+                colorsAndBordersLabel: "6. 颜色与边框",
+                infoBarBgColorLabel: "信息栏底色",
+                textColorLabel: "文字/Logo颜色",
+                infoBarBorderLabel: "信息栏边框",
+                thicknessLabel: "粗细: {value}px",
+                advancedSettingsLabel: "7. 高级设置",
+                customLogoLabel: "自定义Logo",
+                mainImagePositionLabel: "主图片位置",
+                resetButton: "重置",
+                infoBarPositionLabel: "信息栏位置",
+                marginBottomLabel: "下边距: {value}px",
+                marginXLabel: "左右边距: {value}px",
+                fontAndSizeTuningLabel: "字体与尺寸微调",
+                showRomajiLabel: "显示罗马字",
+                infoBarPaddingYLabel: "信息栏内边距: {value}px",
+                logoSizeLabel: "Logo大小: {value}px",
+                groupNameSizeLabel: "团名大小: {value}px",
+                themeSizeLabel: "主题大小: {value}px",
+                memberNameSizeLabel: "姓名大小: {value}px",
+                romajiNameSizeLabel: "罗马字大小: {value}px",
+                elementPositionTuningLabel: "元素位置微调",
+                logoPositionLabel: "Logo位置",
+                horizontalPositionLabel: "水平位置 (X): {value}px",
+                verticalPositionLabel: "垂直位置 (Y): {value}px",
+                groupNamePositionLabel: "团名位置",
+                themePositionLabel: "主题",
+                namePositionLabel: "姓名位置",
+                romajiPositionLabel: "罗马字位置",
+                fontStyleTuningLabel: "字体样式微调",
+                themeFontLabel: "主题",
+                defaultFont: "Kosugi Maru (默认)",
+                yujiFont: "日式秀气体 (Yuji)",
+                serifFont: "系统衬线体",
+                sansSerifFont: "系统无衬线体",
+                nameFontLabel: "姓名/罗马字",
+                uploadCustomFontLabel: "上传自定义字体",
+                themeWeightLabel: "主题粗细:",
+                nameWeightLabel: "姓名粗细:",
+                romajiWeightLabel: "罗马字粗细:",
+                generateButton: "生成并下载图片",
+                loadingText: "正在生成图片，请稍候...",
+                authorAndFeedbackLabel: "作者信息 & 反馈",
+                authorInfoLabel: "作者信息",
+                authorName: "作者: 多线程败犬Yoru",
+                altAccount: "稍转樱的小号: 多线程败犬",
+                qqGroup: "没有人的Q群: 478628703",
+                feedbackLabel: "问题反馈 (Bugs/建议)",
+                feedbackButton: "点击此处提交反馈",
+                cancelButton: "取消",
+                cropButton: "裁切",
+                errorTitle: "发生错误",
+                errorMessage: "图片生成失败，请稍后再试。",
+                closeButton: "关闭",
+                fontLoading: "正在加载字体 “{fontName}”...",
+                fontLoaded: "字体 “{fontName}” 加载成功!",
+                fontError: "字体加载失败，请检查文件格式。",
+                customFontSuffix: " (自定义)"
+            }
+        };
+    </script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // --- I18n Functions ---
+            let currentLang = 'zh';
+
+            const setLanguage = (lang) => {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                
+                // Translate static text
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    const key = el.getAttribute('data-translate');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+
+                // Translate placeholders
+                document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-translate-placeholder');
+                     if (translations[lang] && translations[lang][key]) {
+                        el.placeholder = translations[lang][key];
+                    }
+                });
+                
+                // Update dynamic labels
+                updateAllDynamicLabels();
+            };
+
+            const updateAllDynamicLabels = () => {
+                 document.querySelectorAll('[data-translate-template]').forEach(label => {
+                    const key = label.getAttribute('data-translate-template');
+                    const valueSpan = label.querySelector('span');
+                    if (valueSpan && translations[currentLang] && translations[currentLang][key]) {
+                        const template = translations[currentLang][key];
+                        label.innerHTML = template.replace('{value}', valueSpan.textContent);
+                    }
+                });
+            };
+            
             // Element cache
             const ui = {
+                languageSwitcher: document.getElementById('language-switcher'),
                 mainTitle: document.getElementById('main-title'),
                 body: document.body,
                 imageUpload: document.getElementById('image-upload'),
@@ -596,7 +856,7 @@
                 svgLogo: document.getElementById('svg-logo'),
                 imageLogo: document.getElementById('image-logo'),
                 logoContainer: document.getElementById('logo-container'),
-                groupNameImage: document.getElementById('group-name-image'), // MODIFIED
+                groupNameImage: document.getElementById('group-name-image'),
                 previewName: document.getElementById('preview-name'),
                 previewRomaji: document.getElementById('preview-romaji'),
                 previewTheme: document.getElementById('preview-theme'),
@@ -697,7 +957,6 @@
                 '乃木坂46': 'images/乃木坂46logo.png'
             };
 
-            // NEW: Image paths for group names
             const groupNameImages = {
                 '櫻坂46': 'images/樱坂46文字.png',
                 '日向坂46': 'images/日向坂46文字.png',
@@ -722,6 +981,7 @@
                     } else {
                         ui.infoBar.style.border = 'none';
                     }
+                    updateAllDynamicLabels();
                 },
                 infoColor() {
                     const newColor = ui.infoColor.value;
@@ -739,6 +999,7 @@
                     ui.infoBarContainer.style.right = `${x}px`;
                     ui.marginBottomValue.textContent = bottom;
                     ui.marginXValue.textContent = x;
+                    updateAllDynamicLabels();
                 },
                 imageTransform() {
                     ui.previewImage.style.transform = `translate(${imageState.translateX}px, ${imageState.translateY}px) scale(${imageState.scale})`;
@@ -752,7 +1013,6 @@
                     ui.logoContainer.style.height = `${ui.logoSize.value}px`;
                     ui.logoSizeValue.textContent = ui.logoSize.value;
 
-                    // MODIFIED: Control image height instead of font size
                     ui.groupNameImage.style.height = `${ui.groupNameSize.value}px`;
                     ui.groupNameSizeValue.textContent = ui.groupNameSize.value;
                     
@@ -764,6 +1024,7 @@
 
                     ui.previewRomaji.style.fontSize = `${ui.romajiNameSize.value}px`;
                     ui.romajiNameSizeValue.textContent = ui.romajiNameSize.value;
+                    updateAllDynamicLabels();
                 },
                 elementPositions() {
                     const logoX = ui.logoX.value;
@@ -799,9 +1060,9 @@
                     ui.romajiBlock.style.transform = `translateY(calc(-50% + ${romajiY}px))`;
                     ui.romajiXValue.textContent = romajiX;
                     ui.romajiYValue.textContent = romajiY;
+                    updateAllDynamicLabels();
                 },
                 fontStyles() {
-                    // MODIFIED: Removed group name font styling
                     ui.previewTheme.style.fontFamily = ui.themeFontFamily.value;
                     const nameFont = ui.nameFontFamily.value;
                     ui.previewName.style.fontFamily = nameFont;
@@ -838,19 +1099,17 @@
                         ui.svgLogo.classList.add('hidden');
                     }
 
-                    // NEW: Update group name image
                     const groupNameImgSrc = groupNameImages[groupName];
                     if (groupNameImgSrc) {
                         ui.groupNameImage.src = groupNameImgSrc;
                     }
                     
-                    // CHANGED: Adjust group name size based on selection
                     if (groupName === '日向坂46') {
                         ui.groupNameSize.value = 12;
                     } else {
-                        ui.groupNameSize.value = 14; // Default size
+                        ui.groupNameSize.value = 14;
                     }
-                    update.sizes(); // Apply the size change
+                    update.sizes();
                 }
             };
             
@@ -873,7 +1132,7 @@
                 if (!file) return;
 
                 const fontName = file.name.replace(/\.(ttf|otf|woff|woff2)$/, '');
-                ui.fontUploadStatus.textContent = `正在加载字体 "${fontName}"...`;
+                ui.fontUploadStatus.textContent = translations[currentLang].fontLoading.replace('{fontName}', fontName);
                 
                 const reader = new FileReader();
                 reader.onload = async (e) => {
@@ -886,12 +1145,12 @@
                         addCustomFontToSelectors(fontName);
                         update.fontStyles();
 
-                        ui.fontUploadStatus.textContent = `字体 "${fontName}" 加载成功!`;
+                        ui.fontUploadStatus.textContent = translations[currentLang].fontLoaded.replace('{fontName}', fontName);
                         setTimeout(() => ui.fontUploadStatus.textContent = '', 3000);
 
                     } catch (err) {
                         console.error('Font loading failed:', err);
-                        ui.fontUploadStatus.textContent = '字体加载失败，请检查文件格式。';
+                        ui.fontUploadStatus.textContent = translations[currentLang].fontError;
                     }
                 };
                 reader.readAsArrayBuffer(file);
@@ -899,19 +1158,23 @@
             };
 
             const addCustomFontToSelectors = (fontName) => {
-                const selectors = [ui.themeFontFamily, ui.nameFontFamily]; // MODIFIED: Removed group name selector
+                const selectors = [ui.themeFontFamily, ui.nameFontFamily];
                 selectors.forEach(select => {
-                    if ([...select.options].some(opt => opt.value === fontName)) return;
+                    // Avoid adding duplicate options
+                    if ([...select.options].some(opt => opt.value === `"${fontName}"`)) return;
 
                     const option = document.createElement('option');
-                    option.value = fontName;
-                    option.textContent = `${fontName} (自定义)`;
+                    option.value = `"${fontName}"`; // Use quotes for font family name
+                    option.textContent = fontName + translations[currentLang].customFontSuffix;
+                    option.setAttribute('data-translate-custom-font', fontName); // Store original name
                     select.appendChild(option);
-                    select.value = fontName;
+                    select.value = `"${fontName}"`;
                 });
             };
 
             const setupListeners = () => {
+                ui.languageSwitcher.addEventListener('change', (e) => setLanguage(e.target.value));
+
                 ui.imageUpload.addEventListener('change', (e) => {
                     const file = e.target.files[0];
                     if (file) {
@@ -954,8 +1217,8 @@
                 [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
                 [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
                 
-                [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles)); // MODIFIED
-                [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles)); // MODIFIED
+                [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles));
+                [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles));
 
 
                 addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
@@ -1019,7 +1282,7 @@
                     { slider: ui.themeWeight, input: ui.themeWeightInput },
                     { slider: ui.memberNameWeight, input: ui.memberNameWeightInput },
                     { slider: ui.romajiNameWeight, input: ui.romajiNameWeightInput },
-                ]; // MODIFIED
+                ];
 
                 weightControls.forEach(control => {
                     control.input.addEventListener('input', () => {
@@ -1057,7 +1320,6 @@
                 }
             };
 
-            // CHANGED: Simplified function
             const resetImageTransform = () => {
                 imageState = { scale: 1, translateX: 0, translateY: 0 };
                 update.imageTransform();
@@ -1138,7 +1400,7 @@
 
                     const elementsToDraw = [
                         { el: ui.logoContainer, isLogo: true },
-                        { el: ui.groupNameImage, isImage: true }, // MODIFIED
+                        { el: ui.groupNameImage, isImage: true },
                         { el: ui.previewTheme },
                         { el: ui.previewName },
                         { el: ui.previewRomaji, isOptional: true },
@@ -1155,7 +1417,7 @@
                         const drawX = infoBarX + x;
                         const drawY = infoBarY + y;
 
-                        if (item.isLogo || item.isImage) { // MODIFIED: Combined logic for logo and group name image
+                        if (item.isLogo || item.isImage) {
                             const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el;
                             
                             if (targetImg.tagName === 'IMG') {
@@ -1205,7 +1467,7 @@
 
                 } catch (err) {
                     console.error('图片生成失败:', err);
-                    ui.errorMessage.textContent = '图片生成失败。请检查浏览器控制台获取技术信息。';
+                    ui.errorMessage.textContent = translations[currentLang].errorMessage;
                     ui.errorModal.classList.remove('hidden');
                 } finally {
                     ui.loadingText.classList.add('hidden');
@@ -1219,6 +1481,17 @@
                 setupListeners();
                 Object.values(update).forEach(func => func());
                 handleRomajiToggle();
+                
+                // Set initial language based on browser preference
+                const userLang = navigator.language || navigator.userLanguage;
+                let initialLang = 'zh';
+                if (userLang.startsWith('en')) {
+                    initialLang = 'en';
+                } else if (userLang.startsWith('ja')) {
+                    initialLang = 'ja';
+                }
+                ui.languageSwitcher.value = initialLang;
+                setLanguage(initialLang);
             };
 
             init();
