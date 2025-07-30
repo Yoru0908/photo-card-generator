@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生写真模板生成器</title>
-    <link rel="icon" type="image/jpeg" href="images/sakamichi.jpg">
+    <link rel="icon" type="image/jpeg" href="https://placehold.co/32x32/F19DB5/FFFFFF?text=坂">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- Cropper.js CSS -->
@@ -261,14 +261,6 @@
                                 <button id="reset-image-btn"
                                     class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full">重置</button>
                             </div>
-                            <div class="space-y-3">
-                                <div>
-                                    <label for="image-zoom" class="text-sm text-gray-500">图片缩放: <span
-                                            id="image-zoom-value">1</span>x</label>
-                                    <input type="range" id="image-zoom" min="1" max="3" value="1" step="0.05"
-                                        class="w-full">
-                                </div>
-                            </div>
                         </div>
                         <div class="pt-2">
                             <h3 class="block text-sm font-medium text-gray-600 mb-2">信息栏位置</h3>
@@ -337,56 +329,56 @@
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">Logo 位置</p>
                                      <div>
-                                        <label for="logo-x" class="text-sm text-gray-500">水平位置 (X): <span id="logo-x-value">8</span>px</label>
-                                        <input type="range" id="logo-x" min="0" max="50" value="5" class="w-full">
+                                         <label for="logo-x" class="text-sm text-gray-500">水平位置 (X): <span id="logo-x-value">8</span>px</label>
+                                         <input type="range" id="logo-x" min="0" max="50" value="5" class="w-full">
                                      </div>
                                      <div>
-                                        <label for="logo-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
-                                        <input type="range" id="logo-y" min="-30" max="30" value="0" class="w-full">
+                                         <label for="logo-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="logo-y-value">0</span>px</label>
+                                         <input type="range" id="logo-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">团名位置</p>
                                      <div>
-                                        <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
-                                        <input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full">
+                                         <label for="group-name-x" class="text-sm text-gray-500">水平位置 (X): <span id="group-name-x-value">44</span>px</label>
+                                         <input type="range" id="group-name-x" min="0" max="100" value="44" class="w-full">
                                      </div>
                                      <div>
-                                        <label for="group-name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
-                                        <input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full">
+                                         <label for="group-name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="group-name-y-value">1</span>px</label>
+                                         <input type="range" id="group-name-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">主题</p>
                                      <div>
-                                        <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
-                                        <input type="range" id="theme-x" min="-100" max="100" value="-6" class="w-full">
+                                         <label for="theme-x" class="text-sm text-gray-500">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
+                                         <input type="range" id="theme-x" min="-100" max="100" value="-6" class="w-full">
                                      </div>
                                      <div>
-                                        <label for="theme-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
-                                        <input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full">
+                                         <label for="theme-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
+                                         <input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">姓名位置</p>
                                      <div>
-                                        <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-7</span>px</label>
-                                        <input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full">
+                                         <label for="name-x" class="text-sm text-gray-500">水平位置 (X): <span id="name-x-value">-7</span>px</label>
+                                         <input type="range" id="name-x" min="-50" max="50" value="-7" class="w-full">
                                      </div>
                                      <div>
-                                        <label for="name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
-                                        <input type="range" id="name-y" min="-30" max="30" value="0" class="w-full">
+                                         <label for="name-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="name-y-value">0</span>px</label>
+                                         <input type="range" id="name-y" min="-30" max="30" value="0" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
                                      <p class="text-sm text-gray-600 font-semibold">罗马字位置</p>
                                      <div>
-                                        <label for="romaji-x" class="text-sm text-gray-500">水平位置 (X): <span id="romaji-x-value">-12</span>px</label>
-                                        <input type="range" id="romaji-x" min="-50" max="50" value="-12" class="w-full">
+                                         <label for="romaji-x" class="text-sm text-gray-500">水平位置 (X): <span id="romaji-x-value">-12</span>px</label>
+                                         <input type="range" id="romaji-x" min="-50" max="50" value="-12" class="w-full">
                                      </div>
                                      <div>
-                                        <label for="romaji-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="romaji-y-value">14</span>px</label>
-                                        <input type="range" id="romaji-y" min="-30" max="30" value="14" class="w-full">
+                                         <label for="romaji-y" class="text-sm text-gray-500">垂直位置 (Y): <span id="romaji-y-value">14</span>px</label>
+                                         <input type="range" id="romaji-y" min="-30" max="30" value="14" class="w-full">
                                      </div>
                                 </div>
                             </div>
@@ -529,12 +521,12 @@
                                                 <path d="M5,90 L50,10 L95,90 Z"></path>
                                                 <path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path>
                                             </svg>
-                                            <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.style.display='none'; document.getElementById('svg-logo').classList.remove('hidden');">
+                                            <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/a0aec0?text=Logo';">
                                         </div>
                                     </div>
                                     <!-- MODIFIED: Replaced span with img for group name -->
                                     <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 1px));">
-                                        <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;">
+                                        <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;" onerror="this.onerror=null; this.src='https://placehold.co/100x20/e2e8f0/a0aec0?text=Name';">
                                     </div>
 
                                     <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 12px), calc(-50% + 0px));">
@@ -619,8 +611,6 @@
                 marginX: document.getElementById('margin-x'),
                 marginBottomValue: document.getElementById('margin-bottom-value'),
                 marginXValue: document.getElementById('margin-x-value'),
-                imageZoom: document.getElementById('image-zoom'),
-                imageZoomValue: document.getElementById('image-zoom-value'),
                 resetImageBtn: document.getElementById('reset-image-btn'),
                 borderThickness: document.getElementById('border-thickness'),
                 borderThicknessValue: document.getElementById('border-thickness-value'),
@@ -853,6 +843,14 @@
                     if (groupNameImgSrc) {
                         ui.groupNameImage.src = groupNameImgSrc;
                     }
+                    
+                    // CHANGED: Adjust group name size based on selection
+                    if (groupName === '日向坂46') {
+                        ui.groupNameSize.value = 12;
+                    } else {
+                        ui.groupNameSize.value = 14; // Default size
+                    }
+                    update.sizes(); // Apply the size change
                 }
             };
             
@@ -979,11 +977,6 @@
                     });
                 });
 
-                ui.imageZoom.addEventListener('input', (e) => {
-                    imageState.scale = parseFloat(e.target.value);
-                    ui.imageZoomValue.textContent = parseFloat(imageState.scale).toFixed(2);
-                    update.imageTransform();
-                });
                 ui.resetImageBtn.addEventListener('click', resetImageTransform);
                 ui.imageContainer.addEventListener('mousedown', startDrag);
                 document.addEventListener('mousemove', drag);
@@ -1064,10 +1057,9 @@
                 }
             };
 
+            // CHANGED: Simplified function
             const resetImageTransform = () => {
                 imageState = { scale: 1, translateX: 0, translateY: 0 };
-                ui.imageZoom.value = 1;
-                ui.imageZoomValue.textContent = '1.00';
                 update.imageTransform();
             };
 
