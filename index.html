@@ -123,7 +123,7 @@
             cursor: pointer;
         }
 
-        /* NEW: Language switcher styles */
+        /* Language switcher styles */
         .lang-btn {
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
@@ -142,17 +142,21 @@
     </style>
 </head>
 
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4 relative">
+<body class="bg-gray-100">
 
-    <!-- NEW: Language Switcher -->
-    <div id="lang-switcher" class="absolute top-4 right-4 space-x-2 z-10">
-        <button data-lang="zh" class="lang-btn">中文</button>
-        <button data-lang="en" class="lang-btn">English</button>
-        <button data-lang="ja" class="lang-btn">日本語</button>
-    </div>
-
-    <div class="w-full max-w-5xl mx-auto">
-        <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color" data-i18n="mainTitle">生写真模板生成器</h1>
+    <div class="w-full max-w-5xl mx-auto p-4">
+        <!-- CHANGE 1: Responsive Header using Grid for better centering and mobile view -->
+        <header class="grid grid-cols-1 sm:grid-cols-3 items-center mb-6 gap-y-4">
+            <div class="sm:col-start-1">
+                <!-- Empty spacer for desktop to help centering -->
+            </div>
+            <h1 id="main-title" class="order-first sm:order-none sm:col-start-2 text-2xl md:text-3xl font-bold text-center sakura-text-color" data-i18n="mainTitle">生写真模板生成器</h1>
+            <div id="lang-switcher" class="sm:col-start-3 flex justify-center sm:justify-end space-x-2">
+                <button data-lang="zh" class="lang-btn">中文</button>
+                <button data-lang="en" class="lang-btn">English</button>
+                <button data-lang="ja" class="lang-btn">日本語</button>
+            </div>
+        </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- 控制面板 -->
@@ -265,12 +269,6 @@
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="block text-sm font-medium text-gray-600" data-i18n="mainImagePosition">主图片位置</h3>
                                 <button id="reset-image-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full" data-i18n="reset">重置</button>
-                            </div>
-                            <div class="space-y-3">
-                                <div>
-                                    <label for="image-zoom" class="text-sm text-gray-500"><span data-i18n="imageZoom">图片缩放</span>: <span id="image-zoom-value">1</span>x</label>
-                                    <input type="range" id="image-zoom" min="1" max="3" value="1" step="0.05" class="w-full">
-                                </div>
                             </div>
                         </div>
                         <div class="pt-2">
@@ -694,8 +692,6 @@
                 marginX: document.getElementById('margin-x'),
                 marginBottomValue: document.getElementById('margin-bottom-value'),
                 marginXValue: document.getElementById('margin-x-value'),
-                imageZoom: document.getElementById('image-zoom'),
-                imageZoomValue: document.getElementById('image-zoom-value'),
                 resetImageBtn: document.getElementById('reset-image-btn'),
                 borderThickness: document.getElementById('border-thickness'),
                 borderThicknessValue: document.getElementById('border-thickness-value'),
@@ -1037,24 +1033,23 @@
                     });
                 });
 
-                ui.imageZoom.addEventListener('input', (e) => {
-                    imageState.scale = parseFloat(e.target.value);
-                    ui.imageZoomValue.textContent = parseFloat(imageState.scale).toFixed(2);
-                    update.imageTransform();
-                });
                 ui.resetImageBtn.addEventListener('click', resetImageTransform);
                 ui.imageContainer.addEventListener('mousedown', startDrag);
                 document.addEventListener('mousemove', drag);
                 document.addEventListener('mouseup', stopDrag);
                 // Touch events for mobile
-                ui.imageContainer.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
-                document.addEventListener('touchmove', (e) => drag(e.touches[0]));
+                ui.imageContainer.addEventListener('touchstart', (e) => startDrag(e.touches[0]), { passive: false });
+                document.addEventListener('touchmove', (e) => drag(e.touches[0]), { passive: false });
                 document.addEventListener('touchend', stopDrag);
 
 
                 ui.cropBtn.addEventListener('click', () => {
                     if (cropper) {
-                        ui.previewImage.src = cropper.getCroppedCanvas().toDataURL('image/png');
+                        ui.previewImage.src = cropper.getCroppedCanvas({
+                            width: 1068, // Higher resolution for better quality
+                            height: 1524,
+                            imageSmoothingQuality: 'high',
+                        }).toDataURL('image/png');
                         resetImageTransform();
                         cropper.destroy();
                         cropper = null;
@@ -1129,8 +1124,6 @@
 
             const resetImageTransform = () => {
                 imageState = { scale: 1, translateX: 0, translateY: 0 };
-                ui.imageZoom.value = 1;
-                ui.imageZoomValue.textContent = '1.00';
                 update.imageTransform();
             };
 
@@ -1163,118 +1156,46 @@
                 ui.downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
                 try {
+                    // Ensure all custom fonts are loaded before rendering the canvas
                     await document.fonts.ready;
 
-                    const scaleFactor = 3;
-                    const rect = ui.photoCard.getBoundingClientRect();
-                    const finalCanvas = document.createElement('canvas');
-                    finalCanvas.width = rect.width * scaleFactor;
-                    finalCanvas.height = rect.height * scaleFactor;
-                    const ctx = finalCanvas.getContext('2d');
-                    ctx.scale(scaleFactor, scaleFactor);
-
-                    const img = ui.previewImage;
-                    if (img.src && img.complete && img.naturalWidth > 0) {
-                        const containerRect = ui.imageContainer.getBoundingClientRect();
-                        const photoCardRect = ui.photoCard.getBoundingClientRect();
-                        const containerX = containerRect.left - photoCardRect.left;
-                        const containerY = containerRect.top - photoCardRect.top;
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.rect(containerX, containerY, containerRect.width, containerRect.height);
-                        ctx.clip();
-                        
-                        const transformedWidth = containerRect.width * imageState.scale;
-                        const transformedHeight = containerRect.height * imageState.scale;
-                        const drawX = containerX + imageState.translateX + (containerRect.width - transformedWidth) / 2;
-                        const drawY = containerY + imageState.translateY + (containerRect.height - transformedHeight) / 2;
-
-                        ctx.drawImage(img, drawX, drawY, transformedWidth, transformedHeight);
-                        ctx.restore();
-                    }
-
-                    const photoCardRect = ui.photoCard.getBoundingClientRect();
-                    const infoBarRect = ui.infoBar.getBoundingClientRect();
-                    const infoBarX = infoBarRect.left - photoCardRect.left;
-                    const infoBarY = infoBarRect.top - photoCardRect.top;
-                    const infoBarWidth = infoBarRect.width;
-                    const infoBarHeight = infoBarRect.height;
-
-                    ctx.fillStyle = ui.infoBarBgColor.value;
-                    ctx.fillRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
-
-                    if (ui.borderToggle.checked) {
-                        ctx.strokeStyle = ui.borderColor.value;
-                        ctx.lineWidth = parseFloat(ui.borderThickness.value);
-                        ctx.strokeRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
-                    }
-
-                    const elementsToDraw = [
-                        { el: ui.logoContainer, isLogo: true },
-                        { el: ui.groupNameImage, isImage: true },
-                        { el: ui.previewTheme },
-                        { el: ui.previewName },
-                        { el: ui.previewRomaji, isOptional: true },
-                    ];
-
-                    for (const item of elementsToDraw) {
-                        if (item.isOptional && ui.romajiBlock.classList.contains('hidden')) continue;
-                        if (!item.el) continue;
-
-                        const elRect = item.el.getBoundingClientRect();
-                        const x = elRect.left - infoBarRect.left;
-                        const y = elRect.top - infoBarRect.top;
-                        
-                        const drawX = infoBarX + x;
-                        const drawY = infoBarY + y;
-
-                        if (item.isLogo || item.isImage) {
-                            const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el;
-                            
-                            if (targetImg.tagName === 'IMG') {
-                                if (targetImg.complete && targetImg.naturalWidth > 0) {
-                                    ctx.drawImage(targetImg, drawX, drawY, elRect.width, elRect.height);
-                                }
-                            } else { // SVG Logic
-                                const svgText = new XMLSerializer().serializeToString(targetImg);
-                                const coloredSvgText = svgText.replace(/class="fill-current"/g, `fill="${ui.infoColor.value}"`);
-                                const svgBlob = new Blob([coloredSvgText], { type: 'image/svg+xml;charset=utf-8' });
-                                const url = URL.createObjectURL(svgBlob);
-                                const svgImage = await new Promise(resolve => {
-                                    const img = new Image();
-                                    img.onload = () => resolve(img);
-                                    img.onerror = () => resolve(null);
-                                    img.src = url;
-                                });
-                                if (svgImage) {
-                                    ctx.drawImage(svgImage, drawX, drawY, elRect.width, elRect.height);
-                                }
-                                URL.revokeObjectURL(url);
+                    // Use html2canvas for a more accurate capture
+                    const canvas = await html2canvas(ui.photoCard, {
+                        scale: 3, // Increase scale for higher resolution output
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null, // Use transparent background
+                        logging: false,
+                        onclone: (clonedDoc) => {
+                            // Ensure the image transform is applied correctly in the clone
+                            const clonedPreviewImage = clonedDoc.getElementById('preview-image');
+                            if (clonedPreviewImage) {
+                                clonedPreviewImage.style.transform = ui.previewImage.style.transform;
                             }
-                        } else {
-                            const computedStyle = getComputedStyle(item.el);
-                            ctx.fillStyle = computedStyle.color;
-                            ctx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} ${computedStyle.fontFamily}`;
-                            ctx.textAlign = computedStyle.textAlign;
-                            ctx.textBaseline = 'middle';
-                            
-                            let textX = drawX;
-                            if(ctx.textAlign === 'right') {
-                                textX = drawX + elRect.width;
-                            } else if (ctx.textAlign === 'center') {
-                                textX = drawX + elRect.width / 2;
-                            }
-                            const textY = drawY + elRect.height / 2;
-                            ctx.fillText(item.el.textContent, textX, textY);
                         }
+                    });
+
+                    // Convert canvas to Blob for better download compatibility
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    
+                    if (!blob) {
+                        throw new Error('Canvas to Blob conversion failed');
                     }
 
+                    const url = URL.createObjectURL(blob);
                     const finalLink = document.createElement('a');
                     const memberName = ui.memberName.value.trim() || 'member';
                     const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
                     finalLink.download = `photo_card_${memberName}_${theme}.png`;
-                    finalLink.href = finalCanvas.toDataURL('image/png');
+                    finalLink.href = url;
+                    
+                    // This sequence is more reliable across browsers
+                    document.body.appendChild(finalLink);
                     finalLink.click();
+                    document.body.removeChild(finalLink);
+
+                    // Clean up the object URL to free memory
+                    URL.revokeObjectURL(url);
 
                 } catch (err) {
                     console.error('Image generation failed:', err);
