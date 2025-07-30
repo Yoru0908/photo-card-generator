@@ -88,14 +88,6 @@
             cursor: pointer;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-
-        #image-container {
-            cursor: grab;
-        }
-
-        #image-container:active {
-            cursor: grabbing;
-        }
         
         #info-bar {
             position: relative;
@@ -108,7 +100,7 @@
         }
 
         /* Cropper Modal Styles */
-        #crop-modal {
+        #crop-modal, #ios-save-modal {
             background-color: rgba(0, 0, 0, 0.8);
         }
         #crop-container {
@@ -145,7 +137,7 @@
 <body class="bg-gray-100">
 
     <div class="w-full max-w-5xl mx-auto p-4">
-        <!-- CHANGE 1: Responsive Header using Grid for better centering and mobile view -->
+        <!-- Responsive Header using Grid for better centering and mobile view -->
         <header class="grid grid-cols-1 sm:grid-cols-3 items-center mb-6 gap-y-4">
             <div class="sm:col-start-1">
                 <!-- Empty spacer for desktop to help centering -->
@@ -549,6 +541,16 @@
         </div>
     </div>
 
+    <!-- CHANGE 2: Added iOS Save Modal -->
+    <div id="ios-save-modal" class="fixed inset-0 z-50 flex-col items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2" data-i18n="iosSaveTitle">图片已生成</h3>
+            <p class="text-gray-600 mb-4" data-i18n="iosSaveInstructions">请长按图片并选择“添加到照片”</p>
+            <img id="ios-final-image" src="" class="max-w-full h-auto max-h-[60vh] rounded-md border">
+            <button id="close-ios-modal-btn" class="mt-6 w-full px-4 py-2 bg-violet-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300" data-i18n="errorModalClose">关闭</button>
+        </div>
+    </div>
+
     <div id="error-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
@@ -750,6 +752,9 @@
                 imageToCrop: document.getElementById('image-to-crop'),
                 cropBtn: document.getElementById('crop-btn'),
                 cancelCropBtn: document.getElementById('cancel-crop-btn'),
+                iosSaveModal: document.getElementById('ios-save-modal'),
+                iosFinalImage: document.getElementById('ios-final-image'),
+                closeIosModalBtn: document.getElementById('close-ios-modal-btn'),
             };
 
             const colorPresets = {
@@ -771,8 +776,6 @@
             };
 
             let imageState = { scale: 1, translateX: 0, translateY: 0 };
-            let isDragging = false;
-            let startX, startY;
             let cropper = null;
 
             // --- Update Functions ---
@@ -1034,14 +1037,6 @@
                 });
 
                 ui.resetImageBtn.addEventListener('click', resetImageTransform);
-                ui.imageContainer.addEventListener('mousedown', startDrag);
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('mouseup', stopDrag);
-                // Touch events for mobile
-                ui.imageContainer.addEventListener('touchstart', (e) => startDrag(e.touches[0]), { passive: false });
-                document.addEventListener('touchmove', (e) => drag(e.touches[0]), { passive: false });
-                document.addEventListener('touchend', stopDrag);
-
 
                 ui.cropBtn.addEventListener('click', () => {
                     if (cropper) {
@@ -1079,6 +1074,10 @@
 
                 ui.downloadBtn.addEventListener('click', handleDownload);
                 ui.closeModalBtn.addEventListener('click', () => ui.errorModal.classList.add('hidden'));
+                ui.closeIosModalBtn.addEventListener('click', () => {
+                    ui.iosSaveModal.classList.add('hidden');
+                    ui.iosSaveModal.classList.remove('flex');
+                });
 
                 const weightControls = [
                     { slider: ui.themeWeight, input: ui.themeWeightInput },
@@ -1127,29 +1126,6 @@
                 update.imageTransform();
             };
 
-            const startDrag = (e) => {
-                // Prevent default behavior for touch events to avoid scrolling the page
-                if (e.preventDefault) e.preventDefault();
-                isDragging = true;
-                startX = e.clientX - imageState.translateX;
-                startY = e.clientY - imageState.translateY;
-                ui.imageContainer.style.cursor = 'grabbing';
-            };
-
-            const drag = (e) => {
-                if (!isDragging) return;
-                // Prevent default behavior for touch events
-                if (e.preventDefault) e.preventDefault();
-                imageState.translateX = e.clientX - startX;
-                imageState.translateY = e.clientY - startY;
-                update.imageTransform();
-            };
-
-            const stopDrag = () => {
-                isDragging = false;
-                ui.imageContainer.style.cursor = 'grab';
-            };
-
             const handleDownload = async () => {
                 ui.loadingText.classList.remove('hidden');
                 ui.downloadBtn.disabled = true;
@@ -1175,27 +1151,34 @@
                         }
                     });
 
-                    // Convert canvas to Blob for better download compatibility
-                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-                    
-                    if (!blob) {
-                        throw new Error('Canvas to Blob conversion failed');
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+                    if (isIOS) {
+                        // On iOS, show the image in a modal for the user to save manually
+                        ui.iosFinalImage.src = canvas.toDataURL('image/png');
+                        ui.iosSaveModal.classList.remove('hidden');
+                        ui.iosSaveModal.classList.add('flex');
+                    } else {
+                        // On other devices, trigger download directly
+                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                        
+                        if (!blob) {
+                            throw new Error('Canvas to Blob conversion failed');
+                        }
+
+                        const url = URL.createObjectURL(blob);
+                        const finalLink = document.createElement('a');
+                        const memberName = ui.memberName.value.trim() || 'member';
+                        const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
+                        finalLink.download = `photo_card_${memberName}_${theme}.png`;
+                        finalLink.href = url;
+                        
+                        document.body.appendChild(finalLink);
+                        finalLink.click();
+                        document.body.removeChild(finalLink);
+
+                        URL.revokeObjectURL(url);
                     }
-
-                    const url = URL.createObjectURL(blob);
-                    const finalLink = document.createElement('a');
-                    const memberName = ui.memberName.value.trim() || 'member';
-                    const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
-                    finalLink.download = `photo_card_${memberName}_${theme}.png`;
-                    finalLink.href = url;
-                    
-                    // This sequence is more reliable across browsers
-                    document.body.appendChild(finalLink);
-                    finalLink.click();
-                    document.body.removeChild(finalLink);
-
-                    // Clean up the object URL to free memory
-                    URL.revokeObjectURL(url);
 
                 } catch (err) {
                     console.error('Image generation failed:', err);
