@@ -86,7 +86,7 @@ const translations = {
   // 英文 (请在此处填写翻译)
   en: {
     htmlLang: 'en',
-    mainTitle: 'Trading Card Template Generator',
+    mainTitle: 'Trading Card Generator',
     customizeTitle: 'Customization',
     uploadLabel: '1. Upload Main Image',
     memberNameLabel: '2. Member Name',
