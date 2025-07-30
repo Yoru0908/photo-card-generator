@@ -106,12 +106,17 @@
         }
 
         /* Cropper Modal Styles */
-        #crop-modal {
+        #crop-modal, #save-modal {
             background-color: rgba(0, 0, 0, 0.8);
         }
         #crop-container {
             max-width: 90vw;
             max-height: 75vh;
+        }
+        
+        #save-modal img {
+            max-width: 90vw;
+            max-height: 80vh;
         }
 
         .tick {
@@ -137,7 +142,7 @@
         <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color" data-translate="mainTitle">生写真模板生成器</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- 控制面板 -->
+            <!-- Control Panel -->
             <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
                 <h2 class="text-xl font-semibold text-gray-700" data-translate="customContentTitle">自定义内容</h2>
 
@@ -391,7 +396,7 @@
                             </div>
                         </div>
 
-                        <!-- MODIFIED: Font controls section -->
+                        <!-- Font controls section -->
                         <div class="pt-2">
                             <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="fontStyleTuningLabel">字体样式微调</h3>
                             <div class="space-y-4">
@@ -419,7 +424,7 @@
                                         <option value="sans-serif" data-translate="sansSerifFont">系统无衬线体</option>
                                     </select>
                                 </div>
-                                <!-- NEW: Custom Font Upload -->
+                                <!-- Custom Font Upload -->
                                 <div class="pt-2">
                                     <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2" data-translate="uploadCustomFontLabel">上传自定义字体</label>
                                      <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2"
@@ -478,7 +483,7 @@
                 </button>
                 <p id="loading-text" class="text-center mt-4 text-sm text-gray-500 hidden" data-translate="loadingText">正在生成图片，请稍候...</p>
 
-                <!-- MODIFIED: Author Info & Feedback Section -->
+                <!-- Author Info & Feedback Section -->
                 <details class="pt-4 mt-2 border-t border-gray-200">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
                         <span data-translate="authorAndFeedbackLabel">作者信息 & 反馈</span>
@@ -509,7 +514,7 @@
                 </details>
             </div>
 
-            <!-- 预览区域 -->
+            <!-- Preview Area -->
             <div>
                 <div class="sticky top-8">
                     <div id="photo-card" class="w-full max-w-sm bg-gray-200 rounded-lg overflow-hidden mx-auto">
@@ -531,7 +536,6 @@
                                             <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/a0aec0?text=Logo';">
                                         </div>
                                     </div>
-                                    <!-- MODIFIED: Replaced span with img for group name -->
                                     <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 1px));">
                                         <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;" onerror="this.onerror=null; this.src='https://placehold.co/100x20/e2e8f0/a0aec0?text=Name';">
                                     </div>
@@ -567,6 +571,15 @@
         </div>
     </div>
 
+    <!-- SAVE MODAL (FOR MOBILE) -->
+    <div id="save-modal" class="fixed inset-0 z-50 flex-col items-center justify-center hidden p-4">
+        <div class="relative p-4 bg-white rounded-lg shadow-xl">
+            <img id="final-image" class="object-contain">
+            <p class="mt-4 text-center text-gray-800 font-semibold" data-translate="longPressInstruction">画像を長押しして保存してください</p>
+            <button id="close-save-modal-btn" class="absolute -top-2 -right-2 w-8 h-8 bg-gray-700 text-white font-bold rounded-full hover:bg-gray-900 flex items-center justify-center text-xl">&times;</button>
+        </div>
+    </div>
+
     <div id="error-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
@@ -589,7 +602,7 @@
     <script>
         const translations = {
             en: {
-                mainTitle: "Trading Card Generator",
+                mainTitle: "Photo Card Generator",
                 customContentTitle: "Customize Content",
                 uploadMainImageLabel: "1. Upload Main Image",
                 memberNameLabel: "2. Member Name",
@@ -655,7 +668,8 @@
                 fontLoading: "Loading font \"{fontName}\"...",
                 fontLoaded: "Font \"{fontName}\" loaded successfully!",
                 fontError: "Font loading failed. Please check the file format.",
-                customFontSuffix: " (Custom)"
+                customFontSuffix: " (Custom)",
+                longPressInstruction: "Long-press the image to save"
             },
             ja: {
                 mainTitle: "生写真ジェネレーター",
@@ -724,10 +738,11 @@
                 fontLoading: "フォント「{fontName}」を読み込み中...",
                 fontLoaded: "フォント「{fontName}」の読み込みに成功しました！",
                 fontError: "フォントの読み込みに失敗しました。ファイル形式を確認してください。",
-                customFontSuffix: " (カスタム)"
+                customFontSuffix: " (カスタム)",
+                longPressInstruction: "画像を長押しして保存してください"
             },
             zh: {
-                mainTitle: "生写真生成器",
+                mainTitle: "生写真模板生成器",
                 customContentTitle: "自定义内容",
                 uploadMainImageLabel: "1. 上传主图片",
                 memberNameLabel: "2. 成员姓名",
@@ -758,7 +773,7 @@
                 memberNameSizeLabel: "姓名大小: {value}px",
                 romajiNameSizeLabel: "罗马字大小: {value}px",
                 elementPositionTuningLabel: "元素位置微调",
-                logoPositionLabel: "Logo位置",
+                logoPositionLabel: "Logo 位置",
                 horizontalPositionLabel: "水平位置 (X): {value}px",
                 verticalPositionLabel: "垂直位置 (Y): {value}px",
                 groupNamePositionLabel: "团名位置",
@@ -793,7 +808,8 @@
                 fontLoading: "正在加载字体 “{fontName}”...",
                 fontLoaded: "字体 “{fontName}” 加载成功!",
                 fontError: "字体加载失败，请检查文件格式。",
-                customFontSuffix: " (自定义)"
+                customFontSuffix: " (自定义)",
+                longPressInstruction: "请长按图片保存"
             }
         };
     </script>
@@ -807,7 +823,6 @@
                 currentLang = lang;
                 document.documentElement.lang = lang;
                 
-                // Translate static text
                 document.querySelectorAll('[data-translate]').forEach(el => {
                     const key = el.getAttribute('data-translate');
                     if (translations[lang] && translations[lang][key]) {
@@ -815,7 +830,6 @@
                     }
                 });
 
-                // Translate placeholders
                 document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-translate-placeholder');
                      if (translations[lang] && translations[lang][key]) {
@@ -823,7 +837,6 @@
                     }
                 });
                 
-                // Update dynamic labels
                 updateAllDynamicLabels();
             };
 
@@ -833,7 +846,14 @@
                     const valueSpan = label.querySelector('span');
                     if (valueSpan && translations[currentLang] && translations[currentLang][key]) {
                         const template = translations[currentLang][key];
-                        label.innerHTML = template.replace('{value}', valueSpan.textContent);
+                        const value = valueSpan.textContent;
+                        // This is a bit brittle, but it works for the current structure.
+                        // It rebuilds the label text around the span.
+                        const parts = template.split('{value}');
+                        label.innerHTML = '';
+                        label.appendChild(document.createTextNode(parts[0]));
+                        label.appendChild(valueSpan);
+                        label.appendChild(document.createTextNode(parts[1]));
                     }
                 });
             };
@@ -875,7 +895,6 @@
                 borderThickness: document.getElementById('border-thickness'),
                 borderThicknessValue: document.getElementById('border-thickness-value'),
                 
-                // Sizing controls
                 infoBarPaddingY: document.getElementById('info-bar-padding-y'),
                 infoBarPaddingYValue: document.getElementById('info-bar-padding-y-value'),
                 logoSize: document.getElementById('logo-size'),
@@ -889,7 +908,6 @@
                 romajiNameSize: document.getElementById('romaji-name-size'),
                 romajiNameSizeValue: document.getElementById('romaji-name-size-value'),
 
-                // Positioning controls
                 logoBlock: document.getElementById('logo-block'),
                 logoX: document.getElementById('logo-x'),
                 logoXValue: document.getElementById('logo-x-value'),
@@ -920,7 +938,6 @@
                 romajiY: document.getElementById('romaji-y'),
                 romajiYValue: document.getElementById('romaji-y-value'),
 
-                // Font controls
                 themeFontFamily: document.getElementById('theme-font-family'),
                 nameFontFamily: document.getElementById('name-font-family'),
                 themeWeight: document.getElementById('theme-weight'),
@@ -933,16 +950,18 @@
                 fontUpload: document.getElementById('font-upload'),
                 fontUploadStatus: document.getElementById('font-upload-status'),
 
-                // Modal
                 errorModal: document.getElementById('error-modal'),
                 errorMessage: document.getElementById('error-message'),
                 closeModalBtn: document.getElementById('close-modal-btn'),
 
-                // Crop Modal Elements
                 cropModal: document.getElementById('crop-modal'),
                 imageToCrop: document.getElementById('image-to-crop'),
                 cropBtn: document.getElementById('crop-btn'),
                 cancelCropBtn: document.getElementById('cancel-crop-btn'),
+                
+                saveModal: document.getElementById('save-modal'),
+                finalImage: document.getElementById('final-image'),
+                closeSaveModalBtn: document.getElementById('close-save-modal-btn'),
             };
 
             const colorPresets = {
@@ -1160,13 +1179,12 @@
             const addCustomFontToSelectors = (fontName) => {
                 const selectors = [ui.themeFontFamily, ui.nameFontFamily];
                 selectors.forEach(select => {
-                    // Avoid adding duplicate options
                     if ([...select.options].some(opt => opt.value === `"${fontName}"`)) return;
 
                     const option = document.createElement('option');
-                    option.value = `"${fontName}"`; // Use quotes for font family name
+                    option.value = `"${fontName}"`;
                     option.textContent = fontName + translations[currentLang].customFontSuffix;
-                    option.setAttribute('data-translate-custom-font', fontName); // Store original name
+                    option.setAttribute('data-translate-custom-font', fontName);
                     select.appendChild(option);
                     select.value = `"${fontName}"`;
                 });
@@ -1277,6 +1295,10 @@
 
                 ui.downloadBtn.addEventListener('click', handleDownload);
                 ui.closeModalBtn.addEventListener('click', () => ui.errorModal.classList.add('hidden'));
+                ui.closeSaveModalBtn.addEventListener('click', () => {
+                    ui.saveModal.classList.add('hidden');
+                    ui.saveModal.classList.remove('flex');
+                });
 
                 const weightControls = [
                     { slider: ui.themeWeight, input: ui.themeWeightInput },
@@ -1458,12 +1480,20 @@
                         }
                     }
 
-                    const finalLink = document.createElement('a');
-                    const memberName = ui.memberName.value.trim() || 'member';
-                    const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
-                    finalLink.download = `photo_card_${memberName}_${theme}.png`;
-                    finalLink.href = finalCanvas.toDataURL('image/png');
-                    finalLink.click();
+                    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+                    if (isMobile) {
+                        ui.finalImage.src = finalCanvas.toDataURL('image/png');
+                        ui.saveModal.classList.remove('hidden');
+                        ui.saveModal.classList.add('flex');
+                    } else {
+                        const finalLink = document.createElement('a');
+                        const memberName = ui.memberName.value.trim() || 'member';
+                        const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
+                        finalLink.download = `photo_card_${memberName}_${theme}.png`;
+                        finalLink.href = finalCanvas.toDataURL('image/png');
+                        finalLink.click();
+                    }
 
                 } catch (err) {
                     console.error('图片生成失败:', err);
@@ -1482,7 +1512,6 @@
                 Object.values(update).forEach(func => func());
                 handleRomajiToggle();
                 
-                // Set initial language based on browser preference
                 const userLang = navigator.language || navigator.userLanguage;
                 let initialLang = 'zh';
                 if (userLang.startsWith('en')) {
