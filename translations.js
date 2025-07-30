@@ -161,7 +161,7 @@ const translations = {
   // 日文 (请在此处填写翻译)
   ja: {
     htmlLang: 'ja',
-    mainTitle: '生写真テンプレートジェネレーター',
+    mainTitle: '生写真ジェネレーター',
     customizeTitle: 'カスタマイズ',
     uploadLabel: '1. メイン画像をアップロード',
     memberNameLabel: '2. メンバー名',
