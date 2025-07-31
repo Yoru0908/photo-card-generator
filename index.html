@@ -8,11 +8,9 @@
     <link rel="icon" type="image/jpeg" href="images/sakamichi.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Cropper.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Loaded more font weights -->
     <link
         href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Yuji+Syuku&display=swap"
         rel="stylesheet">
@@ -142,8 +140,7 @@
         <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color" data-translate="mainTitle">生写真模板生成器</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Control Panel -->
-            <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            <div id="control-panel" class="bg-white p-6 rounded-lg shadow-md space-y-4">
                 <h2 class="text-xl font-semibold text-gray-700" data-translate="customContentTitle">自定义内容</h2>
 
                 <div>
@@ -167,14 +164,21 @@
                 </div>
 
                 <div>
-                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2" data-translate="photoThemeLabel">4. 主题/其他信息</label>
+                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2" data-translate="photoThemeLabelLine1">4. 主题</label>
                     <input type="text" id="photo-theme" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                         data-translate-placeholder="photoThemePlaceholder" placeholder="请输入主题">
                 </div>
 
                 <div>
-                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2" data-translate="groupNameLabel">5. 团体名字</label>
+                    <label for="photo-theme-line-2" class="block text-sm font-medium text-gray-600 mb-2" data-translate="photoThemeLabelLine2">5. 主题 (第二行, 可选)</label>
+                    <input type="text" id="photo-theme-line-2" value=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        data-translate-placeholder="photoThemePlaceholder" placeholder="请输入主题第二行">
+                </div>
+
+                <div>
+                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2" data-translate="groupNameLabel">6. 团体名字</label>
                     <select id="group-name-select"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500">
                         <option value="櫻坂46" selected>櫻坂46</option>
@@ -185,7 +189,7 @@
 
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span data-translate="colorsAndBordersLabel">6. 颜色与边框</span>
+                        <span data-translate="colorsAndBordersLabel">7. 颜色与边框</span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
@@ -198,12 +202,9 @@
                                 <input type="color" id="info-bar-bg-color" value="#FFFFFF"
                                     class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-bar-bg-color">
-                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                        data-color="#7cc7e8"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #742581;"
-                                        data-color="#742581"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                        data-color="#F19DB5"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                     <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                     <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                                 </div>
@@ -213,12 +214,9 @@
                                 <input type="color" id="info-color" value="#F19DB5"
                                     class="mt-1 w-full h-8 p-0 border-gray-300 rounded cursor-pointer">
                                 <div class="flex space-x-2 mt-2 swatch-container" data-target="info-color">
-                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                        data-color="#7cc7e8"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #742581;"
-                                        data-color="#742581"></button>
-                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                        data-color="#F19DB5"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                    <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                     <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                     <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                                 </div>
@@ -240,12 +238,9 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2 mt-2 swatch-container" data-target="border-color">
-                                <button type="button" class="color-swatch" style="background-color: #7cc7e8;"
-                                    data-color="#7cc7e8"></button>
-                                <button type="button" class="color-swatch" style="background-color: #742581;"
-                                    data-color="#742581"></button>
-                                <button type="button" class="color-swatch" style="background-color: #F19DB5;"
-                                    data-color="#F19DB5"></button>
+                                <button type="button" class="color-swatch" style="background-color: #7cc7e8;" data-color="#7cc7e8"></button>
+                                <button type="button" class="color-swatch" style="background-color: #742581;" data-color="#742581"></button>
+                                <button type="button" class="color-swatch" style="background-color: #F19DB5;" data-color="#F19DB5"></button>
                                 <button type="button" class="color-swatch bg-white" data-color="#FFFFFF"></button>
                                 <button type="button" class="color-swatch bg-black" data-color="#000000"></button>
                             </div>
@@ -255,7 +250,7 @@
 
                 <details class="pt-2">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
-                        <span data-translate="advancedSettingsLabel">7. 高级设置</span>
+                        <span data-translate="advancedSettingsLabel">8. 高级设置</span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
@@ -267,10 +262,26 @@
                             <input type="file" id="logo-upload" accept="image/*"
                                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                         </div>
+                        
+                        <div class="pt-2 space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="romaji-toggle"
+                                    class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
+                                <label for="romaji-toggle"
+                                    class="ml-2 block text-sm font-medium text-gray-700" data-translate="showRomajiLabel">显示罗马字</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="theme-line-2-toggle"
+                                    class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
+                                <label for="theme-line-2-toggle"
+                                    class="ml-2 block text-sm font-medium text-gray-700" data-translate="showThemeLine2Label">显示主题第二行</label>
+                            </div>
+                        </div>
+
                         <div class="pt-2">
                             <div class="flex items-center justify-between mb-2">
-                                <h3 class="block text-sm font-medium text-gray-600" data-translate="mainImagePositionLabel">主图片位置</h3>
-                                <button id="reset-image-btn"
+                                <h3 class="block text-sm font-medium text-gray-600" data-translate="resetInfoBarLabel">信息栏重置</h3>
+                                <button id="reset-info-bar-btn"
                                     class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold py-1 px-2 rounded-full" data-translate="resetButton">重置</button>
                             </div>
                         </div>
@@ -293,12 +304,6 @@
                         <div class="pt-2">
                             <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="fontAndSizeTuningLabel">字体与尺寸微调</h3>
                             <div class="space-y-3">
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="romaji-toggle"
-                                        class="h-4 w-4 rounded border-gray-300 text-violet-600 focus:ring-violet-600">
-                                    <label for="romaji-toggle"
-                                        class="ml-2 block text-sm font-medium text-gray-700" data-translate="showRomajiLabel">显示罗马字</label>
-                                </div>
                                 <div>
                                     <label for="info-bar-padding-y" class="text-sm text-gray-500" id="info-bar-padding-y-label" data-translate-template="infoBarPaddingYLabel">信息栏内边距: <span
                                             id="info-bar-padding-y-value">22</span>px</label>
@@ -319,6 +324,11 @@
                                     <label for="theme-size" class="text-sm text-gray-500" id="theme-size-label" data-translate-template="themeSizeLabel">主题大小: <span
                                             id="theme-size-value">9</span>px</label>
                                     <input type="range" id="theme-size" min="8" max="20" value="8" class="w-full">
+                                </div>
+                                <div>
+                                    <label for="theme-line-2-size" class="text-sm text-gray-500" id="theme-line-2-size-label" data-translate-template="themeLine2SizeLabel">主题二行大小: <span
+                                            id="theme-line-2-size-value">9</span>px</label>
+                                    <input type="range" id="theme-line-2-size" min="8" max="20" value="8" class="w-full">
                                 </div>
                                 <div>
                                     <label for="member-name-size" class="text-sm text-gray-500" id="member-name-size-label" data-translate-template="memberNameSizeLabel">姓名大小: <span
@@ -361,7 +371,7 @@
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
-                                     <p class="text-sm text-gray-600 font-semibold" data-translate="themePositionLabel">主题</p>
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="themePositionLabel">主题位置</p>
                                      <div>
                                          <label for="theme-x" class="text-sm text-gray-500" id="theme-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="theme-x-value">-12</span>px</label>
                                          <input type="range" id="theme-x" min="-100" max="100" value="-6" class="w-full">
@@ -369,6 +379,17 @@
                                      <div>
                                          <label for="theme-y" class="text-sm text-gray-500" id="theme-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="theme-y-value">0</span>px</label>
                                          <input type="range" id="theme-y" min="-30" max="30" value="0" class="w-full">
+                                     </div>
+                                </div>
+                                <div class="p-2 border rounded-md">
+                                     <p class="text-sm text-gray-600 font-semibold" data-translate="themeLine2PositionLabel">主题 (第二行) 位置</p>
+                                     <div>
+                                         <label for="theme-line-2-x" class="text-sm text-gray-500" id="theme-line-2-x-label" data-translate-template="horizontalPositionLabel">水平位置 (X): <span id="theme-line-2-x-value">-12</span>px</label>
+                                         <input type="range" id="theme-line-2-x" min="-100" max="100" value="-6" class="w-full">
+                                     </div>
+                                     <div>
+                                         <label for="theme-line-2-y" class="text-sm text-gray-500" id="theme-line-2-y-label" data-translate-template="verticalPositionLabel">垂直位置 (Y): <span id="theme-line-2-y-value">12</span>px</label>
+                                         <input type="range" id="theme-line-2-y" min="-30" max="30" value="6" class="w-full">
                                      </div>
                                 </div>
                                 <div class="p-2 border rounded-md">
@@ -396,7 +417,6 @@
                             </div>
                         </div>
 
-                        <!-- Font controls section -->
                         <div class="pt-2">
                             <h3 class="block text-sm font-medium text-gray-600 mb-2" data-translate="fontStyleTuningLabel">字体样式微调</h3>
                             <div class="space-y-4">
@@ -424,7 +444,6 @@
                                         <option value="sans-serif" data-translate="sansSerifFont">系统无衬线体</option>
                                     </select>
                                 </div>
-                                <!-- Custom Font Upload -->
                                 <div class="pt-2">
                                     <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2" data-translate="uploadCustomFontLabel">上传自定义字体</label>
                                      <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2"
@@ -483,7 +502,6 @@
                 </button>
                 <p id="loading-text" class="text-center mt-4 text-sm text-gray-500 hidden" data-translate="loadingText">正在生成图片，请稍候...</p>
 
-                <!-- Author Info & Feedback Section -->
                 <details class="pt-4 mt-2 border-t border-gray-200">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600">
                         <span data-translate="authorAndFeedbackLabel">作者信息 & 反馈</span>
@@ -516,7 +534,6 @@
                 </details>
             </div>
 
-            <!-- Preview Area -->
             <div>
                 <div class="sticky top-8">
                     <div id="photo-card" class="w-full max-w-sm bg-gray-200 rounded-lg overflow-hidden mx-auto">
@@ -525,12 +542,12 @@
                                 class="absolute w-full h-full object-cover"
                                 style="transform: translate(0px, 0px) scale(1);">
 
-                            <div id="info-bar-container" class="absolute" style="bottom: 34px; left: 29px; right: 29px;">
+                            <div id="info-bar-container" class="absolute" style="bottom: 29px; left: 26px; right: 26px;">
                                 <div id="info-bar" class="sakura-text-color"
-                                    style="background-color: rgb(255, 255, 255); border: 2px solid rgb(241, 157, 181); padding-top: 22px; padding-bottom: 22px; color: rgb(241, 157, 181);">
+                                    style="background-color: rgb(255, 255, 255); border: 1px solid rgb(241, 157, 181); padding-top: 20px; padding-bottom: 20px; color: rgb(241, 157, 181);">
                                     
-                                    <div id="logo-block" class="movable-block" style="left: 8px; transform: translateY(calc(-50% + 0px));">
-                                        <div id="logo-container" class="flex items-center" style="height: 34px;">
+                                    <div id="logo-block" class="movable-block" style="left: 5px; transform: translateY(calc(-50% + 0px));">
+                                        <div id="logo-container" class="flex items-center" style="height: 32px;">
                                             <svg id="svg-logo" width="100%" height="100%" viewBox="0 0 100 100" class="fill-current hidden" style="fill: rgb(241, 157, 181);">
                                                 <path d="M5,90 L50,10 L95,90 Z"></path>
                                                 <path d="M95,90 L95,10 L85,10 L85,80 L50,80 L50,90 Z"></path>
@@ -538,18 +555,21 @@
                                             <img id="image-logo" src="images/樱坂46logo.png" alt="Custom Logo" class="h-full w-auto" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/a0aec0?text=Logo';">
                                         </div>
                                     </div>
-                                    <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 1px));">
+                                    <div id="group-name-block" class="movable-block" style="left: 44px; transform: translateY(calc(-50% + 0px));">
                                         <img id="group-name-image" src="images/樱坂46文字.png" alt="Group Name" class="h-auto" style="height: 14px;" onerror="this.onerror=null; this.src='https://placehold.co/100x20/e2e8f0/a0aec0?text=Name';">
                                     </div>
 
-                                    <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 12px), calc(-50% + 0px));">
-                                         <p id="preview-theme" class="text-center" style="font-size: 9px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
+                                    <div id="theme-block" class="movable-block" style="left: 50%; transform: translate(calc(-50% - 6px), calc(-50% + 0px));">
+                                         <p id="preview-theme" class="text-center" style="font-size: 8px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
+                                    </div>
+                                    <div id="theme-line-2-block" class="movable-block hidden" style="left: 50%; transform: translate(calc(-50% - 6px), calc(-50% + 12px));">
+                                         <p id="preview-theme-line-2" class="text-center" style="font-size: 8px; font-weight: 100; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
                                     </div>
                                     
                                     <div id="name-block" class="movable-block text-right" style="right: 7px; transform: translateY(calc(-50% + 0px));">
                                         <p id="preview-name" class="" style="font-size: 20px; font-weight: 500; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
                                     </div>
-                                    <div id="romaji-block" class="movable-block text-right hidden" style="right: -12px; transform: translateY(calc(-50% + 14px));">
+                                    <div id="romaji-block" class="movable-block text-right hidden" style="right: 12px; transform: translateY(calc(-50% + 14px));">
                                         <p id="preview-romaji" class="" style="font-size: 13px; font-weight: 400; font-family: &quot;Kosugi Maru&quot;, sans-serif;"></p>
                                     </div>
 
@@ -562,7 +582,6 @@
         </div>
     </div>
 
-    <!-- CROP MODAL -->
     <div id="crop-modal" class="fixed inset-0 z-50 flex-col items-center justify-center hidden">
         <div id="crop-container">
             <img id="image-to-crop" src="">
@@ -573,7 +592,6 @@
         </div>
     </div>
 
-    <!-- SAVE MODAL (FOR MOBILE) -->
     <div id="save-modal" class="fixed inset-0 z-50 flex-col items-center justify-center hidden p-4">
         <div class="relative p-4 bg-white rounded-lg shadow-xl">
             <img id="final-image" class="object-contain">
@@ -597,10 +615,8 @@
         </div>
     </div>
 
-    <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
     
-    <!-- Translations -->
     <script>
         const translations = {
             en: {
@@ -611,27 +627,30 @@
                 memberNamePlaceholder: "Enter member's name",
                 romajiNameLabel: "3. Romaji (Optional)",
                 romajiNamePlaceholder: "Enter Romaji",
-                photoThemeLabel: "4. Theme / Other Info",
+                photoThemeLabelLine1: "4. Theme",
+                photoThemeLabelLine2: "5. Theme (Line 2, Optional)",
                 photoThemePlaceholder: "Enter theme",
-                groupNameLabel: "5. Group Name",
-                colorsAndBordersLabel: "6. Colors & Borders",
+                groupNameLabel: "6. Group Name",
+                colorsAndBordersLabel: "7. Colors & Borders",
                 infoBarBgColorLabel: "Info Bar BG Color",
                 textColorLabel: "Text/Logo Color",
                 infoBarBorderLabel: "Info Bar Border",
                 thicknessLabel: "Thickness: {value}px",
-                advancedSettingsLabel: "7. Advanced Settings",
+                advancedSettingsLabel: "8. Advanced Settings",
                 customLogoLabel: "Custom Logo",
-                mainImagePositionLabel: "Main Image Position",
+                resetInfoBarLabel: "Reset Info Bar",
                 resetButton: "Reset",
                 infoBarPositionLabel: "Info Bar Position",
                 marginBottomLabel: "Bottom Margin: {value}px",
                 marginXLabel: "Side Margin: {value}px",
                 fontAndSizeTuningLabel: "Font & Size Tuning",
                 showRomajiLabel: "Show Romaji",
+                showThemeLine2Label: "Show Theme Line 2",
                 infoBarPaddingYLabel: "Info Bar Padding: {value}px",
                 logoSizeLabel: "Logo Size: {value}px",
                 groupNameSizeLabel: "Group Name Size: {value}px",
                 themeSizeLabel: "Theme Size: {value}px",
+                themeLine2SizeLabel: "Theme L2 Size: {value}px",
                 memberNameSizeLabel: "Name Size: {value}px",
                 romajiNameSizeLabel: "Romaji Size: {value}px",
                 elementPositionTuningLabel: "Element Position Tuning",
@@ -640,6 +659,7 @@
                 verticalPositionLabel: "Vertical (Y): {value}px",
                 groupNamePositionLabel: "Group Name Position",
                 themePositionLabel: "Theme Position",
+                themeLine2PositionLabel: "Theme (Line 2) Position",
                 namePositionLabel: "Name Position",
                 romajiPositionLabel: "Romaji Position",
                 fontStyleTuningLabel: "Font Style Tuning",
@@ -681,27 +701,30 @@
                 memberNamePlaceholder: "メンバー名を入力",
                 romajiNameLabel: "3. ローマ字 (任意)",
                 romajiNamePlaceholder: "ローマ字を入力",
-                photoThemeLabel: "4. テーマ/その他情報",
+                photoThemeLabelLine1: "4. テーマ",
+                photoThemeLabelLine2: "5. テーマ（2行目、任意）",
                 photoThemePlaceholder: "テーマを入力",
-                groupNameLabel: "5. グループ名",
-                colorsAndBordersLabel: "6. 色と枠線",
+                groupNameLabel: "6. グループ名",
+                colorsAndBordersLabel: "7. 色と枠線",
                 infoBarBgColorLabel: "情報バーの背景色",
                 textColorLabel: "文字/ロゴの色",
                 infoBarBorderLabel: "情報バーの枠線",
                 thicknessLabel: "太さ: {value}px",
-                advancedSettingsLabel: "7. 詳細設定",
+                advancedSettingsLabel: "8. 詳細設定",
                 customLogoLabel: "カスタムロゴ",
-                mainImagePositionLabel: "メイン画像の位置",
+                resetInfoBarLabel: "情報バーをリセット",
                 resetButton: "リセット",
                 infoBarPositionLabel: "情報バーの位置",
                 marginBottomLabel: "下マージン: {value}px",
                 marginXLabel: "左右マージン: {value}px",
                 fontAndSizeTuningLabel: "フォントとサイズの調整",
                 showRomajiLabel: "ローマ字を表示",
+                showThemeLine2Label: "テーマの2行目を表示",
                 infoBarPaddingYLabel: "情報バーのパディング: {value}px",
                 logoSizeLabel: "ロゴサイズ: {value}px",
                 groupNameSizeLabel: "グループ名サイズ: {value}px",
                 themeSizeLabel: "テーマサイズ: {value}px",
+                themeLine2SizeLabel: "テーマ2行目サイズ: {value}px",
                 memberNameSizeLabel: "名前サイズ: {value}px",
                 romajiNameSizeLabel: "ローマ字サイズ: {value}px",
                 elementPositionTuningLabel: "要素位置の微調整",
@@ -710,6 +733,7 @@
                 verticalPositionLabel: "垂直位置 (Y): {value}px",
                 groupNamePositionLabel: "グループ名の位置",
                 themePositionLabel: "テーマの位置",
+                themeLine2PositionLabel: "テーマ（2行目）の位置",
                 namePositionLabel: "名前の位置",
                 romajiPositionLabel: "ローマ字の位置",
                 fontStyleTuningLabel: "フォントスタイルの微調整",
@@ -751,27 +775,30 @@
                 memberNamePlaceholder: "请输入成员姓名",
                 romajiNameLabel: "3. 罗马字 (可选)",
                 romajiNamePlaceholder: "请输入罗马字",
-                photoThemeLabel: "4. 主题/其他信息",
+                photoThemeLabelLine1: "4. 主题",
+                photoThemeLabelLine2: "5. 主题 (第二行, 可选)",
                 photoThemePlaceholder: "请输入主题",
-                groupNameLabel: "5. 团体名字",
-                colorsAndBordersLabel: "6. 颜色与边框",
+                groupNameLabel: "6. 团体名字",
+                colorsAndBordersLabel: "7. 颜色与边框",
                 infoBarBgColorLabel: "信息栏底色",
                 textColorLabel: "文字/Logo颜色",
                 infoBarBorderLabel: "信息栏边框",
                 thicknessLabel: "粗细: {value}px",
-                advancedSettingsLabel: "7. 高级设置",
+                advancedSettingsLabel: "8. 高级设置",
                 customLogoLabel: "自定义Logo",
-                mainImagePositionLabel: "主图片位置",
+                resetInfoBarLabel: "信息栏重置",
                 resetButton: "重置",
                 infoBarPositionLabel: "信息栏位置",
                 marginBottomLabel: "下边距: {value}px",
                 marginXLabel: "左右边距: {value}px",
                 fontAndSizeTuningLabel: "字体与尺寸微调",
                 showRomajiLabel: "显示罗马字",
+                showThemeLine2Label: "显示主题第二行",
                 infoBarPaddingYLabel: "信息栏内边距: {value}px",
                 logoSizeLabel: "Logo大小: {value}px",
                 groupNameSizeLabel: "团名大小: {value}px",
                 themeSizeLabel: "主题大小: {value}px",
+                themeLine2SizeLabel: "主题二行大小: {value}px",
                 memberNameSizeLabel: "姓名大小: {value}px",
                 romajiNameSizeLabel: "罗马字大小: {value}px",
                 elementPositionTuningLabel: "元素位置微调",
@@ -779,7 +806,8 @@
                 horizontalPositionLabel: "水平位置 (X): {value}px",
                 verticalPositionLabel: "垂直位置 (Y): {value}px",
                 groupNamePositionLabel: "团名位置",
-                themePositionLabel: "主题",
+                themePositionLabel: "主题 (第一行) 位置",
+                themeLine2PositionLabel: "主题 (第二行) 位置",
                 namePositionLabel: "姓名位置",
                 romajiPositionLabel: "罗马字位置",
                 fontStyleTuningLabel: "字体样式微调",
@@ -849,8 +877,6 @@
                     if (valueSpan && translations[currentLang] && translations[currentLang][key]) {
                         const template = translations[currentLang][key];
                         const value = valueSpan.textContent;
-                        // This is a bit brittle, but it works for the current structure.
-                        // It rebuilds the label text around the span.
                         const parts = template.split('{value}');
                         label.innerHTML = '';
                         label.appendChild(document.createTextNode(parts[0]));
@@ -860,16 +886,18 @@
                 });
             };
             
-            // Element cache
+            // --- Element Cache ---
             const ui = {
                 languageSwitcher: document.getElementById('language-switcher'),
                 mainTitle: document.getElementById('main-title'),
+                controlPanel: document.getElementById('control-panel'),
                 body: document.body,
                 imageUpload: document.getElementById('image-upload'),
                 logoUpload: document.getElementById('logo-upload'),
                 memberName: document.getElementById('member-name'),
                 romajiName: document.getElementById('romaji-name'),
                 photoTheme: document.getElementById('photo-theme'),
+                photoThemeLine2: document.getElementById('photo-theme-line-2'),
                 groupNameSelect: document.getElementById('group-name-select'),
                 downloadBtn: document.getElementById('download-btn'),
                 loadingText: document.getElementById('loading-text'),
@@ -882,6 +910,7 @@
                 previewName: document.getElementById('preview-name'),
                 previewRomaji: document.getElementById('preview-romaji'),
                 previewTheme: document.getElementById('preview-theme'),
+                previewThemeLine2: document.getElementById('preview-theme-line-2'),
                 photoCard: document.getElementById('photo-card'),
                 infoBar: document.getElementById('info-bar'),
                 infoBarContainer: document.getElementById('info-bar-container'),
@@ -893,10 +922,9 @@
                 marginX: document.getElementById('margin-x'),
                 marginBottomValue: document.getElementById('margin-bottom-value'),
                 marginXValue: document.getElementById('margin-x-value'),
-                resetImageBtn: document.getElementById('reset-image-btn'),
+                resetInfoBarBtn: document.getElementById('reset-info-bar-btn'),
                 borderThickness: document.getElementById('border-thickness'),
                 borderThicknessValue: document.getElementById('border-thickness-value'),
-                
                 infoBarPaddingY: document.getElementById('info-bar-padding-y'),
                 infoBarPaddingYValue: document.getElementById('info-bar-padding-y-value'),
                 logoSize: document.getElementById('logo-size'),
@@ -905,41 +933,42 @@
                 groupNameSizeValue: document.getElementById('group-name-size-value'),
                 themeSize: document.getElementById('theme-size'),
                 themeSizeValue: document.getElementById('theme-size-value'),
+                themeLine2Size: document.getElementById('theme-line-2-size'),
+                themeLine2SizeValue: document.getElementById('theme-line-2-size-value'),
                 memberNameSize: document.getElementById('member-name-size'),
                 memberNameSizeValue: document.getElementById('member-name-size-value'),
                 romajiNameSize: document.getElementById('romaji-name-size'),
                 romajiNameSizeValue: document.getElementById('romaji-name-size-value'),
-
                 logoBlock: document.getElementById('logo-block'),
                 logoX: document.getElementById('logo-x'),
                 logoXValue: document.getElementById('logo-x-value'),
                 logoY: document.getElementById('logo-y'),
                 logoYValue: document.getElementById('logo-y-value'),
-
                 groupNameBlock: document.getElementById('group-name-block'),
                 groupNameX: document.getElementById('group-name-x'),
                 groupNameXValue: document.getElementById('group-name-x-value'),
                 groupNameY: document.getElementById('group-name-y'),
                 groupNameYValue: document.getElementById('group-name-y-value'),
-                
                 themeBlock: document.getElementById('theme-block'),
                 themeX: document.getElementById('theme-x'),
                 themeXValue: document.getElementById('theme-x-value'),
                 themeY: document.getElementById('theme-y'),
                 themeYValue: document.getElementById('theme-y-value'),
-                
+                themeLine2Block: document.getElementById('theme-line-2-block'),
+                themeLine2X: document.getElementById('theme-line-2-x'),
+                themeLine2XValue: document.getElementById('theme-line-2-x-value'),
+                themeLine2Y: document.getElementById('theme-line-2-y'),
+                themeLine2YValue: document.getElementById('theme-line-2-y-value'),
                 nameBlock: document.getElementById('name-block'),
                 nameX: document.getElementById('name-x'),
                 nameXValue: document.getElementById('name-x-value'),
                 nameY: document.getElementById('name-y'),
                 nameYValue: document.getElementById('name-y-value'),
-
                 romajiBlock: document.getElementById('romaji-block'),
                 romajiX: document.getElementById('romaji-x'),
                 romajiXValue: document.getElementById('romaji-x-value'),
                 romajiY: document.getElementById('romaji-y'),
                 romajiYValue: document.getElementById('romaji-y-value'),
-
                 themeFontFamily: document.getElementById('theme-font-family'),
                 nameFontFamily: document.getElementById('name-font-family'),
                 themeWeight: document.getElementById('theme-weight'),
@@ -949,18 +978,16 @@
                 memberNameWeightInput: document.getElementById('member-name-weight-input'),
                 romajiNameWeightInput: document.getElementById('romaji-name-weight-input'),
                 romajiToggle: document.getElementById('romaji-toggle'),
+                themeLine2Toggle: document.getElementById('theme-line-2-toggle'),
                 fontUpload: document.getElementById('font-upload'),
                 fontUploadStatus: document.getElementById('font-upload-status'),
-
                 errorModal: document.getElementById('error-modal'),
                 errorMessage: document.getElementById('error-message'),
                 closeModalBtn: document.getElementById('close-modal-btn'),
-
                 cropModal: document.getElementById('crop-modal'),
                 imageToCrop: document.getElementById('image-to-crop'),
                 cropBtn: document.getElementById('crop-btn'),
                 cancelCropBtn: document.getElementById('cancel-crop-btn'),
-                
                 saveModal: document.getElementById('save-modal'),
                 finalImage: document.getElementById('final-image'),
                 closeSaveModalBtn: document.getElementById('close-save-modal-btn'),
@@ -983,7 +1010,7 @@
                 '日向坂46': 'images/日向坂46文字.png',
                 '乃木坂46': 'images/乃木坂46文字.png'
             };
-
+            
             let imageState = { scale: 1, translateX: 0, translateY: 0 };
             let isDragging = false;
             let startX, startY;
@@ -1040,6 +1067,9 @@
                     ui.previewTheme.style.fontSize = `${ui.themeSize.value}px`;
                     ui.themeSizeValue.textContent = ui.themeSize.value;
 
+                    ui.previewThemeLine2.style.fontSize = `${ui.themeLine2Size.value}px`;
+                    ui.themeLine2SizeValue.textContent = ui.themeLine2Size.value;
+
                     ui.previewName.style.fontSize = `${ui.memberNameSize.value}px`;
                     ui.memberNameSizeValue.textContent = ui.memberNameSize.value;
 
@@ -1067,6 +1097,12 @@
                     ui.themeBlock.style.transform = `translate(calc(-50% + ${themeX}px), calc(-50% + ${themeY}px))`;
                     ui.themeXValue.textContent = themeX;
                     ui.themeYValue.textContent = themeY;
+                    
+                    const themeLine2X = ui.themeLine2X.value;
+                    const themeLine2Y = ui.themeLine2Y.value;
+                    ui.themeLine2Block.style.transform = `translate(calc(-50% + ${themeLine2X}px), calc(-50% + ${themeLine2Y}px))`;
+                    ui.themeLine2XValue.textContent = themeLine2X;
+                    ui.themeLine2YValue.textContent = themeLine2Y;
 
                     const nameX = ui.nameX.value;
                     const nameY = ui.nameY.value;
@@ -1084,13 +1120,18 @@
                     updateAllDynamicLabels();
                 },
                 fontStyles() {
-                    ui.previewTheme.style.fontFamily = ui.themeFontFamily.value;
+                    const themeFont = ui.themeFontFamily.value;
+                    ui.previewTheme.style.fontFamily = themeFont;
+                    ui.previewThemeLine2.style.fontFamily = themeFont;
+
                     const nameFont = ui.nameFontFamily.value;
                     ui.previewName.style.fontFamily = nameFont;
                     ui.previewRomaji.style.fontFamily = nameFont;
                     
-                    ui.previewTheme.style.fontWeight = ui.themeWeight.value;
-                    ui.themeWeightInput.value = ui.themeWeight.value;
+                    const themeWeight = ui.themeWeight.value;
+                    ui.previewTheme.style.fontWeight = themeWeight;
+                    ui.previewThemeLine2.style.fontWeight = themeWeight; // Both lines share same weight slider for simplicity
+                    ui.themeWeightInput.value = themeWeight;
 
                     ui.previewName.style.fontWeight = ui.memberNameWeight.value;
                     ui.memberNameWeightInput.value = ui.memberNameWeight.value;
@@ -1135,7 +1176,6 @@
             };
             
             // --- Event Handlers ---
-
             const handleRomajiToggle = () => {
                 if (ui.romajiToggle.checked) {
                     ui.romajiBlock.classList.remove('hidden');
@@ -1144,6 +1184,17 @@
                 } else {
                     ui.romajiBlock.classList.add('hidden');
                     ui.nameY.value = 0;
+                }
+                update.elementPositions();
+            };
+            
+            const handleThemeLine2Toggle = () => {
+                if (ui.themeLine2Toggle.checked) {
+                    ui.themeLine2Block.classList.remove('hidden');
+                    ui.themeY.value = -4; // As requested
+                } else {
+                    ui.themeLine2Block.classList.add('hidden');
+                    ui.themeY.value = 0; // Reset to default
                 }
                 update.elementPositions();
             };
@@ -1234,19 +1285,20 @@
                 addInputListener(ui.marginBottom, update.position);
                 addInputListener(ui.marginX, update.position);
 
-                [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
-                [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
+                [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.themeLine2Size, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
+                [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.themeLine2X, ui.themeLine2Y, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
                 
                 [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles));
                 [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles));
 
-
                 addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
                 addInputListener(ui.romajiName, (e) => ui.previewRomaji.textContent = e.target.value);
                 addInputListener(ui.photoTheme, (e) => ui.previewTheme.textContent = e.target.value);
+                addInputListener(ui.photoThemeLine2, (e) => ui.previewThemeLine2.textContent = e.target.value);
                 addChangeListener(ui.groupNameSelect, update.groupTheme);
                 
                 addChangeListener(ui.romajiToggle, handleRomajiToggle);
+                addChangeListener(ui.themeLine2Toggle, handleThemeLine2Toggle);
 
                 document.querySelectorAll('.swatch-container button').forEach(button => {
                     button.addEventListener('click', (e) => {
@@ -1259,8 +1311,8 @@
                         }
                     });
                 });
-
-                ui.resetImageBtn.addEventListener('click', resetImageTransform);
+                
+                ui.resetInfoBarBtn.addEventListener('click', resetInfoBarSettings);
                 ui.imageContainer.addEventListener('mousedown', startDrag);
                 document.addEventListener('mousemove', drag);
                 document.addEventListener('mouseup', stopDrag);
@@ -1343,6 +1395,36 @@
                     reader.readAsDataURL(file);
                 }
             };
+            
+            const resetInfoBarSettings = () => {
+                const controls = ui.controlPanel.querySelectorAll(
+                    'input[type="range"], input[type="color"], select, input[type="checkbox"]'
+                );
+            
+                controls.forEach(control => {
+                    if (control.type === 'file' || control.id === 'group-name-select') {
+                        return;
+                    }
+
+                    if (control.type === 'checkbox') {
+                        control.checked = control.defaultChecked;
+                    } else if (control.tagName === 'SELECT') {
+                        const defaultOption = control.querySelector('option[selected]');
+                        if (defaultOption) {
+                            control.value = defaultOption.value;
+                        } else if (control.options.length > 0) {
+                            control.selectedIndex = 0;
+                        }
+                    } else {
+                        control.value = control.defaultValue;
+                    }
+                });
+            
+                Object.values(update).forEach(func => func());
+                
+                handleRomajiToggle();
+                handleThemeLine2Toggle();
+            };
 
             const resetImageTransform = () => {
                 imageState = { scale: 1, translateX: 0, translateY: 0 };
@@ -1386,6 +1468,7 @@
                     const ctx = finalCanvas.getContext('2d');
                     ctx.scale(scaleFactor, scaleFactor);
 
+                    // 1. Draw main image
                     const img = ui.previewImage;
                     if (img.src && img.complete && img.naturalWidth > 0) {
                         const containerRect = ui.imageContainer.getBoundingClientRect();
@@ -1406,6 +1489,7 @@
                         ctx.restore();
                     }
 
+                    // 2. Draw info bar background and border
                     const photoCardRect = ui.photoCard.getBoundingClientRect();
                     const infoBarRect = ui.infoBar.getBoundingClientRect();
                     const infoBarX = infoBarRect.left - photoCardRect.left;
@@ -1422,16 +1506,21 @@
                         ctx.strokeRect(infoBarX, infoBarY, infoBarWidth, infoBarHeight);
                     }
 
+                    // 3. Draw all elements inside the info bar
                     const elementsToDraw = [
                         { el: ui.logoContainer, isLogo: true },
                         { el: ui.groupNameImage, isImage: true },
                         { el: ui.previewTheme },
+                        { el: ui.previewThemeLine2 },
                         { el: ui.previewName },
-                        { el: ui.previewRomaji, isOptional: true },
+                        { el: ui.previewRomaji },
                     ];
 
                     for (const item of elementsToDraw) {
-                        if (item.isOptional && ui.romajiBlock.classList.contains('hidden')) continue;
+                        if ((item.el === ui.previewRomaji && ui.romajiBlock.classList.contains('hidden')) ||
+                            (item.el === ui.previewThemeLine2 && ui.themeLine2Block.classList.contains('hidden'))) {
+                            continue;
+                        }
                         if (!item.el) continue;
 
                         const elRect = item.el.getBoundingClientRect();
@@ -1482,6 +1571,7 @@
                         }
                     }
 
+                    // 4. Trigger download
                     const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
                     if (isMobile) {
@@ -1491,15 +1581,15 @@
                     } else {
                         const finalLink = document.createElement('a');
                         const memberName = ui.memberName.value.trim() || 'member';
-                        const theme = ui.photoTheme.value.trim().replace(/\s+/g, '_') || 'custom';
-                        finalLink.download = `photo_card_${memberName}_${theme}.png`;
+                        const theme = ui.photoTheme.value.trim() || 'custom';
+                        finalLink.download = `photo_card_${memberName}_${theme.replace(/\s+/g, '_')}.png`;
                         finalLink.href = finalCanvas.toDataURL('image/png');
                         finalLink.click();
                     }
 
                 } catch (err) {
                     console.error('图片生成失败:', err);
-                    ui.errorMessage.textContent = translations[currentLang].errorMessage;
+                    ui.errorMessage.textContent = `${translations[currentLang].errorMessage} (提示: 如果在本地运行, 请使用Live Server等本地服务器, 不要直接打开file://路径。)`;
                     ui.errorModal.classList.remove('hidden');
                 } finally {
                     ui.loadingText.classList.add('hidden');
@@ -1511,8 +1601,15 @@
             // --- Initialization ---
             const init = () => {
                 setupListeners();
-                Object.values(update).forEach(func => func());
-                handleRomajiToggle();
+                
+                const allControls = document.querySelectorAll('#control-panel input, #control-panel select, #control-panel textarea');
+                allControls.forEach(control => {
+                    const event = new Event('input', { bubbles: true });
+                    const changeEvent = new Event('change', { bubbles: true });
+                    control.dispatchEvent(event);
+                    control.dispatchEvent(changeEvent);
+                });
+                update.groupTheme();
                 
                 const userLang = navigator.language || navigator.userLanguage;
                 let initialLang = 'zh';
