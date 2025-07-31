@@ -11,7 +11,7 @@ const translations = {
   // 中文 (已从您的HTML中提取)
   zh: {
     htmlLang: 'zh-CN',
-    mainTitle: '生写真模板生成器',
+    mainTitle: '生写生成器',
     customizeTitle: '自定义内容',
     uploadLabel: '1. 上传主图片',
     memberNameLabel: '2. 成员姓名',
