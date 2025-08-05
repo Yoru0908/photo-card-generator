@@ -5,20 +5,20 @@ const translations = {
         mainTitle: "Photo Card Generator",
         customContentTitle: "Customize Content",
         uploadMainImageLabel: "1. Upload Main Image",
-        memberNameLabel: "2. Member Name",
+        memberNameLabel: "3. Member Name",
         memberNamePlaceholder: "Enter member's name",
-        romajiNameLabel: "3. Romaji (Optional)",
+        romajiNameLabel: "4. Romaji (Optional)",
         romajiNamePlaceholder: "Enter Romaji",
-        photoThemeLabelLine1: "4. Theme",
-        photoThemeLabelLine2: "5. Theme (Line 2, Optional)",
+        photoThemeLabelLine1: "5. Theme",
+        photoThemeLabelLine2: "5b. Theme (Line 2, Optional)",
         photoThemePlaceholder: "Enter theme",
-        groupNameLabel: "6. Group Name",
+        groupNameLabel: "2. Group Name",
         colorsAndBordersLabel: "7. Colors & Borders",
         infoBarBgColorLabel: "Info Bar BG Color",
         textColorLabel: "Text/Logo Color",
         infoBarBorderLabel: "Info Bar Border",
         thicknessLabel: "Thickness: {value}px",
-        advancedSettingsLabel: "8. Advanced Settings",
+        sizePositionTuningLabel: "8. Size & Position Tuning",
         customLogoLabel: "Custom Logo",
         resetInfoBarLabel: "Reset Info Bar",
         resetButton: "Reset",
@@ -26,6 +26,10 @@ const translations = {
         marginBottomLabel: "Bottom Margin: {value}px",
         marginXLabel: "Side Margin: {value}px",
         fontAndSizeTuningLabel: "Font & Size Tuning",
+        infoBarPositionAndSizeLabel: "・Info Bar Size",
+        sizeAdjustmentLabel: "・Element Size Tuning",
+        fontStyleLabel: "6. Font Style",
+        resetInfoBarButton: "Reset Info Bar",
         showRomajiLabel: "Show Romaji",
         showThemeLine2Label: "Show Theme Line 2",
         infoBarPaddingYLabel: "Info Bar Padding: {value}px",
@@ -35,7 +39,7 @@ const translations = {
         themeLine2SizeLabel: "Theme L2 Size: {value}px",
         memberNameSizeLabel: "Name Size: {value}px",
         romajiNameSizeLabel: "Romaji Size: {value}px",
-        elementPositionTuningLabel: "Element Position Tuning",
+        elementPositionTuningLabel: "・Element Position Tuning",
         logoPositionLabel: "Logo Position",
         horizontalPositionLabel: "Horizontal (X): {value}px",
         verticalPositionLabel: "Vertical (Y): {value}px",
@@ -55,6 +59,9 @@ const translations = {
         themeWeightLabel: "Theme Weight:",
         nameWeightLabel: "Name Weight:",
         romajiWeightLabel: "Romaji Weight:",
+        themeLetterSpacingLabel: "Theme Spacing: {value}px",
+        nameLetterSpacingLabel: "Name Spacing: {value}px",
+        romajiLetterSpacingLabel: "Romaji Spacing: {value}px",
         generateButton: "Generate & Download Image",
         loadingText: "Generating image, please wait...",
         authorAndFeedbackLabel: "Author & Feedback",
@@ -72,26 +79,31 @@ const translations = {
         fontLoaded: "Font \"{fontName}\" loaded successfully!",
         fontError: "Font loading failed. Please check the file format.",
         customFontSuffix: " (Custom)",
-        longPressInstruction: "Long-press the image to save"
+        longPressInstruction: "Long-press the image to save",
+        uploadImagePlaceholder: "Please upload an image",
+        uploadImageHint: "Supports JPG, PNG formats",
+        createdBy: "Created by",
+        currentYear: "2025",
+        footerDescription: "Photo Template Generator - Made for Sakamichi Idol Fans"
     },
     ja: {
         mainTitle: "生写真ジェネレーター",
         customContentTitle: "コンテンツのカスタマイズ",
         uploadMainImageLabel: "1. メイン画像のアップロード",
-        memberNameLabel: "2. メンバー名",
+        memberNameLabel: "3. メンバー名",
         memberNamePlaceholder: "メンバー名を入力",
-        romajiNameLabel: "3. ローマ字 (任意)",
+        romajiNameLabel: "4. ローマ字 (任意)",
         romajiNamePlaceholder: "ローマ字を入力",
-        photoThemeLabelLine1: "4. テーマ",
-        photoThemeLabelLine2: "5. テーマ（2行目、任意）",
+        photoThemeLabelLine1: "5. テーマ",
+        photoThemeLabelLine2: "5b. テーマ（2行目、任意）",
         photoThemePlaceholder: "テーマを入力",
-        groupNameLabel: "6. グループ名",
+        groupNameLabel: "2. グループ名",
         colorsAndBordersLabel: "7. 色と枠線",
         infoBarBgColorLabel: "情報バーの背景色",
         textColorLabel: "文字/ロゴの色",
         infoBarBorderLabel: "情報バーの枠線",
         thicknessLabel: "太さ: {value}px",
-        advancedSettingsLabel: "8. 詳細設定",
+        sizePositionTuningLabel: "8. サイズと位置の調整",
         customLogoLabel: "カスタムロゴ",
         resetInfoBarLabel: "情報バーをリセット",
         resetButton: "リセット",
@@ -99,6 +111,10 @@ const translations = {
         marginBottomLabel: "下マージン: {value}px",
         marginXLabel: "左右マージン: {value}px",
         fontAndSizeTuningLabel: "フォントとサイズの調整",
+        infoBarPositionAndSizeLabel: "・情報バーのサイズ",
+        sizeAdjustmentLabel: "・要素サイズ調整",
+        fontStyleLabel: "6. フォントスタイル",
+        resetInfoBarButton: "情報バーをリセット",
         showRomajiLabel: "ローマ字を表示",
         showThemeLine2Label: "テーマの2行目を表示",
         infoBarPaddingYLabel: "情報バーのパディング: {value}px",
@@ -108,7 +124,7 @@ const translations = {
         themeLine2SizeLabel: "テーマ2行目サイズ: {value}px",
         memberNameSizeLabel: "名前サイズ: {value}px",
         romajiNameSizeLabel: "ローマ字サイズ: {value}px",
-        elementPositionTuningLabel: "要素位置の微調整",
+        elementPositionTuningLabel: "・要素位置の微調整",
         logoPositionLabel: "ロゴの位置",
         horizontalPositionLabel: "水平位置 (X): {value}px",
         verticalPositionLabel: "垂直位置 (Y): {value}px",
@@ -128,6 +144,9 @@ const translations = {
         themeWeightLabel: "テーマの太さ:",
         nameWeightLabel: "名前の太さ:",
         romajiWeightLabel: "ローマ字の太さ:",
+        themeLetterSpacingLabel: "テーマの字間: {value}px",
+        nameLetterSpacingLabel: "名前の字間: {value}px",
+        romajiLetterSpacingLabel: "ローマ字の字間: {value}px",
         generateButton: "画像を生成してダウンロード",
         loadingText: "画像を生成しています、しばらくお待ちください...",
         authorAndFeedbackLabel: "作者情報とフィードバック",
@@ -145,26 +164,31 @@ const translations = {
         fontLoaded: "フォント\"{fontName}\"の読み込みに成功しました！",
         fontError: "フォントの読み込みに失敗しました。ファイル形式を確認してください。",
         customFontSuffix: " (カスタム)",
-        longPressInstruction: "画像を長押しして保存してください"
+        longPressInstruction: "画像を長押しして保存してください",
+        uploadImagePlaceholder: "画像をアップロードしてください",
+        uploadImageHint: "JPG、PNG形式に対応",
+        createdBy: "作成者",
+        currentYear: "2025",
+        footerDescription: "生写真テンプレートジェネレーター - 坂道系アイドルファンのために"
     },
     zh: {
         mainTitle: "生写真模板生成器",
         customContentTitle: "自定义内容",
         uploadMainImageLabel: "1. 上传主图片",
-        memberNameLabel: "2. 成员姓名",
+        memberNameLabel: "3. 成员姓名",
         memberNamePlaceholder: "请输入成员姓名",
-        romajiNameLabel: "3. 罗马字 (可选)",
+        romajiNameLabel: "4. 罗马字 (可选)",
         romajiNamePlaceholder: "请输入罗马字",
-        photoThemeLabelLine1: "4. 主题",
-        photoThemeLabelLine2: "5. 主题 (第二行, 可选)",
+        photoThemeLabelLine1: "5. 主题",
+        photoThemeLabelLine2: "5b. 主题 (第二行, 可选)",
         photoThemePlaceholder: "请输入主题",
-        groupNameLabel: "6. 团体名字",
+        groupNameLabel: "2. 团体名字",
         colorsAndBordersLabel: "7. 颜色与边框",
         infoBarBgColorLabel: "信息栏底色",
         textColorLabel: "文字/Logo颜色",
         infoBarBorderLabel: "信息栏边框",
         thicknessLabel: "粗细: {value}px",
-        advancedSettingsLabel: "8. 高级设置",
+        sizePositionTuningLabel: "8. 尺寸位置微调",
         customLogoLabel: "自定义Logo",
         resetInfoBarLabel: "信息栏重置",
         resetButton: "重置",
@@ -172,6 +196,10 @@ const translations = {
         marginBottomLabel: "下边距: {value}px",
         marginXLabel: "左右边距: {value}px",
         fontAndSizeTuningLabel: "字体与尺寸微调",
+        infoBarPositionAndSizeLabel: "・信息栏尺寸",
+        sizeAdjustmentLabel: "・元素尺寸微调",
+        fontStyleLabel: "6. 字体样式",
+        resetInfoBarButton: "重置信息栏",
         showRomajiLabel: "显示罗马字",
         showThemeLine2Label: "显示主题第二行",
         infoBarPaddingYLabel: "信息栏内边距: {value}px",
@@ -181,7 +209,7 @@ const translations = {
         themeLine2SizeLabel: "主题二行大小: {value}px",
         memberNameSizeLabel: "姓名大小: {value}px",
         romajiNameSizeLabel: "罗马字大小: {value}px",
-        elementPositionTuningLabel: "元素位置微调",
+        elementPositionTuningLabel: "・元素位置微调",
         logoPositionLabel: "Logo 位置",
         horizontalPositionLabel: "水平位置 (X): {value}px",
         verticalPositionLabel: "垂直位置 (Y): {value}px",
@@ -201,6 +229,9 @@ const translations = {
         themeWeightLabel: "主题粗细:",
         nameWeightLabel: "姓名粗细:",
         romajiWeightLabel: "罗马字粗细:",
+        themeLetterSpacingLabel: "主题字间距: {value}px",
+        nameLetterSpacingLabel: "姓名字间距: {value}px",
+        romajiLetterSpacingLabel: "罗马字字间距: {value}px",
         generateButton: "生成并下载图片",
         loadingText: "正在生成图片，请稍候...",
         authorAndFeedbackLabel: "作者信息 & 反馈",
@@ -218,7 +249,12 @@ const translations = {
         fontLoaded: "字体 \"{fontName}\" 加载成功!",
         fontError: "字体加载失败，请检查文件格式。",
         customFontSuffix: " (自定义)",
-        longPressInstruction: "请长按图片保存"
+        longPressInstruction: "请长按图片保存",
+        uploadImagePlaceholder: "请上传图片",
+        uploadImageHint: "支持 JPG、PNG 格式",
+        createdBy: "Created by",
+        currentYear: "2025",
+        footerDescription: ""
     }
 };
 
@@ -243,6 +279,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 el.placeholder = translations[lang][key];
             }
         });
+        
+        // 控制底部描述文本和站点链接的显示/隐藏
+        const footerDescription = document.getElementById('footer-description');
+        const siteLinks = document.getElementById('site-links');
+
+        if (footerDescription) {
+            if (lang === 'zh') {
+                footerDescription.style.display = 'none';
+            } else {
+                footerDescription.style.display = 'block';
+            }
+        }
+
+        if (siteLinks) {
+            if (lang === 'zh') {
+                siteLinks.style.display = 'block';
+            } else {
+                siteLinks.style.display = 'none';
+            }
+        }
         
         updateAllDynamicLabels();
     };
@@ -279,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
         downloadBtn: document.getElementById('download-btn'),
         loadingText: document.getElementById('loading-text'),
         previewImage: document.getElementById('preview-image'),
+        placeholderContent: document.getElementById('placeholder-content'),
         imageContainer: document.getElementById('image-container'),
         svgLogo: document.getElementById('svg-logo'),
         imageLogo: document.getElementById('image-logo'),
@@ -354,6 +411,12 @@ document.addEventListener('DOMContentLoaded', function () {
         themeWeightInput: document.getElementById('theme-weight-input'),
         memberNameWeightInput: document.getElementById('member-name-weight-input'),
         romajiNameWeightInput: document.getElementById('romaji-name-weight-input'),
+        themeLetterSpacing: document.getElementById('theme-letter-spacing'),
+        themeLetterSpacingValue: document.getElementById('theme-letter-spacing-value'),
+        memberNameLetterSpacing: document.getElementById('member-name-letter-spacing'),
+        memberNameLetterSpacingValue: document.getElementById('member-name-letter-spacing-value'),
+        romajiNameLetterSpacing: document.getElementById('romaji-name-letter-spacing'),
+        romajiNameLetterSpacingValue: document.getElementById('romaji-name-letter-spacing-value'),
         romajiToggle: document.getElementById('romaji-toggle'),
         themeLine2Toggle: document.getElementById('theme-line-2-toggle'),
         fontUpload: document.getElementById('font-upload'),
@@ -496,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ui.romajiYValue.textContent = romajiY;
             updateAllDynamicLabels();
         },
-        fontStyles() {
+        updateFontAndWeight() {
             const themeFont = ui.themeFontFamily.value;
             ui.previewTheme.style.fontFamily = themeFont;
             ui.previewThemeLine2.style.fontFamily = themeFont;
@@ -507,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             const themeWeight = ui.themeWeight.value;
             ui.previewTheme.style.fontWeight = themeWeight;
-            ui.previewThemeLine2.style.fontWeight = themeWeight; // Both lines share same weight slider for simplicity
+            ui.previewThemeLine2.style.fontWeight = themeWeight;
             ui.themeWeightInput.value = themeWeight;
 
             ui.previewName.style.fontWeight = ui.memberNameWeight.value;
@@ -515,6 +578,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             ui.previewRomaji.style.fontWeight = ui.romajiNameWeight.value;
             ui.romajiNameWeightInput.value = ui.romajiNameWeight.value;
+        },
+        updateLetterSpacing() {
+            const themeLetterSpacing = ui.themeLetterSpacing.value;
+            ui.previewTheme.style.letterSpacing = `${themeLetterSpacing}px`;
+            ui.previewThemeLine2.style.letterSpacing = `${themeLetterSpacing}px`;
+            ui.themeLetterSpacingValue.textContent = themeLetterSpacing;
+
+            const memberNameLetterSpacing = ui.memberNameLetterSpacing.value;
+            ui.previewName.style.letterSpacing = `${memberNameLetterSpacing}px`;
+            ui.memberNameLetterSpacingValue.textContent = memberNameLetterSpacing;
+
+            const romajiNameLetterSpacing = ui.romajiNameLetterSpacing.value;
+            ui.previewRomaji.style.letterSpacing = `${romajiNameLetterSpacing}px`;
+            ui.romajiNameLetterSpacingValue.textContent = romajiNameLetterSpacing;
+            
+            updateAllDynamicLabels();
         },
         groupTheme() {
             const groupName = ui.groupNameSelect.value;
@@ -665,8 +744,9 @@ document.addEventListener('DOMContentLoaded', function () {
         [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.themeLine2Size, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
         [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.themeLine2X, ui.themeLine2Y, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
         
-        [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.fontStyles));
-        [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.fontStyles));
+        [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.updateFontAndWeight));
+        [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.updateFontAndWeight));
+        [ui.themeLetterSpacing, ui.memberNameLetterSpacing, ui.romajiNameLetterSpacing].forEach(el => addInputListener(el, update.updateLetterSpacing));
 
         addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
         addInputListener(ui.romajiName, (e) => ui.previewRomaji.textContent = e.target.value);
@@ -697,6 +777,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ui.cropBtn.addEventListener('click', () => {
             if (cropper) {
                 ui.previewImage.src = cropper.getCroppedCanvas().toDataURL('image/png');
+                ui.previewImage.classList.remove('hidden');
+                if (ui.placeholderContent) {
+                    ui.placeholderContent.classList.add('hidden');
+                }
                 resetImageTransform();
                 cropper.destroy();
                 cropper = null;
@@ -951,17 +1035,23 @@ document.addEventListener('DOMContentLoaded', function () {
             // 4. Trigger download
             const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
-            if (isMobile) {
-                ui.finalImage.src = finalCanvas.toDataURL('image/png');
-                ui.saveModal.classList.remove('hidden');
-                ui.saveModal.classList.add('flex');
-            } else {
-                const finalLink = document.createElement('a');
-                const memberName = ui.memberName.value.trim() || 'member';
-                const theme = ui.photoTheme.value.trim() || 'custom';
-                finalLink.download = `photo_card_${memberName}_${theme.replace(/\s+/g, '_')}.png`;
-                finalLink.href = finalCanvas.toDataURL('image/png');
-                finalLink.click();
+            try {
+                if (isMobile) {
+                    ui.finalImage.src = finalCanvas.toDataURL('image/jpeg', 0.9);
+                    ui.saveModal.classList.remove('hidden');
+                    ui.saveModal.classList.add('flex');
+                } else {
+                    const finalLink = document.createElement('a');
+                    const memberName = ui.memberName.value.trim() || 'member';
+                    const theme = ui.photoTheme.value.trim() || 'custom';
+                    finalLink.download = `photo_card_${memberName}_${theme.replace(/\s+/g, '_')}.jpg`;
+                    finalLink.href = finalCanvas.toDataURL('image/jpeg', 0.9);
+                    finalLink.click();
+                }
+            } catch (error) {
+                console.error('图片生成失败:', error);
+                ui.errorMessage.textContent = '图片生成失败，请检查图片是否正确加载';
+                ui.errorModal.classList.remove('hidden');
             }
 
         } catch (err) {

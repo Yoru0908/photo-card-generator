@@ -9,6 +9,16 @@
     src: url('../fonts/A-OTF-UDShinMGoPro-Regular-2.otf') format('opentype');
 }
 
+@font-face {
+    font-family: 'mplus';
+    src: url('../fonts/MPLUS1p-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'bebasneue';
+    src: url('../fonts/BebasNeue-Regular.ttf') format('truetype');
+}
+
 body {
     font-family: 'Kosugi Maru', sans-serif;
     background-color: #f0f2f5;
@@ -116,4 +126,267 @@ details>summary::-webkit-details-marker {
     border: none;
     padding: 0;
     cursor: pointer;
+}
+
+/* 折叠按钮样式 */
+details[open] > summary svg {
+    transform: rotate(180deg);
+}
+
+details > summary:hover svg {
+    color: currentColor;
+}
+
+/* 主菜单按钮样式 */
+details > summary {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: relative;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    margin: 0;
+    padding: 10px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+details > summary:hover {
+    background: rgba(139, 92, 246, 0.05);
+    color: rgb(109 40 217);
+}
+
+details > summary:active {
+    transform: scale(0.98);
+}
+
+/* 子菜单按钮特殊样式 */
+details details > summary {
+    background: transparent;
+    border: none;
+    margin: 2px 0 2px 16px;
+    border-radius: 6px;
+    position: relative;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+details details > summary::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 16px;
+    background: #8b5cf6;
+    border-radius: 1px;
+}
+
+details details > summary:hover {
+    background: rgba(139, 92, 246, 0.08);
+    color: rgb(109 40 217);
+}
+
+details details > summary:active {
+    transform: scale(0.97);
+}
+
+/* 三级子菜单样式 */
+details details details > summary {
+    background: transparent;
+    border: none;
+    margin: 1px 0 1px 24px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+}
+
+details details details > summary::before {
+    left: -16px;
+    width: 1px;
+    height: 12px;
+    background: #0ea5e9;
+}
+
+details details details > summary:hover {
+    background: rgba(14, 165, 233, 0.08);
+    color: rgb(2, 132, 199);
+}
+
+/* 模块容器样式 */
+.module-container {
+    margin: 8px 0;
+    padding: 0;
+    position: relative;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+.module-container:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* 子模块内容区域样式 */
+details > div {
+    overflow: hidden;
+    padding: 12px 0;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-8px);
+}
+
+details[open] > div {
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+details details > div {
+    background: rgba(139, 92, 246, 0.02);
+    border-left: 2px solid rgba(139, 92, 246, 0.2);
+    border-radius: 0;
+    margin-top: 4px;
+    margin-left: 16px;
+    padding: 8px 12px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-6px);
+}
+
+details details[open] > div {
+    max-height: 1500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+details details details > div {
+    background: rgba(14, 165, 233, 0.02);
+    border-left: 2px solid rgba(14, 165, 233, 0.2);
+    border-radius: 0;
+    margin-top: 4px;
+    margin-left: 24px;
+    padding: 6px 10px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-4px);
+}
+
+details details details[open] > div {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 滑动动画已替换为transition，提供更平滑的展开/收起效果 */
+
+/* 增强子菜单视觉层次 - 已在上面定义，这里移除重复 */
+
+/* 为输入控件添加更好的样式 */
+input[type="text"], input[type="color"], select {
+    transition: all 0.2s ease;
+}
+
+input[type="text"]:focus, select:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+/* 优化颜色选择器样式 */
+.color-swatch:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 优化滑块样式 */
+input[type="range"]:hover {
+    transform: translateY(-1px);
+}
+
+/* 为模块添加微妙的动画 */
+.module-container {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 底部署名样式 */
+footer {
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+footer a {
+    text-decoration: none;
+    position: relative;
+}
+
+footer a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    background-color: currentColor;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+footer a:hover::after {
+    width: 100%;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .module-container {
+        margin: 6px 0;
+        padding-bottom: 8px;
+    }
+    
+    details > summary {
+        padding: 8px 10px;
+    }
+    
+    details details > summary {
+        margin-left: 12px;
+        padding: 6px 10px;
+    }
+    
+    details details details > summary {
+        margin-left: 20px;
+        padding: 4px 8px;
+    }
+    
+    footer {
+        margin-top: 8px;
+        margin-bottom: 4px;
+    }
+    
+    footer p {
+        font-size: 0.8rem;
+    }
+    
+    footer .text-xs {
+        font-size: 0.7rem;
+    }
 }
