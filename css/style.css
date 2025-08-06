@@ -107,6 +107,11 @@ body {
     color: #F19DB5;
 }
 
+#main-title {
+    font-weight: 700 !important;
+    font-family: 'Inter', 'Noto Sans CJK JP', 'Noto Sans SC', sans-serif;
+}
+
 .aspect-photo {
     aspect-ratio: 89 / 127;
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生写生成器</title>
+    <title>坂道系生写制作器 | 樱坂46/乃木坂46/日向坂46生写在线生成工具</title>
     <link rel="icon" type="image/jpeg" href="images/sakamichi.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30,21 +30,25 @@
 
     <div class="w-full max-w-5xl mx-auto">
         <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-center mb-6 sakura-text-color"
-            data-translate="mainTitle">生写真模板生成器</h1>
+            data-translate="mainTitle">坂道系生写生成器</h1>
+
+        <p id="site-description" class="text-center text-gray-600 mb-8 text-sm md:text-base"
+            data-translate="siteDescription">免费的坂道系（樱坂46、乃木坂46、日向坂46）偶像生写在线生成器。<br>轻松自定义成员名、主题、字体和颜色，一键制作并下载专属风格的生写照片。
+        </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div id="control-panel" class="bg-white p-6 rounded-lg shadow-md space-y-4">
                 <h2 class="text-xl font-semibold text-gray-700" data-translate="customContentTitle">自定义内容</h2>
 
                 <div>
-                    <label for="image-upload" class="block text-sm font-medium text-gray-600 mb-2"
+                    <label for="image-upload" class="block text-sm font-semibold text-gray-600 mb-2"
                         data-translate="uploadMainImageLabel">1. 上传主图片</label>
                     <input type="file" id="image-upload" accept="image/*"
                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                 </div>
 
                 <div>
-                    <label for="group-name-select" class="block text-sm font-medium text-gray-600 mb-2"
+                    <label for="group-name-select" class="block text-sm font-semibold text-gray-600 mb-2"
                         data-translate="groupNameLabel">2. 团体名字</label>
                     <select id="group-name-select"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500">
@@ -55,7 +59,7 @@
                 </div>
 
                 <div>
-                    <label for="member-name" class="block text-sm font-medium text-gray-600 mb-2"
+                    <label for="member-name" class="block text-sm font-semibold text-gray-600 mb-2"
                         data-translate="memberNameLabel">3. 成员姓名</label>
                     <input type="text" id="member-name" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
@@ -64,7 +68,7 @@
 
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <label for="romaji-name" class="block text-sm font-medium text-gray-600"
+                        <label for="romaji-name" class="block text-sm font-semibold text-gray-600"
                             data-translate="romajiNameLabel">4. 罗马字 (可选)</label>
                         <div class="flex items-center">
                             <input type="checkbox" id="romaji-toggle"
@@ -79,7 +83,7 @@
                 </div>
 
                 <div>
-                    <label for="photo-theme" class="block text-sm font-medium text-gray-600 mb-2"
+                    <label for="photo-theme" class="block text-sm font-semibold text-gray-600 mb-2"
                         data-translate="photoThemeLabelLine1">5. 主题</label>
                     <input type="text" id="photo-theme" value=""
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
@@ -88,7 +92,7 @@
 
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <label for="photo-theme-line-2" class="block text-sm font-medium text-gray-600"
+                        <label for="photo-theme-line-2" class="block text-sm font-semibold text-gray-600"
                             data-translate="photoThemeLabelLine2">5b. 主题 (第二行, 可选)</label>
                         <div class="flex items-center">
                             <input type="checkbox" id="theme-line-2-toggle"
@@ -113,8 +117,18 @@
                     </summary>
                     <div class="mt-4 space-y-4">
                         <div class="pt-2">
-                            <label for="logo-upload" class="block text-sm font-medium text-gray-600 mb-2"
-                                data-translate="customLogoLabel">自定义Logo</label>
+                            <label for="logo-upload" class="block text-sm font-medium text-gray-600 mb-2">
+                                <span data-translate="customLogoLabel">自定义Logo</span>
+                                <a href="https://1drv.ms/f/c/93705e697511183e/EoW9QkHxGP5CsNN7i5L0KCUB0j9JC6g1hjpsZP-kO7xWZw?e=X9pOds"
+                                    target="_blank" class="ml-2 text-xs text-purple-500 hover:text-purple-700 underline"
+                                    data-translate="svgDownloadLink">(SVG文件下载)</a>
+                                <a href="https://www.jyshare.com/more/svgeditor/" target="_blank"
+                                    class="ml-2 text-xs text-blue-500 hover:text-blue-700 underline"
+                                    data-translate="svgEditorLink">(SVG在线改色工具)</a>
+                                <a href="https://www.iloveimg.com/ja/crop-image" target="_blank"
+                                    class="ml-2 text-xs text-green-500 hover:text-green-700 underline"
+                                    data-translate="pngCropLink">(PNG剪切工具)</a>
+                            </label>
                             <input type="file" id="logo-upload" accept="image/*"
                                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                         </div>
@@ -147,11 +161,17 @@
                             </select>
                         </div>
                         <div class="pt-2">
-                            <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2"
-                                data-translate="uploadCustomFontLabel">上传自定义字体</label>
+                            <label for="font-upload" class="block text-sm font-medium text-gray-600 mb-2">
+                                <span data-translate="uploadCustomFontLabel">上传自定义字体</span>
+                                <a href="https://fonts.google.com/?script=Jpan" target="_blank"
+                                    class="ml-2 text-xs text-blue-500 hover:text-blue-700 underline"
+                                    data-translate="searchFontsLink">(🔍 搜索字体)</a>
+                            </label>
                             <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2"
                                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
                             <p id="font-upload-status" class="text-xs text-gray-500 mt-2 h-4"></p>
+                            <p class="text-xs text-gray-500 mt-1" data-translate="fontUploadHint">💡 提示：从Google
+                                Fonts下载字体文件后，可直接上传使用</p>
                         </div>
                         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                             <div class="w-full">
@@ -294,7 +314,7 @@
 
                 <details class="module-container">
                     <summary class="flex justify-between items-center text-sm font-medium text-gray-600 cursor-pointer">
-                        <span data-translate="sizePositionTuningLabel">8. 尺寸位置微调</span>
+                        <span data-translate="sizePositionTuningLabel" class="font-semibold">8. 尺寸位置微调</span>
                         <svg class="w-5 h-5 text-gray-500 transition-all duration-300" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
@@ -543,11 +563,7 @@
                                         target="_blank" class="text-violet-600 hover:underline">Yoru0908</a></p>
                                 <p>微博: <a href="https://weibo.com/u/2247228730" target="_blank"
                                         class="text-violet-600 hover:underline">多线程败犬Yoru</a></p>
-                                <p data-translate="qqGroup">没有人的Q群: <span class="font-mono">478628703</span></p>
-                                <p>改Logo用提取码:bq6k : <a href="https://pan.baidu.com/s/1bCMrwA9ZcW1tdghcznjfgQ?pwd=bq6k
-                                    " target="_blank" class="text-violet-600 hover:underline">SVG图片</a></p>
-                                <p>PNG剪切: <a href="https://www.iloveimg.com/ja/crop-image" target="_blank"
-                                        class="text-violet-600 hover:underline">iloveimg</a></p>
+                                <p data-translate="qqGroup">谷子代购群: <span class="font-mono">1059030628</span></p>
                             </div>
                         </div>
                         <div>

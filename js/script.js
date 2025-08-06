@@ -3,6 +3,7 @@
 const translations = {
     en: {
         mainTitle: "Sakamichi Photo Card Generator",
+        seoTitle: "Free Sakamichi Trading Card Generator | Custom Idol Trading Cards Online",
         siteDescription: "Free online generator for Sakamichi Series Trading cards<br>(Sakurazaka46, Nogizaka46, Hinatazaka46)<br>Easily customize to create and download your photo cards with one click.",
         customContentTitle: "Customize Content",
         uploadMainImageLabel: "1. Upload Main Image",
@@ -27,8 +28,8 @@ const translations = {
         marginBottomLabel: "Bottom Margin: {value}px",
         marginXLabel: "Side Margin: {value}px",
         fontAndSizeTuningLabel: "Font & Size Tuning",
-        infoBarPositionAndSizeLabel: "・Info Bar Size",
-        sizeAdjustmentLabel: "・Element Size Tuning",
+        infoBarPositionAndSizeLabel: "Info Bar Size",
+        sizeAdjustmentLabel: "Element Size Tuning",
         fontStyleLabel: "6. Font Style",
         resetInfoBarButton: "Reset All Parameters",
         showRomajiLabel: "Show Romaji",
@@ -40,7 +41,7 @@ const translations = {
         themeLine2SizeLabel: "Theme L2 Size: {value}px",
         memberNameSizeLabel: "Name Size: {value}px",
         romajiNameSizeLabel: "Romaji Size: {value}px",
-        elementPositionTuningLabel: "・Element Position Tuning",
+        elementPositionTuningLabel: "Element Position Tuning",
         logoPositionLabel: "Logo Position",
         horizontalPositionLabel: "Horizontal (X): {value}px",
         verticalPositionLabel: "Vertical (Y): {value}px",
@@ -57,6 +58,11 @@ const translations = {
         sansSerifFont: "System Sans-Serif",
         nameFontLabel: "Name/Romaji",
         uploadCustomFontLabel: "Upload Custom Font",
+        searchFontsLink: "(🔍 Search Fonts)",
+        fontUploadHint: "💡 Tip: Download font files from Google Fonts and upload them directly",
+        svgEditorLink: "(SVG Online Color Editor)",
+        svgDownloadLink: "(SVG File Download)",
+        pngCropLink: "(PNG Crop Tool)",
         themeWeightLabel: "Theme Weight:",
         nameWeightLabel: "Name Weight:",
         romajiWeightLabel: "Romaji Weight:",
@@ -89,6 +95,7 @@ const translations = {
     },
     ja: {
         mainTitle: "坂道シリーズ 生写真ジェネレーター",
+        seoTitle: "無料！坂道46生写真ジェネレーター | オリジナル推しカード作成",
         siteDescription: "無料の坂道シリーズ生写真オンラインジェネレーター<br>（櫻坂46、乃木坂46、日向坂46）<br>簡単にカスタマイズし、ワンクリックであなたの生写真を自作・ダウンロードできます。",
         customContentTitle: "コンテンツのカスタマイズ",
         uploadMainImageLabel: "1. メイン画像のアップロード",
@@ -113,8 +120,8 @@ const translations = {
         marginBottomLabel: "下マージン: {value}px",
         marginXLabel: "左右マージン: {value}px",
         fontAndSizeTuningLabel: "フォントとサイズの調整",
-        infoBarPositionAndSizeLabel: "・情報バーのサイズ",
-        sizeAdjustmentLabel: "・要素サイズ調整",
+        infoBarPositionAndSizeLabel: "情報バーのサイズ",
+        sizeAdjustmentLabel: "要素サイズ調整",
         fontStyleLabel: "6. フォントスタイル",
         resetInfoBarButton: "すべてのパラメータをリセット",
         showRomajiLabel: "ローマ字を表示",
@@ -126,7 +133,7 @@ const translations = {
         themeLine2SizeLabel: "テーマ2行目サイズ: {value}px",
         memberNameSizeLabel: "名前サイズ: {value}px",
         romajiNameSizeLabel: "ローマ字サイズ: {value}px",
-        elementPositionTuningLabel: "・要素位置の微調整",
+        elementPositionTuningLabel: "要素位置の微調整",
         logoPositionLabel: "ロゴの位置",
         horizontalPositionLabel: "水平位置 (X): {value}px",
         verticalPositionLabel: "垂直位置 (Y): {value}px",
@@ -143,6 +150,11 @@ const translations = {
         sansSerifFont: "システム サンセリフ",
         nameFontLabel: "名前/ローマ字",
         uploadCustomFontLabel: "カスタムフォントをアップロード",
+        searchFontsLink: "(🔍 フォント検索)",
+        fontUploadHint: "💡 ヒント：Google Fontsからフォントファイルをダウンロードして直接アップロードできます",
+        svgEditorLink: "(SVGオンライン改色ツール)",
+        svgDownloadLink: "(SVGファイルダウンロード)",
+        pngCropLink: "(PNG切り抜きツール)",
         themeWeightLabel: "テーマの太さ:",
         nameWeightLabel: "名前の太さ:",
         romajiWeightLabel: "ローマ字の太さ:",
@@ -175,6 +187,7 @@ const translations = {
     },
     zh: {
         mainTitle: "坂道系生写生成器",
+        seoTitle: "坂道系生写制作器 | 樱坂46/乃木坂46/日向坂46生写在线生成工具",
         siteDescription: "免费的坂道系（樱坂46、乃木坂46、日向坂46）偶像生写在线生成器。<br>轻松自定义成员名、主题、字体和颜色，一键制作并下载专属风格的生写照片。",
         customContentTitle: "自定义内容",
         uploadMainImageLabel: "1. 上传主图片",
@@ -199,8 +212,8 @@ const translations = {
         marginBottomLabel: "下边距: {value}px",
         marginXLabel: "左右边距: {value}px",
         fontAndSizeTuningLabel: "字体与尺寸微调",
-        infoBarPositionAndSizeLabel: "・信息栏尺寸",
-        sizeAdjustmentLabel: "・元素尺寸微调",
+        infoBarPositionAndSizeLabel: "信息栏尺寸",
+        sizeAdjustmentLabel: "元素尺寸微调",
         fontStyleLabel: "6. 字体样式",
         resetInfoBarButton: "重置所有参数",
         showRomajiLabel: "显示罗马字",
@@ -212,7 +225,7 @@ const translations = {
         themeLine2SizeLabel: "主题二行大小: {value}px",
         memberNameSizeLabel: "姓名大小: {value}px",
         romajiNameSizeLabel: "罗马字大小: {value}px",
-        elementPositionTuningLabel: "・元素位置微调",
+        elementPositionTuningLabel: "元素位置微调",
         logoPositionLabel: "Logo 位置",
         horizontalPositionLabel: "水平位置 (X): {value}px",
         verticalPositionLabel: "垂直位置 (Y): {value}px",
@@ -229,6 +242,11 @@ const translations = {
         sansSerifFont: "系统无衬线体",
         nameFontLabel: "姓名/罗马字",
         uploadCustomFontLabel: "上传自定义字体",
+        searchFontsLink: "(🔍 搜索字体)",
+        fontUploadHint: "💡 提示：从Google Fonts下载字体文件后，可直接上传使用",
+        svgEditorLink: "(SVG在线改色工具)",
+        svgDownloadLink: "(SVG文件下载)",
+        pngCropLink: "(PNG剪切工具)",
         themeWeightLabel: "主题粗细:",
         nameWeightLabel: "姓名粗细:",
         romajiWeightLabel: "罗马字粗细:",
@@ -268,6 +286,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const setLanguage = (lang) => {
         currentLang = lang;
         document.documentElement.lang = lang;
+
+        // Update page title (use SEO title for browser tab)
+        if (translations[lang] && translations[lang].seoTitle) {
+            document.title = translations[lang].seoTitle;
+        }
+
+        // Ensure consistent font weight for main title across languages
+        const mainTitleEl = document.getElementById('main-title');
+        if (mainTitleEl) {
+            mainTitleEl.style.fontWeight = '700';
+        }
 
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
