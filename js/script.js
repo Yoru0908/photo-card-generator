@@ -2,7 +2,8 @@
 
 const translations = {
     en: {
-        mainTitle: "Photo Card Generator",
+        mainTitle: "Sakamichi Photo Card Generator",
+        siteDescription: "Free online generator for Sakamichi Series Trading cards<br>(Sakurazaka46, Nogizaka46, Hinatazaka46)<br>Easily customize to create and download your photo cards with one click.",
         customContentTitle: "Customize Content",
         uploadMainImageLabel: "1. Upload Main Image",
         memberNameLabel: "3. Member Name",
@@ -20,7 +21,7 @@ const translations = {
         thicknessLabel: "Thickness: {value}px",
         sizePositionTuningLabel: "8. Size & Position Tuning",
         customLogoLabel: "Custom Logo",
-        resetInfoBarLabel: "Reset Info Bar",
+        resetInfoBarLabel: "Reset All Parameters",
         resetButton: "Reset",
         infoBarPositionLabel: "Info Bar Position",
         marginBottomLabel: "Bottom Margin: {value}px",
@@ -29,7 +30,7 @@ const translations = {
         infoBarPositionAndSizeLabel: "・Info Bar Size",
         sizeAdjustmentLabel: "・Element Size Tuning",
         fontStyleLabel: "6. Font Style",
-        resetInfoBarButton: "Reset Info Bar",
+        resetInfoBarButton: "Reset All Parameters",
         showRomajiLabel: "Show Romaji",
         showThemeLine2Label: "Show Theme Line 2",
         infoBarPaddingYLabel: "Info Bar Padding: {value}px",
@@ -87,7 +88,8 @@ const translations = {
         footerDescription: "Photo Template Generator - Made for Sakamichi Idol Fans"
     },
     ja: {
-        mainTitle: "生写真ジェネレーター",
+        mainTitle: "坂道シリーズ 生写真ジェネレーター",
+        siteDescription: "無料の坂道シリーズ生写真オンラインジェネレーター<br>（櫻坂46、乃木坂46、日向坂46）<br>簡単にカスタマイズし、ワンクリックであなたの生写真を自作・ダウンロードできます。",
         customContentTitle: "コンテンツのカスタマイズ",
         uploadMainImageLabel: "1. メイン画像のアップロード",
         memberNameLabel: "3. メンバー名",
@@ -105,7 +107,7 @@ const translations = {
         thicknessLabel: "太さ: {value}px",
         sizePositionTuningLabel: "8. サイズと位置の調整",
         customLogoLabel: "カスタムロゴ",
-        resetInfoBarLabel: "情報バーをリセット",
+        resetInfoBarLabel: "すべてのパラメータをリセット",
         resetButton: "リセット",
         infoBarPositionLabel: "情報バーの位置",
         marginBottomLabel: "下マージン: {value}px",
@@ -114,7 +116,7 @@ const translations = {
         infoBarPositionAndSizeLabel: "・情報バーのサイズ",
         sizeAdjustmentLabel: "・要素サイズ調整",
         fontStyleLabel: "6. フォントスタイル",
-        resetInfoBarButton: "情報バーをリセット",
+        resetInfoBarButton: "すべてのパラメータをリセット",
         showRomajiLabel: "ローマ字を表示",
         showThemeLine2Label: "テーマの2行目を表示",
         infoBarPaddingYLabel: "情報バーのパディング: {value}px",
@@ -172,7 +174,8 @@ const translations = {
         footerDescription: "生写真テンプレートジェネレーター - 坂道系アイドルファンのために"
     },
     zh: {
-        mainTitle: "生写真模板生成器",
+        mainTitle: "坂道系生写生成器",
+        siteDescription: "免费的坂道系（樱坂46、乃木坂46、日向坂46）偶像生写在线生成器。<br>轻松自定义成员名、主题、字体和颜色，一键制作并下载专属风格的生写照片。",
         customContentTitle: "自定义内容",
         uploadMainImageLabel: "1. 上传主图片",
         memberNameLabel: "3. 成员姓名",
@@ -190,7 +193,7 @@ const translations = {
         thicknessLabel: "粗细: {value}px",
         sizePositionTuningLabel: "8. 尺寸位置微调",
         customLogoLabel: "自定义Logo",
-        resetInfoBarLabel: "信息栏重置",
+        resetInfoBarLabel: "重置所有参数",
         resetButton: "重置",
         infoBarPositionLabel: "信息栏位置",
         marginBottomLabel: "下边距: {value}px",
@@ -199,7 +202,7 @@ const translations = {
         infoBarPositionAndSizeLabel: "・信息栏尺寸",
         sizeAdjustmentLabel: "・元素尺寸微调",
         fontStyleLabel: "6. 字体样式",
-        resetInfoBarButton: "重置信息栏",
+        resetInfoBarButton: "重置所有参数",
         showRomajiLabel: "显示罗马字",
         showThemeLine2Label: "显示主题第二行",
         infoBarPaddingYLabel: "信息栏内边距: {value}px",
@@ -254,7 +257,7 @@ const translations = {
         uploadImageHint: "支持 JPG、PNG 格式",
         createdBy: "Created by",
         currentYear: "2025",
-        footerDescription: ""
+        footerDescription: "为坂道系偶像粉丝打造的生写制作工具"
     }
 };
 
@@ -265,21 +268,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const setLanguage = (lang) => {
         currentLang = lang;
         document.documentElement.lang = lang;
-        
+
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
             if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
+                el.innerHTML = translations[lang][key];
             }
         });
 
+        // Explicitly update site description to fix translation bug.
+        const siteDescriptionEl = document.getElementById('site-description');
+        if (siteDescriptionEl && translations[lang] && translations[lang].siteDescription) {
+            siteDescriptionEl.innerHTML = translations[lang].siteDescription;
+        }
+
         document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
             const key = el.getAttribute('data-translate-placeholder');
-             if (translations[lang] && translations[lang][key]) {
+            if (translations[lang] && translations[lang][key]) {
                 el.placeholder = translations[lang][key];
             }
         });
-        
+
         // 控制底部描述文本和站点链接的显示/隐藏
         const footerDescription = document.getElementById('footer-description');
         const siteLinks = document.getElementById('site-links');
@@ -292,19 +301,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (siteLinks) {
-            if (lang === 'zh') {
-                siteLinks.style.display = 'block';
-            } else {
-                siteLinks.style.display = 'none';
-            }
-        }
-        
+
         updateAllDynamicLabels();
     };
 
     const updateAllDynamicLabels = () => {
-         document.querySelectorAll('[data-translate-template]').forEach(label => {
+        document.querySelectorAll('[data-translate-template]').forEach(label => {
             const key = label.getAttribute('data-translate-template');
             const valueSpan = label.querySelector('span');
             if (valueSpan && translations[currentLang] && translations[currentLang][key]) {
@@ -318,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     };
-    
+
     // --- Element Cache ---
     const ui = {
         languageSwitcher: document.getElementById('language-switcher'),
@@ -405,12 +407,6 @@ document.addEventListener('DOMContentLoaded', function () {
         romajiYValue: document.getElementById('romaji-y-value'),
         themeFontFamily: document.getElementById('theme-font-family'),
         nameFontFamily: document.getElementById('name-font-family'),
-        themeWeight: document.getElementById('theme-weight'),
-        memberNameWeight: document.getElementById('member-name-weight'),
-        romajiNameWeight: document.getElementById('romaji-name-weight'),
-        themeWeightInput: document.getElementById('theme-weight-input'),
-        memberNameWeightInput: document.getElementById('member-name-weight-input'),
-        romajiNameWeightInput: document.getElementById('romaji-name-weight-input'),
         themeLetterSpacing: document.getElementById('theme-letter-spacing'),
         themeLetterSpacingValue: document.getElementById('theme-letter-spacing-value'),
         memberNameLetterSpacing: document.getElementById('member-name-letter-spacing'),
@@ -438,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '乃木坂46': { bg: '#742581', text: '#FFFFFF', border: '#742581', bodyBg: '#f0f2f5', titleColor: '#742581' },
         '日向坂46': { bg: '#7cc7e8', text: '#FFFFFF', border: '#7cc7e8', bodyBg: '#7cc7e8', titleColor: '#FFFFFF' }
     };
-    
+
     const groupLogos = {
         '櫻坂46': 'images/樱坂46logo.png',
         '日向坂46': 'images/日向坂46logo.png',
@@ -450,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '日向坂46': 'images/日向坂46文字.png',
         '乃木坂46': 'images/乃木坂46文字.png'
     };
-    
+
     let imageState = { scale: 1, translateX: 0, translateY: 0 };
     let isDragging = false;
     let startX, startY;
@@ -503,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             ui.groupNameImage.style.height = `${ui.groupNameSize.value}px`;
             ui.groupNameSizeValue.textContent = ui.groupNameSize.value;
-            
+
             ui.previewTheme.style.fontSize = `${ui.themeSize.value}px`;
             ui.themeSizeValue.textContent = ui.themeSize.value;
 
@@ -537,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ui.themeBlock.style.transform = `translate(calc(-50% + ${themeX}px), calc(-50% + ${themeY}px))`;
             ui.themeXValue.textContent = themeX;
             ui.themeYValue.textContent = themeY;
-            
+
             const themeLine2X = ui.themeLine2X.value;
             const themeLine2Y = ui.themeLine2Y.value;
             ui.themeLine2Block.style.transform = `translate(calc(-50% + ${themeLine2X}px), calc(-50% + ${themeLine2Y}px))`;
@@ -559,25 +555,11 @@ document.addEventListener('DOMContentLoaded', function () {
             ui.romajiYValue.textContent = romajiY;
             updateAllDynamicLabels();
         },
-        updateFontAndWeight() {
-            const themeFont = ui.themeFontFamily.value;
-            ui.previewTheme.style.fontFamily = themeFont;
-            ui.previewThemeLine2.style.fontFamily = themeFont;
-
-            const nameFont = ui.nameFontFamily.value;
-            ui.previewName.style.fontFamily = nameFont;
-            ui.previewRomaji.style.fontFamily = nameFont;
-            
-            const themeWeight = ui.themeWeight.value;
-            ui.previewTheme.style.fontWeight = themeWeight;
-            ui.previewThemeLine2.style.fontWeight = themeWeight;
-            ui.themeWeightInput.value = themeWeight;
-
-            ui.previewName.style.fontWeight = ui.memberNameWeight.value;
-            ui.memberNameWeightInput.value = ui.memberNameWeight.value;
-
-            ui.previewRomaji.style.fontWeight = ui.romajiNameWeight.value;
-            ui.romajiNameWeightInput.value = ui.romajiNameWeight.value;
+        fontFamily() {
+            ui.previewTheme.style.fontFamily = ui.themeFontFamily.value;
+            ui.previewThemeLine2.style.fontFamily = ui.themeFontFamily.value;
+            ui.previewName.style.fontFamily = ui.nameFontFamily.value;
+            ui.previewRomaji.style.fontFamily = ui.nameFontFamily.value;
         },
         updateLetterSpacing() {
             const themeLetterSpacing = ui.themeLetterSpacing.value;
@@ -592,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const romajiNameLetterSpacing = ui.romajiNameLetterSpacing.value;
             ui.previewRomaji.style.letterSpacing = `${romajiNameLetterSpacing}px`;
             ui.romajiNameLetterSpacingValue.textContent = romajiNameLetterSpacing;
-            
+
             updateAllDynamicLabels();
         },
         groupTheme() {
@@ -609,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 update.infoColor();
                 update.infoBarBorder();
             }
-            
+
             const logoSrc = groupLogos[groupName];
             if (logoSrc) {
                 ui.imageLogo.src = logoSrc;
@@ -621,7 +603,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (groupNameImgSrc) {
                 ui.groupNameImage.src = groupNameImgSrc;
             }
-            
+
             if (groupName === '日向坂46') {
                 ui.groupNameSize.value = 12;
             } else {
@@ -630,7 +612,7 @@ document.addEventListener('DOMContentLoaded', function () {
             update.sizes();
         }
     };
-    
+
     // --- Event Handlers ---
     const handleRomajiToggle = () => {
         if (ui.romajiToggle.checked) {
@@ -643,25 +625,71 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         update.elementPositions();
     };
-    
+
     const handleThemeLine2Toggle = () => {
         if (ui.themeLine2Toggle.checked) {
             ui.themeLine2Block.classList.remove('hidden');
-            ui.themeY.value = -4; // As requested
+            ui.themeY.value = -4;
         } else {
             ui.themeLine2Block.classList.add('hidden');
-            ui.themeY.value = 0; // Reset to default
+            ui.themeY.value = 0;
         }
         update.elementPositions();
     };
-    
+
+    const handleWeightSelection = (e) => {
+        const button = e.target.closest('.weight-btn');
+        if (!button) return;
+
+        const newWeight = button.dataset.weight;
+        const controlsId = button.parentElement.id;
+
+        // Remove active class from siblings and add to clicked button
+        button.parentElement.querySelectorAll('.weight-btn').forEach(sib => sib.classList.remove('active-weight'));
+        button.classList.add('active-weight');
+
+        // Apply font weight to the correct preview element
+        if (controlsId === 'theme-weight-controls') {
+            ui.previewTheme.style.fontWeight = newWeight;
+            ui.previewThemeLine2.style.fontWeight = newWeight;
+        } else if (controlsId === 'member-name-weight-controls') {
+            ui.previewName.style.fontWeight = newWeight;
+        } else if (controlsId === 'romaji-name-weight-controls') {
+            ui.previewRomaji.style.fontWeight = newWeight;
+        }
+    };
+
+    const handleFontFamilyChange = (e) => {
+        update.fontFamily();
+        const selectEl = e.target;
+        const newFontFamily = selectEl.value;
+        const isMplus = newFontFamily.includes('mplus1p');
+        const weightToSet = isMplus ? '300' : '400';
+
+        let targetControls;
+        if (selectEl.id === 'theme-font-family') {
+            targetControls = ['theme-weight-controls'];
+        } else if (selectEl.id === 'name-font-family') {
+            targetControls = ['member-name-weight-controls', 'romaji-name-weight-controls'];
+        }
+
+        if (targetControls) {
+            targetControls.forEach(controlsId => {
+                const buttonToClick = document.querySelector(`#${controlsId} .weight-btn[data-weight='${weightToSet}']`);
+                if (buttonToClick) {
+                    buttonToClick.click();
+                }
+            });
+        }
+    };
+
     const handleFontUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         const fontName = file.name.replace(/\.(ttf|otf|woff|woff2)$/, '');
         ui.fontUploadStatus.textContent = translations[currentLang].fontLoading.replace('{fontName}', fontName);
-        
+
         const reader = new FileReader();
         reader.onload = async (e) => {
             try {
@@ -669,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const fontFace = new FontFace(fontName, fontBuffer);
                 await fontFace.load();
                 document.fonts.add(fontFace);
-                
+
                 addCustomFontToSelectors(fontName);
                 update.fontStyles();
 
@@ -710,8 +738,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     ui.imageToCrop.src = event.target.result;
                     ui.cropModal.classList.remove('hidden');
                     ui.cropModal.classList.add('flex');
-                    
-                    if(cropper) cropper.destroy();
+
+                    if (cropper) cropper.destroy();
 
                     cropper = new Cropper(ui.imageToCrop, {
                         aspectRatio: 89 / 127, viewMode: 1, dragMode: 'move', background: false, autoCropArea: 1,
@@ -743,19 +771,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         [ui.infoBarPaddingY, ui.logoSize, ui.groupNameSize, ui.themeSize, ui.themeLine2Size, ui.memberNameSize, ui.romajiNameSize].forEach(el => addInputListener(el, update.sizes));
         [ui.logoX, ui.logoY, ui.groupNameX, ui.groupNameY, ui.themeX, ui.themeY, ui.themeLine2X, ui.themeLine2Y, ui.nameX, ui.nameY, ui.romajiX, ui.romajiY].forEach(el => addInputListener(el, update.elementPositions));
-        
-        [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, update.updateFontAndWeight));
-        [ui.themeWeight, ui.memberNameWeight, ui.romajiNameWeight].forEach(el => addInputListener(el, update.updateFontAndWeight));
+
+        [ui.themeFontFamily, ui.nameFontFamily].forEach(el => addChangeListener(el, handleFontFamilyChange));
         [ui.themeLetterSpacing, ui.memberNameLetterSpacing, ui.romajiNameLetterSpacing].forEach(el => addInputListener(el, update.updateLetterSpacing));
 
         addInputListener(ui.memberName, (e) => ui.previewName.textContent = e.target.value);
         addInputListener(ui.romajiName, (e) => ui.previewRomaji.textContent = e.target.value);
         addInputListener(ui.photoTheme, (e) => ui.previewTheme.textContent = e.target.value);
-        addInputListener(ui.photoThemeLine2, (e) => ui.previewThemeLine2.textContent = e.target.value);
         addChangeListener(ui.groupNameSelect, update.groupTheme);
-        
+
         addChangeListener(ui.romajiToggle, handleRomajiToggle);
         addChangeListener(ui.themeLine2Toggle, handleThemeLine2Toggle);
+
+        document.getElementById('theme-weight-controls').addEventListener('click', handleWeightSelection);
+        document.getElementById('member-name-weight-controls').addEventListener('click', handleWeightSelection);
+        document.getElementById('romaji-name-weight-controls').addEventListener('click', handleWeightSelection);
 
         document.querySelectorAll('.swatch-container button').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -768,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-        
+
         ui.resetInfoBarBtn.addEventListener('click', resetInfoBarSettings);
         ui.imageContainer.addEventListener('mousedown', startDrag);
         document.addEventListener('mousemove', drag);
@@ -789,18 +819,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         ui.cancelCropBtn.addEventListener('click', () => {
-            if(cropper) {
+            if (cropper) {
                 cropper.destroy();
                 cropper = null;
             }
             ui.cropModal.classList.add('hidden');
             ui.cropModal.classList.remove('flex');
         });
-        
+
         document.addEventListener('keydown', (e) => {
             if (!ui.cropModal.classList.contains('hidden')) {
                 if (e.key === 'Enter') {
-                    e.preventDefault(); 
+                    e.preventDefault();
                     ui.cropBtn.click();
                 } else if (e.key === 'Escape') {
                     ui.cancelCropBtn.click();
@@ -815,37 +845,9 @@ document.addEventListener('DOMContentLoaded', function () {
             ui.saveModal.classList.remove('flex');
         });
 
-        const weightControls = [
-            { slider: ui.themeWeight, input: ui.themeWeightInput },
-            { slider: ui.memberNameWeight, input: ui.memberNameWeightInput },
-            { slider: ui.romajiNameWeight, input: ui.romajiNameWeightInput },
-        ];
-
-        weightControls.forEach(control => {
-            control.input.addEventListener('input', () => {
-                control.slider.value = control.input.value;
-                update.fontStyles();
-            });
-        });
-
-        document.querySelectorAll('.tick-container').forEach(container => {
-            container.addEventListener('click', (e) => {
-                const tick = e.target.closest('.tick');
-                if (!tick) return;
-
-                const value = tick.dataset.value;
-                const controlsId = container.dataset.controls;
-                
-                const slider = document.getElementById(controlsId);
-                const input = document.getElementById(controlsId + '-input');
-
-                if (slider && input) {
-                    slider.value = value;
-                    input.value = value;
-                    update.fontStyles();
-                }
-            });
-        });
+        document.getElementById('theme-weight-controls').addEventListener('click', handleWeightSelection);
+        document.getElementById('member-name-weight-controls').addEventListener('click', handleWeightSelection);
+        document.getElementById('romaji-name-weight-controls').addEventListener('click', handleWeightSelection);
     };
 
     const handleFileUpload = (event, callback) => {
@@ -856,12 +858,12 @@ document.addEventListener('DOMContentLoaded', function () {
             reader.readAsDataURL(file);
         }
     };
-    
+
     const resetInfoBarSettings = () => {
         const controls = ui.controlPanel.querySelectorAll(
             'input[type="range"], input[type="color"], select, input[type="checkbox"]'
         );
-    
+
         controls.forEach(control => {
             if (control.type === 'file' || control.id === 'group-name-select') {
                 return;
@@ -880,9 +882,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 control.value = control.defaultValue;
             }
         });
-    
+
         Object.values(update).forEach(func => func());
-        
+
         handleRomajiToggle();
         handleThemeLine2Toggle();
     };
@@ -940,7 +942,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.beginPath();
                 ctx.rect(containerX, containerY, containerRect.width, containerRect.height);
                 ctx.clip();
-                
+
                 const transformedWidth = containerRect.width * imageState.scale;
                 const transformedHeight = containerRect.height * imageState.scale;
                 const drawX = containerX + imageState.translateX + (containerRect.width - transformedWidth) / 2;
@@ -987,13 +989,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const elRect = item.el.getBoundingClientRect();
                 const x = elRect.left - infoBarRect.left;
                 const y = elRect.top - infoBarRect.top;
-                
+
                 const drawX = infoBarX + x;
                 const drawY = infoBarY + y;
 
                 if (item.isLogo || item.isImage) {
                     const targetImg = item.isLogo ? (ui.imageLogo.src && !ui.imageLogo.classList.contains('hidden') && ui.imageLogo.complete ? ui.imageLogo : ui.svgLogo) : item.el;
-                    
+
                     if (targetImg.tagName === 'IMG') {
                         if (targetImg.complete) {
                             ctx.drawImage(targetImg, drawX, drawY, elRect.width, elRect.height);
@@ -1018,11 +1020,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const computedStyle = getComputedStyle(item.el);
                     ctx.fillStyle = computedStyle.color;
                     ctx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} ${computedStyle.fontFamily}`;
+                    ctx.letterSpacing = computedStyle.letterSpacing;
                     ctx.textAlign = computedStyle.textAlign;
                     ctx.textBaseline = 'middle';
-                    
+
                     let textX = drawX;
-                    if(ctx.textAlign === 'right') {
+                    if (ctx.textAlign === 'right') {
                         textX = drawX + elRect.width;
                     } else if (ctx.textAlign === 'center') {
                         textX = drawX + elRect.width / 2;
@@ -1035,23 +1038,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // 4. Trigger download
             const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
-            try {
-                if (isMobile) {
-                    ui.finalImage.src = finalCanvas.toDataURL('image/jpeg', 0.9);
-                    ui.saveModal.classList.remove('hidden');
-                    ui.saveModal.classList.add('flex');
-                } else {
-                    const finalLink = document.createElement('a');
-                    const memberName = ui.memberName.value.trim() || 'member';
-                    const theme = ui.photoTheme.value.trim() || 'custom';
-                    finalLink.download = `photo_card_${memberName}_${theme.replace(/\s+/g, '_')}.jpg`;
-                    finalLink.href = finalCanvas.toDataURL('image/jpeg', 0.9);
-                    finalLink.click();
-                }
-            } catch (error) {
-                console.error('图片生成失败:', error);
-                ui.errorMessage.textContent = '图片生成失败，请检查图片是否正确加载';
-                ui.errorModal.classList.remove('hidden');
+            if (isMobile) {
+                ui.finalImage.src = finalCanvas.toDataURL('image/png');
+                ui.saveModal.classList.remove('hidden');
+                ui.saveModal.classList.add('flex');
+            } else {
+                const finalLink = document.createElement('a');
+                const memberName = ui.memberName.value.trim() || 'member';
+                const theme = ui.photoTheme.value.trim() || 'custom';
+                finalLink.download = `photo_card_${memberName}_${theme.replace(/\s+/g, '_')}.png`;
+                finalLink.href = finalCanvas.toDataURL('image/png');
+                finalLink.click();
             }
 
         } catch (err) {
@@ -1065,19 +1062,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // --- Initialization ---
     const init = () => {
         setupListeners();
-        
+
         const allControls = document.querySelectorAll('#control-panel input, #control-panel select, #control-panel textarea');
         allControls.forEach(control => {
-            const event = new Event('input', { bubbles: true });
-            const changeEvent = new Event('change', { bubbles: true });
-            control.dispatchEvent(event);
-            control.dispatchEvent(changeEvent);
+            if (control.type === 'file') return;
+            // Dispatch both events to ensure all updates are triggered
+            ['input', 'change'].forEach(eventType => {
+                control.dispatchEvent(new Event(eventType, { bubbles: true }));
+            });
         });
+
+        // Initial setup calls
         update.groupTheme();
-        
+        update.fontFamily();
+
+        // Set initial weights correctly by simulating clicks
+        const initialThemeFont = ui.themeFontFamily.value;
+        const initialThemeWeight = initialThemeFont.includes('mplus1p') ? '300' : '400';
+        document.querySelector(`#theme-weight-controls .weight-btn[data-weight="${initialThemeWeight}"]`).click();
+
+        const initialNameFont = ui.nameFontFamily.value;
+        const initialNameWeight = initialNameFont.includes('mplus1p') ? '300' : '400';
+        document.querySelector(`#member-name-weight-controls .weight-btn[data-weight="${initialNameWeight}"]`).click();
+        document.querySelector(`#romaji-name-weight-controls .weight-btn[data-weight="${initialNameWeight}"]`).click();
+
+        // Set language
         const userLang = navigator.language || navigator.userLanguage;
         let initialLang = 'zh';
         if (userLang.startsWith('en')) {

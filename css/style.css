@@ -1,26 +1,105 @@
 
-@font-face {
-    font-family: 'AaChaoDaJianYuan';
-    src: url('../fonts/Aa超大简圆 2万字.ttf') format('truetype');
+#language-switcher {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+#language-switcher::-ms-expand {
+    display: none;
 }
 
 @font-face {
     font-family: 'UDXinWan';
-    src: url('../fonts/A-OTF-UDShinMGoPro-Regular-2.otf') format('opentype');
+    src: url('../fonts/A-OTF 新丸ゴ Pro-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'UDXinWan';
+    src: url('../fonts/A-OTF 新丸ゴ Pro-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'UDXinWan';
+    src: url('../fonts/A-OTF 新丸ゴ Pro-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-    font-family: 'mplus';
+    font-family: 'mplus1p';
     src: url('../fonts/MPLUS1p-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'mplus1p';
+    src: url('../fonts/MPLUS1p-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'mplus1p';
+    src: url('../fonts/MPLUS1p-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Soft Go Std';
+    src: url('../fonts/Soft Go Std Ligh.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Soft Go Std';
+    src: url('../fonts/Soft Go Std Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Soft Go Std';
+    src: url('../fonts/Soft Go Std Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'bebasneue';
     src: url('../fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AaChaoDaJianYuan';
+    src: url('../fonts/Aa超大简圆 2万字.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Kosugi Maru';
+    src: url('../fonts/KosugiMaru-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 body {
-    font-family: 'Kosugi Maru', sans-serif;
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
     background-color: #f0f2f5;
 }
 
@@ -128,6 +207,13 @@ details>summary::-webkit-details-marker {
     cursor: pointer;
 }
 
+.weight-btn.active-weight {
+    background-color: #8B5CF6;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
 /* 折叠按钮样式 */
 details[open] > summary svg {
     transform: rotate(180deg);
@@ -208,6 +294,7 @@ details details details > summary::before {
     width: 1px;
     height: 12px;
     background: #0ea5e9;
+    border-radius: 1px;
 }
 
 details details details > summary:hover {
